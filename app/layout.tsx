@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
+
+// css
 import "./globals.css";
+import { Providers } from "./providers";
+
+// fonts
 import { roboto } from "@/app/ui/fonts";
 
 export const metadata: Metadata = {
-  title: "Signum Fatum",
-  description: "Signum Fatum",
+  title: "Lorem Ipsum",
+  description: "Lorem Ipsum",
 };
 
 export default function RootLayout({
@@ -15,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.className} bg-dark-bg text-primary h-screen`}>
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

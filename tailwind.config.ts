@@ -1,10 +1,14 @@
 import type { Config } from "tailwindcss";
+import {nextui} from "@nextui-org/react";
+
 
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    // third
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     extend: {
@@ -13,8 +17,8 @@ const config: Config = {
         'transparent-block': 'rgba(255,255,255,0.09)',
         'highlight': '#12FFFF',
         'dark-bg': '#040210',
-        'hides': '#302929',
-        'dimmed-light': '#d4d3d7',
+        'hidden-text': '#302929',
+        'dimmed-light': '#c4c3c9',
         'dimmed-strong': '#939298',
         'action': '#E8DEF8',
       },
@@ -38,6 +42,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [nextui(),],
 };
 export default config;

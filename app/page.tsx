@@ -1,13 +1,16 @@
 import Image from "next/image";
 import Footer from "@/app/ui/footer";
-import Header from "@/app/ui/header";
-import Menu from "@/app/ui/menu";
+import HeroHeader from "@/app/ui/HeroHeader";
+import HeroComponent from "@/app/ui/HeroContent";
+import Form from "@/app/ui/Form";
 
 export default function Home() {
   return (
     <main>
-      <Header/>
-      <Menu/>
+      <HeroHeader>
+        <HeroComponent/>
+      </HeroHeader>
+      <Form/>
       <Footer/>
     </main>
   );
