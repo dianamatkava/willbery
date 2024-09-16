@@ -24,7 +24,7 @@ export const ListViewIcon = ({
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="5"
-        className={`group-hover:stroke-${hoverColor} stroke-width-3`}
+        className={`group-hover:stroke-${hoverColor} stroke-width-6`}
       />
     </svg>
   );

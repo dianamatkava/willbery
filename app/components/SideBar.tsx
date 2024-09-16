@@ -15,6 +15,14 @@ import {
 } from "@remix-run/react";
 
 export default function SideBar() {
+  const navLinkClass = ({
+    isActive,
+    isPending,
+  }: {
+    isActive: boolean;
+    isPending: boolean;
+  }) => (isActive ? "side-bar-active" : isPending ? "pending" : "");
+
   return (
     <div className="flex flex-col w-11 h-screen items-center justify-between px-1.5 py-5 relative border-r [border-right-style:solid] border-[#eaeaea]">
       <Link to={`/`}>
@@ -22,42 +30,32 @@ export default function SideBar() {
       </Link>
 
       <div className="flex flex-col w-7 h-[134px] items-center justify-center gap-[25px] absolute top-[120px] left-[9px] z-[1]">
-        <NavLink
-          to={`/calendar`}
-          className={({ isActive, isPending }) =>
-            isActive ? "active" : isPending ? "pending" : ""
-          }
-        >
+        <NavLink to={`/calendar`} className={navLinkClass}>
           <CalendarIcon
             className="!relative !w-7 !h-7 !z-[2]"
             color="#4A4A4A"
           />
         </NavLink>
-        <NavLink
-          to={`/`}
-          className={({ isActive, isPending }) =>
-            isActive ? "active" : isPending ? "pending" : ""
-          }
-        >
+        <NavLink to={`/`} className={navLinkClass}>
           <ListViewIcon className={"!relative !w-7 !h- 7 !z-[1]"} />
         </NavLink>
-        <NavLink to={`/stat`}>
+        <NavLink to={`/stat`} className={navLinkClass}>
           <StatsIcon className="!relative !w-7 !h-7 !z-0" color="#4A4A4A" />
         </NavLink>
       </div>
       <footer className="inline-flex flex-col items-center justify-center gap-5 relative flex-[0_0_auto] z-0 bg-transparent">
-        <NavLink to={`/deleted`}>
+        <NavLink to={`/deleted`} className={navLinkClass}>
           <TrashIcon
             className="!relative !w-[26px] !h-[26px]"
             color="#4A4A4A"
           />
         </NavLink>
-        <NavLink to={`/settings`}>
+        <NavLink to={`/settings`} className={navLinkClass}>
           <SettingsIcon className="!relative !w-[31px] !h-[34.32px]" />
         </NavLink>
         <div className="relative w-[31px] h-[35px]">
           <div className="relative h-[35px]">
-            <NavLink to={`/notifications`}>
+            <NavLink to={`/notifications`} className={navLinkClass}>
               <div className="absolute w-2 h-2 top-0 left-[23px] bg-[#e3a01f] rounded" />
               <NotificationsIcon
                 className="!absolute !w-[31px] !h-[31px] !top-1 !left-0"
