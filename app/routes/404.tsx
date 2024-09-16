@@ -1,4 +1,10 @@
-export default function Index() {
+import { json } from "@remix-run/node";
+
+export const loader = () => {
+  return json({});
+};
+
+export default function NotFound() {
   return (
     <p id="index-page">
       This is a demo for Remix.
