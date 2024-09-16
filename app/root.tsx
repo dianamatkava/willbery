@@ -1,5 +1,4 @@
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
   // Link,
@@ -20,20 +19,6 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: appStylesHref },
 ];
 
-import { createEmptyContact, getContacts } from "./data";
-
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const url = new URL(request.url);
-  const q = url.searchParams.get("q");
-  const contacts = await getContacts(q);
-  return json({ contacts, q });
-};
-
-export const action = async () => {
-  const contact = await createEmptyContact();
-  return redirect(`/contacts/${contact.id}/edit`);
-};
-
 export default function App() {
   const navigation = useNavigation();
   const searching =
@@ -51,9 +36,8 @@ export default function App() {
       </head>
       <body>
         <SideBar />
-
         <div
-          id="detail"
+          id="main-container"
           className={
             navigation.state === "loading" && !searching ? "loading" : ""
           }
