@@ -1,8 +1,6 @@
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-// import { useEffect } from "react";
 import {
-  // Form,
   Links,
   // Link,
   // NavLink, // used to indecate the active link, when the URL that matches <NavLink to>, then isActive=true
@@ -12,7 +10,6 @@ import {
   ScrollRestoration,
   // useLoaderData,
   useNavigation, // returns the current navigation state: it can be one of "idle", "loading" or "submitting".
-  // useSubmit,
 } from "@remix-run/react";
 
 import SideBar from "./components/SideBar";
@@ -38,19 +35,10 @@ export const action = async () => {
 };
 
 export default function App() {
-  // const { contacts, q } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
-  // const submit = useSubmit();
   const searching =
     navigation.location &&
     new URLSearchParams(navigation.location.search).has("q");
-
-  // useEffect(() => {
-  //   const searchField = document.getElementById("q");
-  //   if (searchField instanceof HTMLInputElement) {
-  //     searchField.value = q || "";
-  //   }
-  // }, [q]);
 
   return (
     <html lang="en">

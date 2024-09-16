@@ -1,15 +1,17 @@
 interface Props {
-  color: string;
+  color?: string;
+  hoverColor?: string;
   className?: string;
 }
 
 export const TrashIcon = ({
   color = "#4A4A4A",
+  hoverColor = "black",
   className = "",
 }: Props): JSX.Element => {
   return (
     <svg
-      className={`${className}`}
+      className={`group ${className}`}
       fill="none"
       height="32"
       viewBox="0 0 32 32"
@@ -22,6 +24,7 @@ export const TrashIcon = ({
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="3"
+        className={`group-hover:stroke-${hoverColor} stroke-width-2`}
       />
     </svg>
   );
