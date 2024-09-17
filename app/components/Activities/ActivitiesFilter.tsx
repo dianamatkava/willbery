@@ -1,10 +1,10 @@
 export default function ActivitiesFilter() {
   return (
-    <div className="flex justify-between">
-      <div className="relative w-fit h-[25px] z-[1] [font-family:'Inter-SemiBold',Helvetica] font-semibold text-black text-2xl tracking-[0] leading-[normal] whitespace-nowrap">
+    <div className="flex flex-wrap items-start justify-between w-full px-4">
+      <div className="relative [font-family:'Inter-SemiBold',Helvetica] font-semibold text-black text-2xl leading-[normal] whitespace-nowrap">
         My Learnings
       </div>
-      {/* <div className="relative w-[364.52px] h-[47.24px] z-0 bg-[#d9d9d9]" /> */}
+      <div className="bg-[#d9d9d9] h-[30px] w-[250px]" />
     </div>
   );
 }

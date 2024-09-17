@@ -8,7 +8,6 @@ import {
   Scripts,
   ScrollRestoration,
   // useLoaderData,
-  useNavigation, // returns the current navigation state: it can be one of "idle", "loading" or "submitting".
 } from "@remix-run/react";
 
 import SideBar from "./components/SideBar";
@@ -20,11 +19,6 @@ export const links: LinksFunction = () => [
 ];
 
 export default function App() {
-  const navigation = useNavigation();
-  const searching =
-    navigation.location &&
-    new URLSearchParams(navigation.location.search).has("q");
-
   return (
     <html lang="en">
       <head>
@@ -36,12 +30,7 @@ export default function App() {
       </head>
       <body>
         <SideBar />
-        <div
-          id="main-container"
-          className={
-            navigation.state === "loading" && !searching ? "loading" : ""
-          }
-        >
+        <div className="flex-1 p-8 lg:p-16 w-full">
           <Outlet />
         </div>
 
