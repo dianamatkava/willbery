@@ -166,18 +166,6 @@ body {
   }
 }
 
-#main-container {
-  flex: 1;
-  padding: 2rem 4rem;
-  width: 100%;
-}
-
-#main-container.loading {
-  opacity: 0.25;
-  transition: opacity 200ms;
-  transition-delay: 200ms;
-}
-
 #index-page {
   margin: 2rem auto;
   text-align: center;
