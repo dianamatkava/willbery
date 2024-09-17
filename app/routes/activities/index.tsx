@@ -6,7 +6,7 @@ export default function Activities() {
     <div className="w-full flex flex-col items-center gap-5 relative ml-2">
       <ActivitiesFilter />
       <div className="flex flex-col items-center w-full px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full max-w-[300px] sm:max-w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xlg:grid-cols-5 xxlg:grid-cols-6 gap-2 w-full max-w-[300px] sm:max-w-full">
           <ActivitiesCard
             imgPath={
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2xQcwKitRgXfqdi34DYlocPSEXD2G2zZipg&s"

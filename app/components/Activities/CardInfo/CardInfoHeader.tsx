@@ -7,8 +7,8 @@ export default function CardInfoHeader() {
           active
         </div>
       </div>
-      <div className="inline-flex items-center relative flex-[0_0_auto] bg-[#d9d9d9] rounded-[5px]">
-        <div className="relative pr-1 pl-1 p-[0.5px] [font-family:'Roboto-SemiBold',Helvetica] text-black text-[9px] text-center tracking-[0] leading-[normal] whitespace-nowrap">
+      <div className="inline-flex items-center relative flex-[0_0_auto] bg-[#3E76FF] rounded-[5px]">
+        <div className="relative pr-1 pl-1 p-[0.5px] [font-family:'Roboto-SemiBold',Helvetica] text-[#D9E3FF] font-semibold text-[9px] text-center tracking-[0] leading-[normal] whitespace-nowrap">
           DevOps
         </div>
       </div>
