@@ -5,9 +5,11 @@ import CardInfoProgress from "./CardInfoProgress";
 export default function CardInfo({ imgPath }: { imgPath: string }) {
   //+
   return (
-    <div className="w-full flex flex-col items-center gap-2 max-h-[145px]">
+    <div className="w-full flex flex-col items-center max-h-[145px]">
       <CardInfoHeader />
-      <CardInfoImage imgPath={imgPath} />
+      <div className="w-full h-[100px]">
+        <CardInfoImage imgPath={imgPath} />
+      </div>
       <CardInfoProgress />
     </div>
   );
