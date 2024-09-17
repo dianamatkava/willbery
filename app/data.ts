@@ -93,69 +93,634 @@ export async function deleteActivity(id: string) {
   fakeActivities.destroy(id);
 }
 
-// # Learning Card Structure
-
-// **Card:**
-
-// - **Skill Area:** Cloud Platforms
-// - **Description:** Overview of Google Cloud Platform (GCP) and its use cases.
-// - **Category:** DevOps
-// - **Learning Resources:**
-
-// **Card 1:**
-
-// - **Skill Area:** Cloud Platforms
-// - **Description:** Overview of cloud platforms and their use cases.
-// - **Domain:** DevOps
-// - **Learning Resources:**
-//     - **[technology: AWS] AWS SAA-C3 Course**
-//         - Material (100% pass)
-//         - **Topics Covered:**
-//             - Name: **EC2** (100% pass)
-//                 - Project / Hands-on (2h spend)
-//             - Name: **Route54** (100% pass)
-//                 - Project / Hands-on (2h spend)
-//         - **Global Projects:**
-//             - **Project 1:** topics covered (S3, EC2, CloudFront ...) (10h spend)
-//             - **Project 2:** topics covered (SQS, Kinesis, IAM ...) (16h spend)
-//     - **[technology: GCP] GCP Associate Cloud Engineer Course**
-//         - Material (100% pass)
-//         - **Topics Covered:**
-//             - Name: **Compute Engine** (100% pass)
-//                 - Project / Hands-on (3h spend)
-//             - Name: **Cloud Storage** (100% pass)
-//                 - Project / Hands-on (2h spend)
-//             - Name: **BigQuery** (90% pass)
-//                 - Project / Hands-on (4h spend)
-//         - **Global Projects:**
-//             - **Project 1:** topics covered (Compute Engine, Cloud Storage, Cloud SQL ...) (12h spend)
-//             - **Project 2:** topics covered (BigQuery, Dataflow, Pub/Sub ...) (15h spend)
-
-// **Card 2:**
-
-// - **Skill Area:** CI/CD
-// - **Description:** (Add a description of CI/CD here)
-// - **Domain:** DevOps
-// - **Learning Resources:**
-//     - **[tag: GitLabCI] GitLab Official Doc**
-//         - Material (100% pass)
-//         - GitLabCI Projecs (2h spend)
-//             - Name: ….
-//         - **Topics Covered:**
-//             - Name: `dependency`
-//             - Project / Hands-on (2h spend)
-//     - **[tag: Jenkins] Jenkins Course**
-//         - ...
-//     - **Global Projects:**
-//         - **Write GitLab CI pipelines for my repository 1:**
-//         - **Write Jenkins pipelines for my repository 1:**
-
-// **Attributes Breakdown:**
-
 // - **Skill Area:** The specific skill or topic being learned.
 // - **Domain:** The broader category or domain of the skill.
 // - **Learning Resources:** Includes various materials and projects for learning.
 // - **Resource Tag:** Tags for specific technologies or tools relevant to each resource
+
+const learningCards = [
+  {
+    skillArea: "Frontend Development",
+    description:
+      "Frontend Development is the practice of building user interfaces for web applications.",
+    domain: "Frontend",
+    progress: 50.25,
+    skills: [
+      {
+        name: "React",
+        learningResources: [
+          {
+            name: "The Complete Guide 2024 (incl Hooks, React Router, Redux)",
+            source: "Udemy",
+            technology: "React",
+            process: 74,
+            units: [
+              {
+                name: "Beginner",
+                process: 100,
+                status: "Completed",
+                topics: [
+                  {
+                    name: "Components",
+                    project: { name: "Hands-on", timeSpent: 2 },
+                  },
+                  {
+                    name: "Composition",
+                    project: { name: "Hands-on", timeSpent: 2 },
+                  },
+                ],
+              },
+              {
+                name: "Intermediate",
+                process: 74,
+                status: "Paused",
+                topics: [
+                  {
+                    name: "useState",
+                    project: { name: "Hands-on", timeSpent: 2 },
+                  },
+                  {
+                    name: "useHooks",
+                    project: { name: "Hands-on", timeSpent: 2 },
+                  },
+                ],
+              },
+              {
+                name: "Advanced",
+                process: 0,
+                status: "ToDO",
+                topics: [],
+              },
+            ],
+          },
+          {
+            name: "React Road Map",
+            source: "Roadmap.sh",
+            technology: "React",
+            process: 16,
+            units: [],
+          },
+        ],
+        practice: [
+          {
+            status: "Completed",
+            name: "Splitwise",
+            topics: ["React", "useState", "Compoents"],
+            timeSpent: 10,
+          },
+          {
+            name: "Willbery",
+            status: "In Progress",
+            topics: ["Remix", "React", "Tailwind"],
+            timeSpent: 16,
+          },
+        ],
+      },
+      {
+        name: "React",
+        learningResources: [
+          {
+            name: "TypeScript Road Map",
+            source: "Roadmap.sh",
+            technology: "TypeScript",
+            process: 11,
+            units: [],
+          },
+        ],
+        practice: [],
+      },
+      {
+        name: "Next.JS",
+        learningResources: [
+          {
+            name: "The Complete Guide 2024 (incl Hooks, React Router, Redux)",
+            source: "Udemy",
+            technology: "Next.JS",
+            process: 0,
+            units: [
+              {
+                name: "Course",
+                process: 0,
+                status: "ToDO",
+                topics: [],
+              },
+            ],
+          },
+        ],
+        practice: [
+          {
+            name: "TrustedHub",
+            status: "ToDO",
+            topics: ["Remix", "React", "Tailwind"],
+            timeSpent: 16,
+          },
+        ],
+      },
+      {
+        name: "Remix",
+        learningResources: [],
+        practice: [
+          {
+            name: "Willbery",
+            status: "ToDO",
+            topics: ["Remix", "React", "Tailwind"],
+            timeSpent: 16,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    skillArea: "Java Development",
+    description:
+      "Java Development is the practice of building applications using the Java programming language.",
+    domain: "Java",
+    progress: 13.5,
+    skills: [
+      {
+        name: "React",
+        learningResources: [
+          {
+            name: "Java Spring Boot",
+            source: "JetBrains Academy",
+            process: 74,
+            units: [
+              {
+                name: "Java Syntax",
+                process: 17,
+                status: "In Progress",
+                topics: [
+                  {
+                    name: "Loops",
+                    project: {},
+                  },
+                  {
+                    name: "Classes",
+                    project: {},
+                  },
+                ],
+              },
+              {
+                name: "Spring Boot",
+                process: 0,
+                status: "ToDo",
+                topics: [],
+              },
+            ],
+          },
+          {
+            name: "Java Development",
+            source: "MOOC.fi",
+            technology: "Java",
+            process: 10,
+            units: [],
+          },
+        ],
+        practice: [],
+      },
+    ],
+  },
+  {
+    skillArea: "Could Developer",
+    description:
+      "Cloud Development is the practice of building applications using the cloud.",
+    domain: "DevOps",
+    progress: 89,
+    skills: [
+      {
+        name: "AWS",
+        learningResources: [
+          {
+            name: "Could Practitioner",
+            source: "AWS Skill Builder",
+            process: 100,
+            certificate: false,
+            units: [],
+          },
+          {
+            name: "SAA-C03",
+            source: "Udemy | Maarek",
+            process: 79,
+            units: [],
+          },
+        ],
+        practice: [],
+      },
+    ],
+  },
+  {
+    skillArea: "CI/CD",
+    description:
+      "CI/CD is the practice of building applications using the cloud.",
+    domain: "DevOps",
+    progress: 34.5,
+    skills: [
+      {
+        name: "GitLabCI",
+        learningResources: [
+          {
+            name: "GitLab Official Documentation",
+            source: "GitLab Official Documentation",
+            process: 13,
+            certificate: false,
+            units: [
+              {
+                name: "GitLab YAML syntax",
+                process: 100,
+                status: "Completed",
+                topics: [
+                  {
+                    name: "depends",
+                    practice: {
+                      name: "depends",
+                      timeSpent: 2,
+                    },
+                  },
+                  {
+                    name: "needs",
+                    practice: {
+                      name: "needs",
+                      timeSpent: 2,
+                    },
+                  },
+                ],
+              },
+
+              {
+                name: "GitLab Documentation",
+                process: 13,
+                status: "In Progress",
+                topics: [],
+              },
+            ],
+          },
+        ],
+        practice: [
+          {
+            status: "In Progress",
+            name: "Add Pipelines to 6 repos",
+            topics: ["GitLabCI", "GitLab"],
+            timeSpent: 10,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    skillArea: "AI",
+    description: "AI is the practice of building applications using the cloud.",
+    domain: "AI",
+    progress: 34.5,
+    skills: [
+      {
+        name: "AI Algorithms",
+        learningResources: [
+          {
+            name: "CS50AI",
+            source: "GitLab Official Documentation",
+            process: 57,
+            certificate: false,
+            units: [],
+          },
+          {
+            name: "Regression and Classification",
+            source: "CodeSygnal",
+            process: 100,
+            certificate: false,
+            units: [],
+          },
+        ],
+        practice: [
+          {
+            status: "In Progress",
+            name: "Hiredity",
+            topics: [],
+            timeSpent: 4,
+          },
+          {
+            status: "In Progress",
+            name: "Crossword",
+            topics: [],
+            timeSpent: 4,
+          },
+          {
+            status: "In Progress",
+            name: "Minesweeper",
+            topics: [],
+            timeSpent: 4,
+          },
+          {
+            status: "In Progress",
+            name: "A* Algorithm",
+            topics: [],
+            timeSpent: 4,
+          },
+          {
+            status: "In Progress",
+            name: "Knowledge Distillation",
+            topics: [],
+            timeSpent: 4,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    skillArea: "DS&ML",
+    description: "AI is the practice of building applications using the cloud.",
+    domain: "AI",
+    progress: 34.5,
+    skills: [
+      {
+        name: "Machine Learning",
+        learningResources: [
+          {
+            name: "Intro to Machine Learning",
+            source: "Kaggle",
+            process: 100,
+            certificate: false,
+            units: [],
+          },
+          {
+            name: "Data Visualization",
+            source: "Kaggle",
+            process: 100,
+            certificate: false,
+            units: [],
+          },
+          {
+            name: "Statistic and Probability",
+            source: "Khan Academy",
+            process: 23,
+            certificate: false,
+            units: [],
+          },
+        ],
+        practice: [
+          {
+            status: "Completed",
+            name: "APT",
+            topics: [],
+            timeSpent: 4,
+          },
+          {
+            status: "Completed",
+            name: "Digit Recognizer",
+            topics: [],
+            timeSpent: 4,
+          },
+          {
+            status: "Completed",
+            name: "Titanic",
+            topics: [],
+            timeSpent: 4,
+          },
+          {
+            status: "Completed",
+            name: "House Price Prediction",
+            topics: [],
+            timeSpent: 4,
+          },
+          {
+            status: "In Progress",
+            name: "CAPPA",
+            topics: [],
+            timeSpent: 4,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    skillArea: "Math for ML",
+    description: " Math for ML",
+    domain: "AI",
+    progress: 34.5,
+    skills: [
+      {
+        name: "Linear Algebra",
+        learningResources: [
+          {
+            name: "Linear Algebra",
+            source: "Khan",
+            process: 95,
+            certificate: false,
+            units: [
+              {
+                name: "Unit 1",
+                process: 94,
+                status: "In Progress",
+                topics: [],
+              },
+              {
+                name: "Unit 3",
+                process: 0,
+                status: "ToDo",
+                topics: [],
+              },
+              {
+                name: "Unit 4",
+                process: 0,
+                status: "ToDo",
+                topics: [],
+              },
+            ],
+          },
+          {
+            name: "18.06SC | Linear Algebra",
+            source: "MIT",
+            process: 27,
+            certificate: false,
+            units: [],
+          },
+          {
+            name: "Linear Algebra with Yuri",
+            source: "Private Lessons",
+            process: 0,
+            certificate: false,
+            units: [],
+          },
+        ],
+        practice: [],
+      },
+    ],
+  },
+  {
+    skillArea: "Orchestartion",
+    description:
+      "Docker is the practice of building applications using the cloud.",
+    domain: "DevOps",
+    progress: 34.5,
+    skills: [
+      {
+        name: "Docker",
+        learningResources: [
+          {
+            name: "Docker Roadmap",
+            source: "Roadmap.sh",
+            process: 80,
+            certificate: false,
+            units: [],
+          },
+          {
+            name: "Docker Syntax Refference",
+            source: "Docker Documentation",
+            process: 0,
+            certificate: false,
+            units: [],
+          },
+          {
+            name: "Docker Deep Dive",
+            source: "Book",
+            process: 60,
+            certificate: false,
+            units: [],
+          },
+        ],
+        practice: [],
+      },
+    ],
+  },
+  {
+    skillArea: "Python",
+    description:
+      "Python is the practice of building applications using the cloud.",
+    domain: "Python",
+    progress: 50,
+    skills: [
+      {
+        name: "FastAPI",
+        learningResources: [
+          {
+            name: "FastAPI Documentation",
+            source: "FastAPI Documentation",
+            process: 0,
+            certificate: false,
+            units: [],
+          },
+        ],
+        practice: [],
+      },
+      {
+        name: "FastAPI",
+        learningResources: [
+          {
+            name: "Advanced Python",
+            source: "Book",
+            process: 70,
+            certificate: false,
+            units: [],
+          },
+          {
+            name: "Cosmic Python",
+            source: "Book",
+            process: 100,
+            certificate: false,
+            units: [],
+          },
+          {
+            name: "Mark Lutz",
+            source: "Book",
+            process: 100,
+            certificate: false,
+            units: [],
+          },
+        ],
+        practice: [],
+      },
+    ],
+  },
+  {
+    skillArea: "C#",
+    description: "C# is the practice of building applications using the cloud.",
+    domain: "C#",
+    progress: 50,
+    skills: [
+      {
+        name: "C# Syntax",
+        learningResources: [
+          {
+            name: "C# Syntax",
+            source: "Microsoft Learn",
+            process: 0,
+            certificate: true,
+            units: [],
+          },
+          {
+            name: "C# Syntax",
+            source: "Stepik",
+            process: 0,
+            certificate: true,
+            units: [],
+          },
+        ],
+        practice: [],
+      },
+      {
+        name: "Unity",
+        learningResources: [
+          {
+            name: "Unity 3D",
+            source: "Unity Course",
+            process: 5,
+            certificate: false,
+            units: [],
+          },
+        ],
+        practice: [],
+      },
+    ],
+  },
+  {
+    skillArea: "OS",
+    description: "OS is the practice of building applications using the cloud.",
+    domain: "DevOps",
+    progress: 50,
+    skills: [
+      {
+        name: "Linux",
+        learningResources: [
+          {
+            name: "Linux Journey",
+            source: "Linux Journey",
+            process: 50,
+            certificate: false,
+            units: [
+              {
+                name: "Unit 1",
+                process: 100,
+                status: "In Progress",
+                topics: [],
+              },
+              {
+                name: "Unit 2",
+                process: 100,
+                status: "In Progress",
+                topics: [],
+              },
+              {
+                name: "Unit 3",
+                process: 0,
+                status: "In Progress",
+                topics: [],
+              },
+            ],
+          },
+          {
+            name: "Linux Bandit",
+            source: "woirzd",
+            process: 0,
+            certificate: false,
+            units: [],
+          },
+        ],
+        practice: [],
+      },
+    ],
+  },
+];
+
+export { learningCards };
 
 [
   {
