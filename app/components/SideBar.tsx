@@ -36,7 +36,7 @@ export default function SideBar() {
             color="#4A4A4A"
           />
         </NavLink>
-        <NavLink to={`/`} className={navLinkClass}>
+        <NavLink to={`/activities`} className={navLinkClass}>
           <ListViewIcon className={"!relative !w-7 !h- 7 !z-[1]"} />
         </NavLink>
         <NavLink to={`/stat`} className={navLinkClass}>
