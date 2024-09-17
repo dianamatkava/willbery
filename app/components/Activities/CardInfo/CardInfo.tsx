@@ -5,7 +5,7 @@ import CardInfoProgress from "./CardInfoProgress";
 export default function CardInfo({ imgPath }: { imgPath: string }) {
   //+
   return (
-    <div className="w-full flex flex-col items-center max-h-[145px]">
+    <div className="w-full flex flex-col items-center max-h-[150px]">
       <CardInfoHeader />
       <div className="w-full h-[100px]">
         <CardInfoImage imgPath={imgPath} />

@@ -1,12 +1,24 @@
-import { ArrowDropDown } from "../../icons/ArrowDropDown";
+import { Arrow } from "../../icons/Arrow";
 import ProgressBar from "../../ui-elements/ProgressBar";
+import { useState } from "react";
 
 export default function CardGroup({ children }: { children: React.ReactNode }) {
+  const [expanded, setExpanded] = useState(true);
   return (
-    <div className="w-full pb-1">
-      <div className="flex w-full items-center justify-between p-1 pb-1">
-        <div className="flex items-center w-full">
-          <ArrowDropDown color="#5A5A5A" className="cursor-pointer" />
+    <div className="w-full">
+      <div className="flex w-full items-center justify-between p-1">
+        <div
+          className="flex items-center w-full"
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === "Enter" && setExpanded(!expanded)}
+          onClick={() => setExpanded(!expanded)}
+        >
+          <Arrow
+            direction={expanded ? "up" : "down"}
+            color="#5A5A5A"
+            className="cursor-pointer"
+          />
           <div className="font-semibold text-[#777777] text-[8px] cursor-pointer">
             AWS
           </div>
@@ -19,7 +31,7 @@ export default function CardGroup({ children }: { children: React.ReactNode }) {
           className="w-[60px]"
         />
       </div>
-      {children}
+      <div>{expanded ? children : null}</div>
     </div>
   );
 }

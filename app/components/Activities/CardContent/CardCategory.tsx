@@ -1,5 +1,6 @@
-import { ArrowDropDown } from "../../icons/ArrowDropDown";
+import Arrow from "../../icons/Arrow";
 import ProgressBar from "../../ui-elements/ProgressBar";
+import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function CardCategory({
@@ -9,11 +10,23 @@ export default function CardCategory({
   children?: React.ReactNode;
   categoryName: string;
 }) {
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <div className="w-full pb-2">
       <div className="flex w-full justify-between items-center px-1 pl-2">
-        <div className="flex items-center gap-1">
-          <ArrowDropDown color="#5A5A5A" className="cursor-pointer" />
+        <div
+          className="flex items-center gap-1"
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === "Enter" && setExpanded(!expanded)}
+          onClick={() => setExpanded(!expanded)}
+        >
+          <Arrow
+            direction={expanded ? "up" : "down"}
+            color="#5A5A5A"
+            className="cursor-pointer"
+          />
           <div className="[font-family:'Roboto-Medium',Helvetica] font-semibold text-black text-[10px] tracking-[0] leading-[normal] cursor-pointer">
             {categoryName}
           </div>
@@ -27,7 +40,7 @@ export default function CardCategory({
           />
         </div>
       </div>
-      {children}
+      <div>{expanded ? children : null}</div>
     </div>
   );
 }
