@@ -1,22 +1,26 @@
-import { ArrowDropDown } from "../../icons/ArrowDropDown";
+import { Circle } from "../../icons/Circle";
+import ProgressBar from "../../ui-elements/ProgressBar";
 
-export default function CardSubCategory() {
+export default function CardSubCategory({
+  subCategoryName,
+}: {
+  subCategoryName: string;
+}) {
   return (
-    <div className="flex w-full items-center justify-between relative flex-[0_0_auto]">
-      <div className="w-full m-2 items-center gap-1 flex relative">
-        <ArrowDropDown className="relative" color="#5A5A5A" />
-        <div className="relative [font-family:'Roboto-Medium',Helvetica] font-medium text-black text-[9px] tracking-[0] leading-[normal]">
-          Course
+    <div className="flex w-full justify-between items-center px-1 pl-6 py-1">
+      <div className="flex items-center gap-1">
+        <Circle color="#5A5A5A" className="cursor-pointer" />
+        <div className="[font-family:'Roboto-Medium',Helvetica] text-black text-[10px] tracking-[0] leading-[normal] cursor-pointer">
+          {subCategoryName}
         </div>
       </div>
-      <div className="inline-flex items-center justify-end relative flex-[0_0_auto]">
-        <div className="gap-1 inline-flex items-center relative flex-[0_0_auto]">
-          <div className="[font-family:'Roboto-SemiBold',Helvetica] font-semibold text-[#272727] text-[8px] whitespace-nowrap relative tracking-[0] leading-[normal]">
-            78%
-          </div>
-          <div className="relative w-[50px] h-[5px] bg-[#e8ece8] rounded-[10px]" />
-          <div className="absolute w-10 h-[5px] top-0.5 left-[21px] bg-[#09760773] rounded-[10px]" />
-        </div>
+      <div className="flex items-center justify-between">
+        <ProgressBar
+          progress={60}
+          color="bg-green-500"
+          height="h-2"
+          className="w-[60px]"
+        />
       </div>
     </div>
   );

@@ -1,30 +1,25 @@
 import { ArrowDropDown } from "../../icons/ArrowDropDown";
+import ProgressBar from "../../ui-elements/ProgressBar";
 
 export default function CardGroup({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col items-start justify-around">
-      <div className="inline-flex flex-col items-start gap-2">
-        <div className="flex items-center gap-2">
-          <ArrowDropDown color="#B2B2B2" />
-          <div className=" w-fit [font-family:'Roboto-SemiBold',Helvetica] font-semibold text-[#d9d9d9] text-[8px] tracking-[0] leading-[normal] whitespace-nowrap">
+    <div className="w-full pb-1">
+      <div className="flex w-full items-center justify-between p-1 pb-1">
+        <div className="flex items-center w-full">
+          <ArrowDropDown color="#5A5A5A" className="cursor-pointer" />
+          <div className="font-semibold text-[#777777] text-[8px] cursor-pointer">
             AWS
           </div>
-          <div className="flex w-full items-center gap-2">
-            <div className="w-fit [font-family:'Roboto-SemiBold',Helvetica] font-semibold text-[#777777] text-[8px] whitespace-nowrap relative tracking-[0] leading-[normal]">
-              55%
-            </div>
-            <div className="flex flex-col items-start flex-1 grow">
-              <img
-                className="self-stretch w-full h-px object-cover"
-                alt="Line"
-                src="line-72.svg"
-              />
-              <img className="h-px object-cover" alt="Line" src="line-80.svg" />
-            </div>
-          </div>
+          <div className="border-b-[0.4px] border-solid border-[#eaeaea] w-full"></div>
         </div>
-        {children}
+        <ProgressBar
+          progress={60}
+          color="bg-green-500"
+          height="h-2"
+          className="w-[60px]"
+        />
       </div>
+      {children}
     </div>
   );
 }

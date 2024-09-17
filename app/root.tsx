@@ -30,7 +30,7 @@ export default function App() {
       </head>
       <body>
         <SideBar />
-        <div className="flex-1 p-8 lg:p-16 w-full">
+        <div className="flex-1 p-8 w-full">
           <Outlet />
         </div>
 
