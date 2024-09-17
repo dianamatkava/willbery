@@ -1,5 +1,4 @@
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
   // Link,
@@ -9,7 +8,6 @@ import {
   Scripts,
   ScrollRestoration,
   // useLoaderData,
-  useNavigation, // returns the current navigation state: it can be one of "idle", "loading" or "submitting".
 } from "@remix-run/react";
 
 import SideBar from "./components/SideBar";
@@ -20,26 +18,7 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: appStylesHref },
 ];
 
-import { createEmptyContact, getContacts } from "./data";
-
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const url = new URL(request.url);
-  const q = url.searchParams.get("q");
-  const contacts = await getContacts(q);
-  return json({ contacts, q });
-};
-
-export const action = async () => {
-  const contact = await createEmptyContact();
-  return redirect(`/contacts/${contact.id}/edit`);
-};
-
 export default function App() {
-  const navigation = useNavigation();
-  const searching =
-    navigation.location &&
-    new URLSearchParams(navigation.location.search).has("q");
-
   return (
     <html lang="en">
       <head>
@@ -51,13 +30,7 @@ export default function App() {
       </head>
       <body>
         <SideBar />
-
-        <div
-          id="detail"
-          className={
-            navigation.state === "loading" && !searching ? "loading" : ""
-          }
-        >
+        <div className="flex-1 p-4 w-full">
           <Outlet />
         </div>
 
