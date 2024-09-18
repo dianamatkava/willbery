@@ -11,6 +11,7 @@ export default function Accordion({
 }) {
   return (
     <div
+      className="flex items-center gap-2" // Adjusted gap to 2 for better spacing
       role="button"
       tabIndex={0}
       aria-expanded={expanded}
@@ -18,7 +19,7 @@ export default function Accordion({
       onClick={() => setExpanded(!expanded)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
-          () => setExpanded(!expanded);
+          setExpanded(!expanded);
           e.preventDefault();
         }
       }}
@@ -26,7 +27,7 @@ export default function Accordion({
       <Arrow
         direction={expanded ? "right" : "down"}
         color="#5A5A5A"
-        className="cursor-pointer"
+        className="cursor-pointer w-4 h-4" // Fixed size for the arrow
       />
       {children}
     </div>

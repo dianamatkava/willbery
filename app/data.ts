@@ -86,7 +86,7 @@ export async function deleteActivity(id: string) {
 const learningCards = [
   {
     id: 1,
-    skillArea: "Frontend Development",
+    skillArea: "Frontend devel...",
     description:
       "Frontend Development is the practice of building user interfaces for web applications.",
     domain: "Frontend",

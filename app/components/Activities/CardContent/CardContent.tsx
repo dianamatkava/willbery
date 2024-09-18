@@ -5,7 +5,7 @@ import CardGroup from "./CardGroup";
 export default function CardContent({ params }: { params: object }) {
   const groups = params.skills;
   return (
-    <div className="w-full flex flex-col items-center h-fit">
+    <div className="w-full flex flex-col items-center h-fit pr-[1.5px]">
       {groups &&
         groups.map((group) => (
           <CardGroup
