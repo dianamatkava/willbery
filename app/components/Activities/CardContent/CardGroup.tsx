@@ -2,7 +2,15 @@ import { Arrow } from "../../icons/Arrow";
 import ProgressBar from "../../ui-elements/ProgressBar";
 import { useState } from "react";
 
-export default function CardGroup({ children }: { children: React.ReactNode }) {
+export default function CardGroup({
+  children,
+  name,
+  progress,
+}: {
+  children: React.ReactNode;
+  name: string;
+  progress: number;
+}) {
   const [expanded, setExpanded] = useState(true);
   return (
     <div className="w-full">
@@ -20,12 +28,12 @@ export default function CardGroup({ children }: { children: React.ReactNode }) {
             className="cursor-pointer"
           />
           <div className="font-semibold text-[#777777] text-[8px] cursor-pointer">
-            AWS
+            {name}
           </div>
           <div className="border-b-[0.4px] border-solid border-[#eaeaea] w-full"></div>
         </div>
         <ProgressBar
-          progress={60}
+          progress={progress}
           color="bg-green-500"
           height="h-2"
           className="w-[60px]"
