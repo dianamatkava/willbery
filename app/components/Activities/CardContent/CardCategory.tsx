@@ -1,39 +1,44 @@
-import Arrow from "../../icons/Arrow";
 import ProgressBar from "../../ui-elements/ProgressBar";
 import { useState } from "react";
+import Accordion from "../../ui-elements/Accordion";
+import Circle from "../../icons/Circle";
+import React from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function CardCategory({
-  categoryName,
+  name,
+  progress,
   children = null,
 }: {
   children?: React.ReactNode;
-  categoryName: string;
+  name: string;
+  progress: number;
 }) {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
+  const hasChildren = React.Children.count(children) > 0;
 
   return (
-    <div className="w-full pb-2">
-      <div className="flex w-full justify-between items-center px-1 pl-2">
-        <div
-          className="flex items-center gap-1"
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => e.key === "Enter" && setExpanded(!expanded)}
-          onClick={() => setExpanded(!expanded)}
-        >
-          <Arrow
-            direction={expanded ? "up" : "down"}
-            color="#5A5A5A"
-            className="cursor-pointer"
-          />
-          <div className="[font-family:'Roboto-Medium',Helvetica] font-semibold text-black text-[10px] tracking-[0] leading-[normal] cursor-pointer">
-            {categoryName}
-          </div>
+    <div className="w-full py-1">
+      <div className="flex w-full items-center px-1 pl-2">
+        <div className="flex-grow">
+          {hasChildren ? (
+            <Accordion expanded={expanded} setExpanded={setExpanded}>
+              <div className="[font-family:'Roboto-Medium',Helvetica] font-semibold text-black text-[10px] tracking-[0] leading-[normal] cursor-pointer flex-1">
+                {name}
+              </div>
+            </Accordion>
+          ) : (
+            <div className="flex items-center gap-3 pl-[5.7px]">
+              <Circle color="#9ca3af" className="cursor-pointer" />
+              <div className="[font-family:'Roboto-Medium',Helvetica] font-semibold text-black text-[10px] tracking-[0] leading-[normal] cursor-pointer flex-1">
+                {name}
+              </div>
+            </div>
+          )}
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center">
           <ProgressBar
-            progress={60}
+            progress={progress}
             color="bg-green-500"
             height="h-2"
             className="w-[60px]"

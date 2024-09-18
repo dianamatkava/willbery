@@ -1,33 +1,43 @@
-import { Arrow } from "../../icons/Arrow";
+import Circle from "~/components/icons/Circle";
 import ProgressBar from "../../ui-elements/ProgressBar";
 import { useState } from "react";
+import Accordion from "../../ui-elements/Accordion";
 
-export default function CardGroup({ children }: { children: React.ReactNode }) {
+export default function CardGroup({
+  children,
+  name,
+  progress,
+}: {
+  children: React.ReactNode;
+  name: string;
+  progress: number;
+}) {
   const [expanded, setExpanded] = useState(true);
   return (
-    <div className="w-full">
-      <div className="flex w-full items-center justify-between p-1">
-        <div
-          className="flex items-center w-full"
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => e.key === "Enter" && setExpanded(!expanded)}
-          onClick={() => setExpanded(!expanded)}
-        >
-          <Arrow
-            direction={expanded ? "up" : "down"}
-            color="#5A5A5A"
-            className="cursor-pointer"
-          />
-          <div className="font-semibold text-[#777777] text-[8px] cursor-pointer">
-            AWS
-          </div>
-          <div className="border-b-[0.4px] border-solid border-[#eaeaea] w-full"></div>
+    <div className="w-full mb-1">
+      <div className="flex w-full items-center justify-between px-1">
+        <div className="flex items-center w-full">
+          {children ? (
+            <Accordion expanded={expanded} setExpanded={setExpanded}>
+              <div className="font-semibold text-[#777777] text-[8px] cursor-pointer">
+                {name}
+              </div>
+            </Accordion>
+          ) : (
+            <div className="flex items-center gap-1 pl-2">
+              <Circle color="#5A5A5A" className="cursor-pointer" />
+              <div className="font-semibold text-[#777777] text-[8px] cursor-pointer">
+                {name}
+              </div>
+            </div>
+          )}
+          {/* <div className="border-b-[0.4px] border-solid border-[#eaeaea] w-fit"></div> */}
         </div>
         <ProgressBar
-          progress={60}
-          color="bg-green-500"
+          progress={17}
+          color="#2D4468FF"
           height="h-2"
+          textColor="#777777"
           className="w-[60px]"
         />
       </div>
