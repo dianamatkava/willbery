@@ -1,5 +1,5 @@
 interface Props {
-  direction: "up" | "down";
+  direction: "up" | "down" | "right";
   color?: string;
   hoverStyle?: string;
   className?: string;
@@ -11,7 +11,12 @@ export const Arrow = ({
   hoverStyle = "group-hover:fill-current group-hover:text-black",
   className = "",
 }: Props): JSX.Element => {
-  const transform = direction === "up" ? "rotate-180" : "";
+  const transform =
+    direction === "up"
+      ? "rotate-180"
+      : direction === "right"
+      ? "rotate-[270deg]"
+      : "";
 
   return (
     <svg
@@ -33,9 +38,5 @@ export const Arrow = ({
     </svg>
   );
 };
-
-export const ArrowDown = (props: Omit<Props, "direction">): JSX.Element => (
-  <Arrow {...props} direction="down" />
-);
 
 export default Arrow;

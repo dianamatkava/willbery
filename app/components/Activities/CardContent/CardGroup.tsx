@@ -1,6 +1,7 @@
-import { Arrow } from "../../icons/Arrow";
+import Circle from "~/components/icons/Circle";
 import ProgressBar from "../../ui-elements/ProgressBar";
 import { useState } from "react";
+import Accordion from "../../ui-elements/Accordion";
 
 export default function CardGroup({
   children,
@@ -15,21 +16,22 @@ export default function CardGroup({
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between p-1">
-        <div
-          className="flex items-center w-full"
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => e.key === "Enter" && setExpanded(!expanded)}
-          onClick={() => setExpanded(!expanded)}
-        >
-          <Arrow
-            direction={expanded ? "up" : "down"}
-            color="#5A5A5A"
-            className="cursor-pointer"
-          />
-          <div className="font-semibold text-[#777777] text-[8px] cursor-pointer">
-            {name}
-          </div>
+        <div className="flex items-center w-full">
+          {children ? (
+            <Accordion expanded={expanded} setExpanded={setExpanded}>
+              <div className="font-semibold text-[#777777] text-[8px] cursor-pointer">
+                {name}
+              </div>
+            </Accordion>
+          ) : (
+            <>
+              <Circle color="#5A5A5A" className="cursor-pointer" />
+              <div className="font-semibold text-[#777777] text-[8px] cursor-pointer">
+                {name}
+              </div>
+            </>
+          )}
+
           <div className="border-b-[0.4px] border-solid border-[#eaeaea] w-full"></div>
         </div>
         <ProgressBar
