@@ -4,11 +4,13 @@ import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function CardCategory({
-  categoryName,
+  name,
+  progress,
   children = null,
 }: {
   children?: React.ReactNode;
-  categoryName: string;
+  name: string;
+  progress: number;
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -28,12 +30,12 @@ export default function CardCategory({
             className="cursor-pointer"
           />
           <div className="[font-family:'Roboto-Medium',Helvetica] font-semibold text-black text-[10px] tracking-[0] leading-[normal] cursor-pointer">
-            {categoryName}
+            {name}
           </div>
         </div>
         <div className="flex items-center justify-between">
           <ProgressBar
-            progress={60}
+            progress={progress}
             color="bg-green-500"
             height="h-2"
             className="w-[60px]"
