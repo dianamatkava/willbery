@@ -14,27 +14,29 @@ export default function CardCategory({
   name: string;
   progress: number;
 }) {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
   const hasChildren = React.Children.count(children) > 0;
 
   return (
-    <div className="w-full pb-2">
-      <div className="flex w-full justify-between items-center px-1 pl-2">
-        {hasChildren ? (
-          <Accordion expanded={expanded} setExpanded={setExpanded}>
-            <div className="[font-family:'Roboto-Medium',Helvetica] font-semibold text-black text-[10px] tracking-[0] leading-[normal] cursor-pointer">
-              {name}
+    <div className="w-full py-1">
+      <div className="flex w-full items-center px-1 pl-2">
+        <div className="flex-grow">
+          {hasChildren ? (
+            <Accordion expanded={expanded} setExpanded={setExpanded}>
+              <div className="[font-family:'Roboto-Medium',Helvetica] font-semibold text-black text-[10px] tracking-[0] leading-[normal] cursor-pointer flex-1">
+                {name}
+              </div>
+            </Accordion>
+          ) : (
+            <div className="flex items-center gap-3 pl-[5.7px]">
+              <Circle color="#9ca3af" className="cursor-pointer" />
+              <div className="[font-family:'Roboto-Medium',Helvetica] font-semibold text-black text-[10px] tracking-[0] leading-[normal] cursor-pointer flex-1">
+                {name}
+              </div>
             </div>
-          </Accordion>
-        ) : (
-          <>
-            <Circle color="#5A5A5A" className="cursor-pointer" />
-            <div className="[font-family:'Roboto-Medium',Helvetica] font-semibold text-black text-[10px] tracking-[0] leading-[normal] cursor-pointer">
-              {name}
-            </div>
-          </>
-        )}
-        <div className="flex items-center justify-between">
+          )}
+        </div>
+        <div className="flex items-center">
           <ProgressBar
             progress={progress}
             color="bg-green-500"
