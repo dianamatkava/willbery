@@ -10,7 +10,7 @@ export function CardDetailsNode({ children }: { children: React.ReactNode }) {
       <div className="w-full flex flex-row items-center justify-between box-border text-sm">
         <div className="w-full flex flex-row items-center justify-start gap-2">
           <img
-            className="w-5 h-5 rounded-md max-w-full max-h-full"
+            className="w-5 h-5 rounded-md max-w-full max-h-full cursor-pointer"
             alt=""
             src="aws-logo.svg"
           />
@@ -24,7 +24,9 @@ export function CardDetailsNode({ children }: { children: React.ReactNode }) {
               <FaLink size={14} />
             </div> */}
             <div className="rounded-md text-gainsboro-400 border-gainsboro-400 border-[0.8px] border-solid box-border flex flex-row items-center justify-center py-1 px-1">
-              <div className="leading-[100%] font-medium text-xxs">Course</div>
+              <div className="leading-[100%] font-medium text-xxs cursor-pointer">
+                Course
+              </div>
             </div>
             <div className="w-fell flex flex-row items-center justify-end text-right text-xs  gap-1">
               <div className="w-full flex-1 flex flex-row items-center justify-center">
@@ -35,16 +37,16 @@ export function CardDetailsNode({ children }: { children: React.ReactNode }) {
                 />
               </div>
             </div>
-            <div className="text-xxxs font-medium rounded-md bg-gainsboro-100 flex flex-row items-center justify-center px-1 py-0.5 w-[50px]">
+            <div className="shadow-[1px_1px_1px_rgba(0,_0,_0,_0.15)] text-xxxs font-medium rounded-md bg-gainsboro-100 flex flex-row items-center justify-center px-1 py-0.5 w-[50px] cursor-pointer">
               23/122
             </div>
-            <div className="text-xxxs font-medium rounded-md bg-gainsboro-100 flex flex-row items-center justify-center px-1 py-0.5 w-[30px]">
+            <div className="shadow-[1px_1px_1px_rgba(0,_0,_0,_0.15)] text-xxxs font-medium rounded-md bg-gainsboro-100 flex flex-row items-center justify-center px-1 py-0.5 w-[30px] cursor-pointer">
               4/w
             </div>
           </div>
           <div className="flex items-center justify-center gap-0">
-            <IoAdd size={18} />
-            <IoMdMore size={18} />
+            <IoAdd size={18} className="cursor-pointer" />
+            <IoMdMore size={18} className="cursor-pointer" />
           </div>
         </div>
       </div>

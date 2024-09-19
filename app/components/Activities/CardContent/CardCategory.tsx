@@ -1,8 +1,8 @@
 import ProgressBar from "../../ui-elements/ProgressBar";
 import { useState } from "react";
 import Accordion from "../../ui-elements/Accordion";
+import Circle from "../../icons/Circle";
 import React from "react";
-import { AiOutlineLink } from "react-icons/ai";
 
 // eslint-disable-next-line react/prop-types
 export default function CardCategory({
@@ -18,8 +18,8 @@ export default function CardCategory({
   const hasChildren = React.Children.count(children) > 0;
 
   return (
-    <div className="w-full mt-1">
-      <div className="flex w-full items-center px-1 pl-2 pb-1">
+    <div className="w-full py-1">
+      <div className="flex w-full items-center px-1 pl-2">
         <div className="flex-grow">
           {hasChildren ? (
             <Accordion
@@ -27,23 +27,14 @@ export default function CardCategory({
               setExpanded={setExpanded}
               hidden={true}
             >
-              <div className="w-full flex flex-row items-center justify-start gap-2 mt-1">
-                <img
-                  className="w-4 h-4 rounded-sm max-w-full max-h-full cursor-pointer"
-                  alt=""
-                  src="aws-logo.svg"
-                />
-                <div className="font-semibold text-realblack text-xxs tracking-[0] leading-[normal] cursor-pointer flex-1">
-                  {name}
-                </div>
+              <div className="[font-family:'Roboto-Medium',Helvetica] font-semibold text-black text-[10px] tracking-[0] leading-[normal] cursor-pointer flex-1">
+                {name}
               </div>
             </Accordion>
           ) : (
-            <div className="flex items-center gap-2">
-              <div className="bg-gainsboro-100 w-4 h-4 flex items-center justify-center rounded-md shadow-[1px_1px_1px_rgba(0,_0,_0,_0.15)]">
-                <AiOutlineLink size={12} />
-              </div>
-              <div className="font-semibold text-realblack text-xxs tracking-[0] leading-[normal] cursor-pointer flex-1">
+            <div className="flex items-center gap-1">
+              <Circle color="#9ca3af" className="cursor-pointer" />
+              <div className="[font-family:'Roboto-Medium',Helvetica] font-semibold text-black text-[10px] tracking-[0] leading-[normal] cursor-pointer flex-1">
                 {name}
               </div>
             </div>
@@ -54,7 +45,7 @@ export default function CardCategory({
             progress={progress}
             color="bg-green-500"
             height="h-2"
-            className="w-[50px]"
+            className="w-[60px]"
           />
         </div>
       </div>
