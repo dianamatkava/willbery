@@ -8,9 +8,9 @@ export function CardDetailsGroup({ children }: { children: React.ReactNode }) {
     <div className="flex w-full flex-col items-start justify-start">
       <div className="w-full flex flex-col items-start justify-start gap-2">
         <div className="w-full flex flex-row items-center justify-between text-darkgray-200">
-          <div className="w-full flex flex-row items-center justify-start gap-2">
+          <div className="w-full flex flex-row items-center justify-start gap-2 ml-1">
             <FaChevronDown size={10} />
-            <div className="font-semibold whitespace-pre-wrap text-sm">
+            <div className="font-semibold whitespace-pre-wrap text-xsm">
               Untitled list
             </div>
           </div>
@@ -22,8 +22,10 @@ export function CardDetailsGroup({ children }: { children: React.ReactNode }) {
                 className={"w-[60px] font-semibold text-xxs"}
               />
             </div>
-            <IoAdd size={20} />
-            <IoMdMore size={20} />
+            <div className="flex items-center justify-center gap-0">
+              <IoAdd size={18} />
+              <IoMdMore size={18} />
+            </div>
           </div>
         </div>
         {children}

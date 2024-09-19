@@ -15,8 +15,8 @@ export default function Activities() {
   return (
     <div className="w-full flex flex-col items-center gap-5 mx-3">
       <CardListHeader />
-      <div className="flex items-between w-full">
-        <div className="hidden md:grid grid grid-cols-1 grid-sm:grid-cols-1 grid-md:grid-cols-2 grid-lg:grid-cols-3 xlg:grid-cols-4 xxlg:grid-cols-5 gap-2 flex-grow">
+      <div className="flex w-full">
+        <div className="hidden md:grid grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xlg:grid-cols-4 xxlg:grid-cols-5 gap-2 flex-[3_3_0%]">
           {activities &&
             activities.map((card) => (
               <ActivitiesCard
@@ -28,7 +28,7 @@ export default function Activities() {
               />
             ))}
         </div>
-        <div className="flex items-center justify-center w-[525px] mx-auto">
+        <div className="flex items-center justify-center flex-[2_2_0%] mx-auto">
           <CardDetails />
         </div>
       </div>

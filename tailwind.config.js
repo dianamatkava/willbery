@@ -57,14 +57,11 @@ export default {
     },
     fontSize: {
       sm: "0.875rem",
-      xsm: "0.75rem",
+      xsm: "0.8rem",
       xs: "0.75rem",
       xxs: "0.625rem",
       xxxs: "0.55rem",
       inherit: "inherit",
     },
-  },
-  corePlugins: {
-    preflight: false,
   },
 };
