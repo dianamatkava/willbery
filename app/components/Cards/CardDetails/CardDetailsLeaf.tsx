@@ -18,7 +18,9 @@ export function CardDetailsLeaf() {
               <FaLink size={14} />
             </div> */}
           <div className="text-xxxs rounded-md text-gray-500 border-gainsboro-400 border-[0.8px] border-solid box-border flex flex-row items-center justify-center py-1 px-1">
-            <div className="leading-[100%] font-medium">Practice</div>
+            <div className="leading-[100%] font-medium cursor-pointer">
+              Practice
+            </div>
           </div>
           <div className="w-fell flex flex-row items-center justify-end text-right text-xs  gap-1">
             <div className="w-full flex-1 flex flex-row items-center justify-center">
@@ -29,16 +31,16 @@ export function CardDetailsLeaf() {
               />
             </div>
           </div>
-          <div className="text-xxxs font-medium rounded-md bg-gainsboro-100 flex flex-row items-center px-1 py-0.5 justify-center px-1 py-0.5 w-[50px]">
+          <div className="shadow-[1px_1px_1px_rgba(0,_0,_0,_0.15)] text-xxxs font-medium rounded-md bg-gainsboro-100 flex flex-row items-center px-1 py-0.5 justify-center px-1 py-0.5 w-[50px] cursor-pointer">
             2122/1222
           </div>
-          <div className="text-xxxs font-medium rounded-md bg-gainsboro-100 flex flex-row items-center justify-center px-1 py-0.5 w-[30px]">
+          <div className="shadow-[1px_1px_1px_rgba(0,_0,_0,_0.15)] text-xxxs font-medium rounded-md bg-gainsboro-100 flex flex-row items-center justify-center px-1 py-0.5 w-[30px] cursor-pointer">
             4/w
           </div>
         </div>
         <div className="flex items-center justify-center gap-0">
-          <IoAdd size={18} />
-          <IoMdMore size={18} />
+          <IoAdd size={18} className="cursor-pointer" />
+          <IoMdMore size={18} className="cursor-pointer" />
         </div>
       </div>
     </div>

@@ -30,6 +30,7 @@ export default {
           200: "#535353",
         },
         darkslategray: "#303030",
+        realblack: "black",
         black: "#303030",
         gainsboro: {
           100: "#e8e8e8",
