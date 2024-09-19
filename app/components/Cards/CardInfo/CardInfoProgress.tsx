@@ -13,12 +13,7 @@ export default function CardInfoProgress({
         {name}
       </div>
       <div className="pt-[1px] gap-1 flex items-center">
-        <ProgressBar
-          progress={progress}
-          color="bg-green-500"
-          height="h-2"
-          className="w-[60px]"
-        />
+        <ProgressBar progress={progress} height="h-2" className="w-[60px]" />
       </div>
     </div>
   );
