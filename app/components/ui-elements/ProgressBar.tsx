@@ -1,6 +1,6 @@
 const ProgressBar = ({
   progress = 0,
-  color = "bg-blue-500",
+  color = "bg-green-500",
   height = "h-[6px]",
   className = "",
   textColor = "#2D4468FF",
