@@ -4,24 +4,48 @@ export default {
   plugins: [],
   theme: {
     extend: {
+      keyframes: {
+        blink: {
+          "0%, 100%": { opacity: 1 },
+          "50%": { opacity: 0 },
+        },
+      },
+      animation: {
+        blink: "blink 1s step-start infinite",
+      },
+      borderRadius: {},
       screens: {
-        xlg: "1200px",
-        xxlg: "1400px",
-        md: "725px",
-        lg: "900px",
+        xlg: "1300px",
+        xxlg: "1600px",
+        "grid-sm": "800px",
+        "grid-md": "930px",
+        "grid-lg": "1150px",
       },
       colors: {
         white: "#fff",
         "border-brand-default": "#2c2c2c",
         "text-brand-secondary": "#444",
-        gainsboro: "#e8e8e8",
         dimgray: {
           100: "#646464",
           200: "#535353",
         },
-        "text-brand-on-brand": "#f5f5f5",
         darkslategray: "#303030",
         black: "#303030",
+        gainsboro: {
+          100: "#e8e8e8",
+          200: "#e7e7e7",
+          300: "#d9d9d9",
+        },
+        whitesmoke: {
+          100: "#e8ece8",
+          200: "#e9e9e9",
+        },
+        darkgray: {
+          100: "#b4b4b4",
+          200: "#b2b2b2",
+        },
+        "text-brand-on-brand": "#f5f5f5",
+        "miscellaneous-floating-tab-pill-fill": "#fff",
       },
       spacing: {
         "space-200": "8px",
@@ -29,10 +53,6 @@ export default {
       },
       fontFamily: {
         mono: "Mono",
-      },
-      borderRadius: {
-        "8xs": "5px",
-        "radius-200": "8px",
       },
     },
     fontSize: {
