@@ -26,7 +26,7 @@ export default function CardListInfo() {
           <div className="tracking-1 leading-1 text-sm text-gray-600 font-medium">
             Cards
           </div>
-          <div className="rounded-radius-200 bg-border-brand-default h-1 flex flex-row items-center justify-center p-space-200 box-border text-left text-1 text-text-brand-on-brand">
+          <div className="rounded-md bg-border-brand-default h-1 flex flex-row items-center justify-center p-2 box-border text-left text-1 text-text-brand-on-brand">
             <div className="leading-[100%] text-xs font-medium cursor-pointer">
               41
             </div>
@@ -40,7 +40,7 @@ export default function CardListInfo() {
             <div className="tracking-1 leading-1 font-medium text-xs text-gray-600">
               Active
             </div>
-            <div className="rounded-radius-200 bg-dimgray-200 h-1 flex flex-row items-center justify-center py-space-200 px-space-200 box-border text-left text-sm text-text-brand-on-brand">
+            <div className="rounded-md bg-dimgray-200 h-1 flex flex-row items-center justify-center py-2 px-2 box-border text-left text-sm text-text-brand-on-brand">
               <div className="leading-[100%] text-xxs font-medium cursor-pointer">
                 22
               </div>
@@ -50,7 +50,7 @@ export default function CardListInfo() {
             <div className="tracking-1 leading-1 text-xs font-medium text-gray-600">
               Pending
             </div>
-            <div className="rounded-radius-200 bg-dimgray-200 h-1 flex flex-row items-center justify-center py-space-200 px-space-200 box-border text-left text-sm text-text-brand-on-brand">
+            <div className="rounded-md bg-dimgray-200 h-1 flex flex-row items-center justify-center py-2 px-2 box-border text-left text-sm text-text-brand-on-brand">
               <div className="leading-[100%] text-xxs font-medium cursor-pointer">
                 4
               </div>
