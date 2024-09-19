@@ -1,8 +1,9 @@
-import ActivitiesFilter from "~/components/Activities/ActivitiesFilter";
-import ActivitiesCard from "../../components/Activities/ActivitiesCard";
+import CardListHeader from "~/components/Cards/CardListHeader/CardListHeader";
+import ActivitiesCard from "../../components/Cards/ActivitiesCard";
 import { json } from "@remix-run/node";
 import { getActivities } from "~/data";
 import { useLoaderData } from "@remix-run/react";
+import CardDetails from "~/components/Cards/CardDetails/CardDetails";
 
 export const loader = async () => {
   const activities = await getActivities();
@@ -12,10 +13,10 @@ export const loader = async () => {
 export default function Activities() {
   const { activities } = useLoaderData<typeof loader>();
   return (
-    <div className="w-full flex flex-col items-center gap-5 relative ml-2">
-      <ActivitiesFilter />
-      <div className="flex flex-col items-center w-full px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xlg:grid-cols-5 xxlg:grid-cols-6 gap-2 w-full max-w-[300px] sm:max-w-full">
+    <div className="w-full flex flex-col items-center gap-5 mx-3">
+      <CardListHeader />
+      <div className="flex w-full">
+        <div className="hidden md:grid grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xlg:grid-cols-4 xxlg:grid-cols-5 gap-2 flex-[3_3_0%]">
           {activities &&
             activities.map((card) => (
               <ActivitiesCard
@@ -26,6 +27,9 @@ export default function Activities() {
                 }
               />
             ))}
+        </div>
+        <div className="flex items-center justify-center flex-[2_2_0%] mx-auto">
+          <CardDetails />
         </div>
       </div>
     </div>

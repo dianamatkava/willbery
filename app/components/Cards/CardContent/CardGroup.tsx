@@ -14,19 +14,19 @@ export default function CardGroup({
 }) {
   const [expanded, setExpanded] = useState(true);
   return (
-    <div className="w-full mb-1">
+    <div className="w-full gap-1 mt-1">
       <div className="flex w-full items-center justify-between px-1">
         <div className="flex items-center w-full">
           {children ? (
             <Accordion expanded={expanded} setExpanded={setExpanded}>
-              <div className="font-semibold text-[#777777] text-[8px] cursor-pointer">
+              <div className="font-semibold text-[#777777] text-xxxs cursor-pointer">
                 {name}
               </div>
             </Accordion>
           ) : (
             <div className="flex items-center gap-1 pl-2">
               <Circle color="#5A5A5A" className="cursor-pointer" />
-              <div className="font-semibold text-[#777777] text-[8px] cursor-pointer">
+              <div className="font-semibold text-[#777777] text-xxxs cursor-pointer">
                 {name}
               </div>
             </div>
@@ -38,7 +38,7 @@ export default function CardGroup({
           color="#2D4468FF"
           height="h-2"
           textColor="#777777"
-          className="w-[60px]"
+          className="w-[50px]"
         />
       </div>
       <div>{expanded ? children : null}</div>
