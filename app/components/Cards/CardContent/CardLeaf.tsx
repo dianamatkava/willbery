@@ -1,7 +1,7 @@
 import ProgressBar from "../../ui-elements/ProgressBar";
 import { IoReturnDownForward } from "react-icons/io5";
 
-export default function CardSubCategory({
+export default function CardLeaf({
   name,
   progress,
 }: {

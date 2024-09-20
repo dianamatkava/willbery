@@ -5,7 +5,7 @@ import React from "react";
 import { AiOutlineLink } from "react-icons/ai";
 
 // eslint-disable-next-line react/prop-types
-export default function CardCategory({
+export default function CardNode({
   name,
   progress,
   children = null,

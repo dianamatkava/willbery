@@ -11,7 +11,6 @@ export function CardDetailsNode({
   children: React.ReactNode;
   data: object;
 }) {
-  console.log("cardDetails.nodes", data.nodes);
   return (
     <div className="self-stretch flex flex-col items-start justify-start gap-3 text-sm">
       <div className="w-full flex frex-wrap flex-row items-center justify-between box-border text-sm">

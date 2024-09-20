@@ -1,12 +1,13 @@
 // import CardInfoHeader from "./CardInfoHeader";
 import CardInfoImage from "./CardInfoImage";
 import CardInfoProgress from "./CardInfoProgress";
+import { CardInterface } from "~/interfaces/CardInterfaces";
 
 export default function CardInfo({
-  params,
+  cardData,
   toggleCardDetails,
 }: {
-  params: object;
+  cardData: CardInterface;
   toggleCardDetails: () => void;
 }) {
   //+
@@ -15,12 +16,12 @@ export default function CardInfo({
       {/* <CardInfoHeader /> */}
       <div className="w-full h-[100px]">
         <CardInfoImage
-          id={params.id}
-          imgPath={params.image}
+          cardId={cardData.id}
+          imgPath={cardData.image}
           toggleCardDetails={toggleCardDetails}
         />
       </div>
-      <CardInfoProgress name={params.name} progress={params.progress} />
+      <CardInfoProgress name={cardData.name} progress={cardData.progress} />
     </div>
   );
 }

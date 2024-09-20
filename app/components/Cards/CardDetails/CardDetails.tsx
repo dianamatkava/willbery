@@ -5,32 +5,16 @@ import { CardDetailsGroup } from "./CardDetailsGroup";
 import { CardDetailsNode } from "./CardDetailsNode";
 import { CardDetailsLeaf } from "./CardDetailsLeaf";
 import { IoClose } from "react-icons/io5";
-
-interface CardLeafs {
-  name: string;
-  progress: number;
-  tag: string;
-  status: string;
-}
-
-interface CardNodes {
-  tag: string;
-  leafs: CardLeafs[];
-}
-
-interface CardGroups {
-  tag: string;
-  nodes: CardNodes[];
-}
-
-interface CardDetails {
-  groups: CardGroups[];
-}
+import useStore from "~/stores/useStore";
 
 const CardDetails: FunctionComponent<{
   onClose: () => void;
-  cardDetails: CardDetails;
-}> = ({ onClose, cardDetails }) => {
+  cardId: number;
+}> = ({ onClose, cardId }) => {
+  const cardDetails = useStore((state) =>
+    state.cards.find((card) => card.id === cardId)
+  );
+
   const getAllTags = () => {
     const tags = new Set<string>();
     const tagsList = cardDetails.groups.map((group) =>
