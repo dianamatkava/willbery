@@ -24,6 +24,45 @@
   --responsive-device-width: 768px;
 }
 
+.parent-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(var(--grid-min-width, 220px), 1fr)
+  );
+  max-width: var(--grid-max-width, 275px);
+}
+
+@media (min-width: var(--grid-sm)) {
+  .parent-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+@media (min-width: var(--grid-md)) {
+  .parent-grid {
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
+  }
+}
+
+@media (min-width: var(--grid-lg)) {
+  .parent-grid {
+    grid-template-columns: repeat(4, minmax(220px, 1fr));
+  }
+}
+
+@media (min-width: var(--grid-xlg)) {
+  .parent-grid {
+    grid-template-columns: repeat(5, minmax(220px, 1fr));
+  }
+}
+
+@media (min-width: var(--grid-xxlg)) {
+  .parent-grid {
+    grid-template-columns: repeat(6, minmax(220px, 1fr));
+  }
+}
+
 html {
   box-sizing: border-box;
 }

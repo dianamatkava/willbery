@@ -3,7 +3,7 @@ import CardSubCategory from "./CardSubCategory";
 import CardGroup from "./CardGroup";
 
 export default function CardContent({ params }: { params: object }) {
-  const groups = params.skills;
+  const groups = params.groups;
   return (
     <div className="w-full flex flex-col items-center h-fit pr-[1.5px]">
       {groups &&
@@ -13,19 +13,19 @@ export default function CardContent({ params }: { params: object }) {
             name={group.name}
             progress={group.progress}
           >
-            {group.learningResources &&
-              group.learningResources.map((category) => (
+            {group.nodes &&
+              group.nodes.map((node) => (
                 <CardCategory
-                  key={category.name}
-                  name={category.name}
-                  progress={category.progress}
+                  key={node.name}
+                  name={node.name}
+                  progress={node.progress}
                 >
-                  {category.units &&
-                    category.units.map((subCategory) => (
+                  {node.leafs &&
+                    node.leafs.map((leaf) => (
                       <CardSubCategory
-                        key={subCategory.name}
-                        name={subCategory.name}
-                        progress={subCategory.progress}
+                        key={leaf.name}
+                        name={leaf.name}
+                        progress={leaf.progress}
                       />
                     ))}
                 </CardCategory>

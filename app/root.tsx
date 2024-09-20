@@ -28,9 +28,9 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="w-full">
         <SideBar />
-        <div className="flex-1 p-4 w-full h-fit pb-28">
+        <div className="flex-1 m-4 w-full h-fit pb-28 max-w-[1600px]">
           <Outlet />
         </div>
 

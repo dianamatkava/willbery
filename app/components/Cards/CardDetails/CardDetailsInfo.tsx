@@ -2,20 +2,24 @@ import { LuPlus } from "react-icons/lu";
 import { LuSmilePlus } from "react-icons/lu";
 import { LuTags } from "react-icons/lu";
 
-export function CardDetailsInfo() {
+export function CardDetailsInfo({ cardDetails }: { cardDetails: object }) {
   return (
-    <div className="flex flex-col items-start justify-start gap-6">
-      <div className="max-w-[355px] min-w-[100px] h-full flex flex-row items-center justify-start box-border gap-5">
-        <div className="w-36 h-full rounded-md bg-gainsboro-100 flex flex-row items-center justify-center">
-          <LuPlus size={34} className="cursor-pointer" />
+    <div className="flex flex-col items-start justify-start gap-6 max-w-[455px]">
+      <div className="min-w-[100px] h-full flex flex-row items-center justify-start box-border gap-5">
+        <div className="w-48 h-full rounded-md bg-gainsboro-100 hover:bg-grey-700 flex flex-row items-center justify-center">
+          <LuPlus
+            size={34}
+            className="cursor-pointer text-grey-100 group-hover:text-grey-300"
+            color="#808080"
+          />
         </div>
-        <div className="flex flex-col items-start justify-center gap-1">
+        <div className="flex flex-col items-start justify-center gap-1 w-full">
           <div className="flex items-center gap-1 h-[42px]">
-            <span className="font-thin text-[28px] animate-blink flex items-center">
+            {/* <span className="font-thin text-[28px] animate-blink flex items-center">
               |
-            </span>
-            <h2 className="text-[28px] font-semibold text-gainsboro-300">
-              Untitled
+            </span> */}
+            <h2 className="text-xlg w-full font-semibold text-gainsboro-500 leading-[1]">
+              {cardDetails.name}
             </h2>
           </div>
 
@@ -27,14 +31,22 @@ export function CardDetailsInfo() {
               <LuTags size={18} className="cursor-pointer" />
             </div>
             <div className="rounded-lg h-6 flex flex-row items-center justify-center px-2 box-border gap-1 cursor-pointer bg-black">
-              <div className="leading-[100%] text-white text-xs">DevOps</div>
+              <div className="leading-[100%] text-white text-xs">
+                {cardDetails.tag}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="w-full h-fit text-sm text-darkgray-100">
-        Click here to add description
-      </div>
+      {cardDetails.description ? (
+        <div className="w-full h-fit text-sm cursor-pointer text-grey-800">
+          {cardDetails.description}
+        </div>
+      ) : (
+        <div className="w-full h-fit text-sm text-darkgray-100">
+          Click here to add description
+        </div>
+      )}
     </div>
   );
 }

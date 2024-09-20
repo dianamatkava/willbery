@@ -79,37 +79,40 @@ export async function deleteActivity(id: string) {
 }
 
 // - **Skill Area:** The specific skill or topic being learned.
-// - **Domain:** The broader category or domain of the skill.
+// - **tag:** The broader category or domain of the skill.
 // - **Learning Resources:** Includes various materials and projects for learning.
 // - **Resource Tag:** Tags for specific technologies or tools relevant to each resource
 
 const learningCards = [
   {
     id: 1,
-    skillArea: "Frontend devel...",
+    name: "Frontend development",
     description:
       "Frontend Development is the practice of building user interfaces for web applications.",
-    domain: "Frontend",
-    progress: 50.25,
+    tag: "Frontend",
+    progress: 50,
     image:
       "https://media.licdn.com/dms/image/D4D12AQHtI0C1YdohQA/article-cover_image-shrink_720_1280/0/1694192663813?e=2147483647&v=beta&t=PzCttA7epMxw1abHI7hk3ig4ZozBvCQ0hratnFnkK9M",
-    skills: [
+    groups: [
       {
         id: 1,
         name: "React",
-        learningResources: [
+        progress: 50,
+        nodes: [
           {
             id: 1,
             name: "The Complete Guide 2024 (incl Hooks, React Router, Redux)",
             source: "Udemy",
             technology: "React",
+            tag: "Book",
             progress: 74,
-            units: [
+            leafs: [
               {
                 id: 1,
                 name: "Beginner",
                 progress: 100,
                 status: "Completed",
+                tag: "Book",
                 topics: [
                   {
                     id: 1,
@@ -127,6 +130,7 @@ const learningCards = [
                 name: "Intermediate",
                 progress: 74,
                 status: "Paused",
+                tag: "Book",
                 topics: [
                   {
                     id: 3,
@@ -142,9 +146,9 @@ const learningCards = [
               {
                 id: 3,
                 name: "Advanced",
+                tag: "Book",
                 progress: 0,
                 status: "ToDO",
-                topics: [],
               },
             ],
           },
@@ -152,9 +156,9 @@ const learningCards = [
             id: 2,
             name: "React Road Map",
             source: "Roadmap.sh",
+            tag: "Roadmap",
             technology: "React",
             progress: 16,
-            units: [],
           },
         ],
         practice: [
@@ -167,21 +171,25 @@ const learningCards = [
           {
             name: "Willbery",
             status: "In Progress",
+            progress: 20,
             topics: ["Remix", "React", "Tailwind"],
             timeSpent: 16,
           },
         ],
       },
       {
+        id: 2,
         name: "TypeScript",
-        learningResources: [
+        progress: 50,
+        nodes: [
           {
-            id: 2,
+            id: 1,
             name: "TypeScript Road Map",
             source: "Roadmap.sh",
+            tag: "Roadmap",
             technology: "TypeScript",
             progress: 11,
-            units: [],
+            leafs: [],
           },
         ],
         practice: [],
@@ -189,22 +197,15 @@ const learningCards = [
       {
         id: 3,
         name: "Next.JS",
-        learningResources: [
+        progress: 50,
+        nodes: [
           {
-            id: 3,
+            id: 1,
             name: "The Complete Guide 2024 (incl Hooks, React Router, Redux)",
             source: "Udemy",
             technology: "Next.JS",
+            tag: "Course",
             progress: 0,
-            units: [
-              {
-                id: 1,
-                name: "Course",
-                progress: 0,
-                status: "ToDO",
-                topics: [],
-              },
-            ],
           },
         ],
         practice: [
@@ -218,8 +219,9 @@ const learningCards = [
         ],
       },
       {
+        id: 4,
         name: "Remix",
-        learningResources: [],
+        nodes: [],
         practice: [
           {
             id: 1,
@@ -234,27 +236,30 @@ const learningCards = [
   },
   {
     id: 2,
-    skillArea: "Java Development",
+    name: "Java Development",
     description:
       "Java Development is the practice of building applications using the Java programming language.",
-    domain: "Java",
+    tag: "Java",
     progress: 13.5,
     image:
       "https://japan.zdnet.com/storage/2021/09/15/765dc76ff8f55ce268feeb881011003f/t/584/438/d/java-logo_1280x960.jpg",
-    skills: [
+    groups: [
       {
+        progress: 50,
         id: 1,
         name: "Java",
-        learningResources: [
+        nodes: [
           {
             id: 1,
             name: "Java Spring Boot",
             source: "JetBrains Academy",
+            tag: "Course",
             progress: 74,
-            units: [
+            leafs: [
               {
                 name: "Java Syntax",
                 progress: 17,
+                tag: "Course",
                 status: "In Progress",
                 topics: [
                   {
@@ -269,6 +274,7 @@ const learningCards = [
               },
               {
                 name: "Spring Boot",
+                tag: "Course",
                 progress: 0,
                 status: "ToDo",
                 topics: [],
@@ -276,44 +282,12 @@ const learningCards = [
             ],
           },
           {
+            progress: 50,
             name: "Java Development",
             source: "MOOC.fi",
+            tag: "Course",
             technology: "Java",
-            progress: 10,
-            units: [],
-          },
-        ],
-        practice: [],
-      },
-    ],
-  },
-  {
-    skillArea: "Could Developer",
-    description:
-      "Cloud Development is the practice of building applications using the cloud.",
-    domain: "DevOps",
-    progress: 89,
-    image:
-      "https://old.roi4cio.com/fileadmin/user_upload/Amazon_WorkSpaces.png",
-    skills: [
-      {
-        id: 1,
-        name: "AWS",
-        learningResources: [
-          {
-            id: 1,
-            name: "Could Practitioner",
-            source: "AWS Skill Builder",
-            progress: 100,
-            certificate: false,
-            units: [],
-          },
-          {
-            id: 2,
-            name: "SAA-C03",
-            source: "Udemy | Maarek",
-            progress: 79,
-            units: [],
+            leafs: [],
           },
         ],
         practice: [],
@@ -322,28 +296,67 @@ const learningCards = [
   },
   {
     id: 3,
-    skillArea: "CI/CD",
+    name: "Could Developer",
+    description:
+      "Cloud Development is the practice of building applications using the cloud.",
+    tag: "DevOps",
+    progress: 89,
+    image:
+      "https://old.roi4cio.com/fileadmin/user_upload/Amazon_WorkSpaces.png",
+    groups: [
+      {
+        progress: 50,
+        id: 1,
+        name: "AWS",
+        nodes: [
+          {
+            id: 1,
+            name: "Could Practitioner",
+            source: "AWS Skill Builder",
+            tag: "Course",
+            progress: 100,
+            certificate: false,
+            leafs: [],
+          },
+          {
+            id: 2,
+            name: "SAA-C03",
+            source: "Udemy | Maarek",
+            tag: "Course",
+            progress: 79,
+            leafs: [],
+          },
+        ],
+        practice: [],
+      },
+    ],
+  },
+  {
+    id: 4,
+    name: "CI/CD",
     description:
       "CI/CD is the practice of building applications using the cloud.",
-    domain: "DevOps",
+    tag: "DevOps",
     progress: 34.5,
     image: "https://mlops-guide.github.io/MLOps/CICDML/ci-cd.png",
-    skills: [
+    groups: [
       {
         id: 1,
         name: "GitLabCI",
-        learningResources: [
+        nodes: [
           {
             id: 1,
             name: "GitLab Official Documentation",
             source: "GitLab Official Documentation",
+            tag: "Doc",
             progress: 13,
             certificate: false,
-            units: [
+            leafs: [
               {
                 id: 1,
                 name: "GitLab YAML syntax",
                 progress: 100,
+                tag: "Doc",
                 status: "Completed",
                 topics: [
                   {
@@ -368,6 +381,7 @@ const learningCards = [
               {
                 id: 2,
                 name: "GitLab Documentation",
+                tag: "Doc",
                 progress: 13,
                 status: "In Progress",
                 topics: [],
@@ -388,33 +402,35 @@ const learningCards = [
     ],
   },
   {
-    id: 4,
-    skillArea: "AI",
+    id: 5,
+    name: "AI",
     description: "AI is the practice of building applications using the cloud.",
-    domain: "AI",
+    tag: "AI",
     progress: 34.5,
     image:
       "https://static.vecteezy.com/system/resources/thumbnails/042/386/484/small/artificial-intelligence-banner-web-icon-illustration-concept-vector.jpg",
-    skills: [
+    groups: [
       {
         id: 1,
         name: "AI Algorithms",
-        learningResources: [
+        nodes: [
           {
             id: 1,
             name: "CS50AI",
+            tag: "Course",
             source: "GitLab Official Documentation",
             progress: 57,
             certificate: false,
-            units: [],
+            leafs: [],
           },
           {
             id: 2,
             name: "Regression and Classification",
             source: "CodeSygnal",
+            tag: "Course",
             progress: 100,
             certificate: false,
-            units: [],
+            leafs: [],
           },
         ],
         practice: [
@@ -458,40 +474,43 @@ const learningCards = [
     ],
   },
   {
-    id: 5,
-    skillArea: "DS&ML",
+    id: 6,
+    name: "DS&ML",
     description: "AI is the practice of building applications using the cloud.",
-    domain: "AI",
+    tag: "AI",
     progress: 34.5,
     image: "https://assets.eweek.com/uploads/2021/01/Data.science.png",
-    skills: [
+    groups: [
       {
         id: 1,
         name: "Machine Learning",
-        learningResources: [
+        nodes: [
           {
             id: 1,
+            tag: "Course",
             name: "Kaggle | Intro to Machine Learning",
             source: "Kaggle",
             progress: 100,
             certificate: false,
-            units: [],
+            leafs: [],
           },
           {
             id: 2,
+            tag: "Course",
             name: "Kaggle | Data Visualization",
             source: "Kaggle",
             progress: 100,
             certificate: false,
-            units: [],
+            leafs: [],
           },
           {
             id: 3,
+            tag: "Course",
             name: "Kaggle | Statistic and Probability",
             source: "Khan Academy",
             progress: 23,
             certificate: false,
-            units: [],
+            leafs: [],
           },
         ],
         practice: [
@@ -535,42 +554,44 @@ const learningCards = [
     ],
   },
   {
-    id: 6,
-    skillArea: "Math for ML",
+    id: 7,
+    name: "Math for ML",
     description: " Math for ML",
-    domain: "AI",
+    tag: "AI",
     progress: 34.5,
     image:
       "https://i.ytimg.com/vi/YCOaV7Ol0MQ/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBVR7UKvTlvzVliW0Bn-aTwdSXBnA",
-    skills: [
+    groups: [
       {
         id: 1,
         name: "Linear Algebra",
-        learningResources: [
+        nodes: [
           {
             id: 1,
             name: "Linear Algebra",
             source: "Khan",
             progress: 95,
             certificate: false,
-            units: [
+            tag: "Course",
+            leafs: [
               {
                 name: "Unit 1",
                 progress: 94,
                 status: "In Progress",
                 topics: [],
+                tag: "Course",
               },
               {
                 name: "Unit 3",
                 progress: 0,
                 status: "ToDo",
-                topics: [],
+                tag: "Course",
               },
               {
                 name: "Unit 4",
                 progress: 0,
                 status: "ToDo",
-                topics: [],
+                tag: "Course",
               },
             ],
           },
@@ -580,7 +601,8 @@ const learningCards = [
             source: "MIT",
             progress: 27,
             certificate: false,
-            units: [],
+            leafs: [],
+            tag: "Course",
           },
           {
             id: 3,
@@ -588,50 +610,8 @@ const learningCards = [
             source: "Private Lessons",
             progress: 0,
             certificate: false,
-            units: [],
-          },
-        ],
-        practice: [],
-      },
-    ],
-  },
-  {
-    id: 7,
-    skillArea: "Orchestartion",
-    description:
-      "Docker is the practice of building applications using the cloud.",
-    domain: "DevOps",
-    progress: 34.5,
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaZfE89zqZ2kSsp__u7cPfCKEdUZyZfEGqWQ&s",
-    skills: [
-      {
-        id: 1,
-        name: "Docker",
-        learningResources: [
-          {
-            id: 1,
-            name: "Docker Roadmap",
-            source: "Roadmap.sh",
-            progress: 80,
-            certificate: false,
-            units: [],
-          },
-          {
-            id: 2,
-            name: "Docker Syntax Refference",
-            source: "Docker Documentation",
-            progress: 0,
-            certificate: false,
-            units: [],
-          },
-          {
-            id: 3,
-            name: "Docker Deep Dive",
-            source: "Book",
-            progress: 60,
-            certificate: false,
-            units: [],
+            leafs: [],
+            tag: "Private Lessons",
           },
         ],
         practice: [],
@@ -640,56 +620,45 @@ const learningCards = [
   },
   {
     id: 8,
-    skillArea: "Python",
+    name: "Orchestartion",
     description:
-      "Python is the practice of building applications using the cloud.",
-    domain: "Python",
-    progress: 50,
+      "Docker is the practice of building applications using the cloud.",
+    tag: "DevOps",
+    progress: 34.5,
     image:
-      "https://media.dev.to/cdn-cgi/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2Ftteuu4xw5tomxb7l0xjx.png",
-    skills: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaZfE89zqZ2kSsp__u7cPfCKEdUZyZfEGqWQ&s",
+    groups: [
       {
         id: 1,
-        name: "FastAPI",
-        learningResources: [
+        name: "Docker",
+        tag: "Course",
+        nodes: [
           {
             id: 1,
-            name: "FastAPI Documentation",
-            source: "FastAPI Documentation",
-            progress: 0,
+            name: "Docker Roadmap",
+            source: "Roadmap.sh",
+            progress: 80,
             certificate: false,
-            units: [],
-          },
-        ],
-        practice: [],
-      },
-      {
-        id: 2,
-        name: "FastAPI",
-        learningResources: [
-          {
-            id: 1,
-            name: "Advanced Python",
-            source: "Book",
-            progress: 70,
-            certificate: false,
-            units: [],
+            leafs: [],
+            tag: "Roadmap.sh",
           },
           {
             id: 2,
-            name: "Cosmic Python",
-            source: "Book",
-            progress: 100,
+            name: "Docker Syntax Refference",
+            source: "Docker Documentation",
+            progress: 0,
             certificate: false,
-            units: [],
+            leafs: [],
+            tag: "Documentation",
           },
           {
             id: 3,
-            name: "Mark Lutz",
+            name: "Docker Deep Dive",
             source: "Book",
-            progress: 100,
+            progress: 60,
             certificate: false,
-            units: [],
+            leafs: [],
+            tag: "Book",
           },
         ],
         practice: [],
@@ -698,47 +667,62 @@ const learningCards = [
   },
   {
     id: 9,
-    skillArea: "C#",
-    description: "C# is the practice of building applications using the cloud.",
-    domain: "C#",
+    name: "Python",
+    description:
+      "Python is the practice of building applications using the cloud.",
+    tag: "Python",
     progress: 50,
     image:
-      "https://res.cloudinary.com/practicaldev/image/fetch/s--2XdEnCAM--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://raw.githubusercontent.com/sandeepkumar17/td-dev.to/di-collection-posts/assets/blog-cover/c-sharp.png",
-    skills: [
+      "https://media.dev.to/cdn-cgi/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2Ftteuu4xw5tomxb7l0xjx.png",
+    groups: [
       {
         id: 1,
-        name: "C# Syntax",
-        learningResources: [
+        name: "FastAPI",
+        tag: "Course",
+        nodes: [
           {
             id: 1,
-            name: "Microsoft Learn C# Syntax",
-            source: "Microsoft Learn",
+            name: "FastAPI Documentation",
+            source: "FastAPI Documentation",
             progress: 0,
-            certificate: true,
-            units: [],
-          },
-          {
-            id: 2,
-            name: "Stepik C# Syntax",
-            source: "Stepik",
-            progress: 0,
-            certificate: true,
-            units: [],
+            certificate: false,
+            leafs: [],
+            tag: "Documentation",
           },
         ],
         practice: [],
       },
       {
         id: 2,
-        name: "Unity",
-        learningResources: [
+        name: "Python",
+        tag: "Course",
+        nodes: [
           {
             id: 1,
-            name: "Unity 3D",
-            source: "Unity Course",
-            progress: 5,
+            name: "Advanced Python",
+            source: "Book",
+            progress: 70,
             certificate: false,
-            units: [],
+            leafs: [],
+            tag: "Book",
+          },
+          {
+            id: 2,
+            name: "Cosmic Python",
+            source: "Book",
+            progress: 100,
+            certificate: false,
+            leafs: [],
+            tag: "Book",
+          },
+          {
+            id: 3,
+            name: "Mark Lutz",
+            source: "Book",
+            progress: 100,
+            certificate: false,
+            leafs: [],
+            tag: "Book",
           },
         ],
         practice: [],
@@ -747,41 +731,100 @@ const learningCards = [
   },
   {
     id: 10,
-    skillArea: "OS",
+    name: "C#",
+    description: "C# is the practice of building applications using the cloud.",
+    tag: "C#",
+    progress: 50,
+    image:
+      "https://res.cloudinary.com/practicaldev/image/fetch/s--2XdEnCAM--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://raw.githubusercontent.com/sandeepkumar17/td-dev.to/di-collection-posts/assets/blog-cover/c-sharp.png",
+    groups: [
+      {
+        id: 1,
+        name: "C# Syntax",
+        tag: "Course",
+        nodes: [
+          {
+            id: 1,
+            name: "Microsoft Learn C# Syntax",
+            source: "Microsoft Learn",
+            progress: 0,
+            certificate: true,
+            leafs: [],
+            tag: "Course",
+          },
+          {
+            id: 2,
+            name: "Stepik C# Syntax",
+            source: "Stepik",
+            progress: 0,
+            certificate: true,
+            leafs: [],
+            tag: "Course",
+          },
+        ],
+        practice: [],
+      },
+      {
+        id: 2,
+        name: "Unity",
+        tag: "Course",
+        nodes: [
+          {
+            id: 1,
+            name: "Unity 3D",
+            source: "Unity Course",
+            progress: 5,
+            certificate: false,
+            leafs: [],
+            tag: "Course",
+          },
+        ],
+        practice: [],
+      },
+    ],
+  },
+  {
+    id: 11,
+    name: "OS",
     description: "OS is the practice of building applications using the cloud.",
-    domain: "DevOps",
+    tag: "DevOps",
     progress: 50,
     image:
       "https://lh6.googleusercontent.com/rRMlIyP-oBvqUb3VYRg1-rem09tAueDTOdi7ZfB38ecuaSuMh27DEAdFyPQbei9wi8PLqzvP8T5HCvP5ilxLkqjxigErSgeoKa3G0Thq0VJyPwx-8ef3d7_RnyashRphy4hKWVXDHnvEvE0AIMnUOfY",
-    skills: [
+    groups: [
       {
         id: 1,
         name: "Linux",
-        learningResources: [
+        tag: "Course",
+        nodes: [
           {
             id: 1,
             name: "Linux Journey",
             source: "Linux Journey",
             progress: 50,
             certificate: false,
-            units: [
+            tag: "Course",
+            leafs: [
               {
                 name: "Unit 1",
                 progress: 100,
                 status: "In Progress",
                 topics: [],
+                tag: "Course",
               },
               {
                 name: "Unit 2",
                 progress: 100,
                 status: "In Progress",
                 topics: [],
+                tag: "Course",
               },
               {
                 name: "Unit 3",
                 progress: 0,
                 status: "In Progress",
                 topics: [],
+                tag: "Course",
               },
             ],
           },
@@ -791,7 +834,8 @@ const learningCards = [
             source: "woirzd",
             progress: 0,
             certificate: false,
-            units: [],
+            leafs: [],
+            tag: "Practice",
           },
         ],
         practice: [],

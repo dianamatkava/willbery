@@ -15,11 +15,15 @@ export default {
       },
       borderRadius: {},
       screens: {
-        xlg: "1300px",
-        xxlg: "1600px",
-        "grid-sm": "800px",
-        "grid-md": "930px",
-        "grid-lg": "1150px",
+        xs: "600px", // For smaller devices
+        sm: "768px", // Standard small breakpoint
+        md: "900px", // Adjusted for mid-size devices
+        lg: "1150px", // For larger screens
+        xlg: "1300px", // Extra-large screens
+        xxlg: "1600px", // For very wide screens
+        "grid-sm": "768px", // Matches the `sm` breakpoint
+        "grid-md": "930px", // Ensures consistency with `md`
+        "grid-lg": "1150px", // Matches the `lg` breakpoint
       },
       colors: {
         white: "#fff",
@@ -57,6 +61,8 @@ export default {
       },
     },
     fontSize: {
+      lg: "1.125rem",
+      xlg: "1.25rem",
       sm: "0.875rem",
       xsm: "0.8rem",
       xs: "0.75rem",
