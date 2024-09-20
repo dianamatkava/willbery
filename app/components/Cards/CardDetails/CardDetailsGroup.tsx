@@ -10,7 +10,6 @@ export function CardDetailsGroup({
   children: React.ReactNode;
   data: object;
 }) {
-  console.log("data", data);
   return (
     <div className="flex w-full flex-col items-start justify-start">
       <div className="w-full flex flex-col items-start justify-start gap-2">

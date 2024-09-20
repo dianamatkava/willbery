@@ -1,21 +1,54 @@
 import { LuPlus } from "react-icons/lu";
 import { LuSmilePlus } from "react-icons/lu";
 import { LuTags } from "react-icons/lu";
-import { useState } from "react";
-
+import { useState, useEffect, useRef } from "react";
+import useStore from "../../../stores/useStore";
 import ContentEditable from "react-contenteditable";
 
-export function CardDetailsInfo({ cardDetails }: { cardDetails: object }) {
+export function CardDetailsInfo({ cardDetails }) {
+  const updateCardName = useStore((state) => state.updateCardName);
+
   const [fields, setFields] = useState({
-    name: cardDetails.name,
-    description: cardDetails.description,
+    name: cardDetails.name || "",
+    description: cardDetails.description || "",
   });
 
-  const handleChange = (evt, field) => {
+  const currentFieldValue = useRef(""); // Ref to keep track of the current field value
+
+  useEffect(() => {
     setFields({
-      ...fields,
-      [field]: evt.target.value,
+      name: cardDetails.name || "",
+      description: cardDetails.description || "",
     });
+  }, [cardDetails]);
+
+  // Handle change for ContentEditable
+  const handleChange = (e, field) => {
+    const value = e.target.value; // Extract innerText from ContentEditable
+    currentFieldValue.current = value; // Update ref
+    setFields((prevFields) => ({
+      ...prevFields,
+      [field]: value,
+    }));
+  };
+
+  // Handle Enter key to unfocus
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      e.target.blur();
+    }
+  };
+
+  // Handle blur event to save changes
+  const handleBlur = (field) => {
+    if (currentFieldValue.current !== cardDetails[field]) {
+      updateCardName(cardDetails.id, currentFieldValue.current);
+      console.log(
+        `Field ${field} saved with value:`,
+        currentFieldValue.current
+      );
+    }
   };
 
   return (
@@ -31,13 +64,12 @@ export function CardDetailsInfo({ cardDetails }: { cardDetails: object }) {
 
         <div className="flex flex-col items-start justify-center gap-1 w-full">
           <div className="flex items-center gap-1 h-[42px]">
-            <h2
-              id="card-name"
-              className="text-xlg w-full font-semibold text-gainsboro-500 leading-[1]"
-            >
+            <h2 className="text-xlg w-full min-w-[200px] font-semibold text-gainsboro-500 leading-[1]">
               <ContentEditable
-                html={fields.name}
-                onChange={(evt) => handleChange(evt, "name")}
+                html={fields.name || ""}
+                onChange={(e) => handleChange(e, "name")}
+                onKeyDown={handleKeyDown}
+                onBlur={() => handleBlur("name")}
                 className="editable-content"
               />
             </h2>

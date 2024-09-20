@@ -65,7 +65,6 @@
 
 .editable-content {
   border: none; /* Default border */
-  padding: 10px;
   border-radius: 4px;
   outline: none;
   transition: border-color 0.3s ease;

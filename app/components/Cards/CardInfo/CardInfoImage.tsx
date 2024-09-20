@@ -1,21 +1,21 @@
 export default function CardInfoImage({
-  id,
+  cardId,
   imgPath,
   toggleCardDetails,
 }: {
-  id: string;
+  cardId: number;
   imgPath: string;
-  toggleCardDetails: (id: string) => void;
+  toggleCardDetails: (id: number) => void;
 }) {
   return (
     <div
       role="button"
       className="flex items-center justify-center w-full h-full"
       tabIndex={0}
-      onClick={() => toggleCardDetails(id)}
+      onClick={() => toggleCardDetails(cardId)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
-          toggleCardDetails(id);
+          toggleCardDetails(cardId);
           e.preventDefault();
         }
       }}
