@@ -1,25 +1,45 @@
 import { LuPlus } from "react-icons/lu";
 import { LuSmilePlus } from "react-icons/lu";
 import { LuTags } from "react-icons/lu";
+import { useState } from "react";
+
+import ContentEditable from "react-contenteditable";
 
 export function CardDetailsInfo({ cardDetails }: { cardDetails: object }) {
+  const [fields, setFields] = useState({
+    name: cardDetails.name,
+    description: cardDetails.description,
+  });
+
+  const handleChange = (evt, field) => {
+    setFields({
+      ...fields,
+      [field]: evt.target.value,
+    });
+  };
+
   return (
     <div className="flex flex-col items-start justify-start gap-6 max-w-[455px]">
-      <div className="min-w-[100px] h-full flex flex-row items-center justify-start box-border gap-5">
-        <div className="w-48 h-full rounded-md bg-gainsboro-100 hover:bg-grey-700 flex flex-row items-center justify-center">
+      <div className="h-full flex flex-row items-center justify-start box-border gap-5">
+        <div className="w-[200px] h-full rounded-md bg-gainsboro-100 hover:bg-grey-700 flex flex-row items-center justify-center">
           <LuPlus
             size={34}
             className="cursor-pointer text-grey-100 group-hover:text-grey-300"
             color="#808080"
           />
         </div>
+
         <div className="flex flex-col items-start justify-center gap-1 w-full">
           <div className="flex items-center gap-1 h-[42px]">
-            {/* <span className="font-thin text-[28px] animate-blink flex items-center">
-              |
-            </span> */}
-            <h2 className="text-xlg w-full font-semibold text-gainsboro-500 leading-[1]">
-              {cardDetails.name}
+            <h2
+              id="card-name"
+              className="text-xlg w-full font-semibold text-gainsboro-500 leading-[1]"
+            >
+              <ContentEditable
+                html={fields.name}
+                onChange={(evt) => handleChange(evt, "name")}
+                className="editable-content"
+              />
             </h2>
           </div>
 

@@ -12,11 +12,16 @@ export const loader = async () => {
 };
 
 export default function Activities() {
-  const { activities } = useLoaderData<typeof loader>();
+  const { activities: activitiesData } = useLoaderData<typeof loader>();
+  const [activities, setActivities] = useState(activitiesData);
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
 
+  const handleUpdateActivities = (updatedActivities: CardDetails[]) => {
+    setActivities(updatedActivities);
+  };
+
   const toggleCardDetails = (id: number) => {
-    if (selectedCardId === id) {
+    if (id === selectedCardId) {
       setSelectedCardId(null);
     } else {
       setSelectedCardId(id);
@@ -33,7 +38,7 @@ export default function Activities() {
         <div
           className={`gap-2 grid grid-cols-1 xlg:grid-cols-5 xxlg:grid-cols-6 ${
             selectedCardId
-              ? "xs:grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xlg:grid-cols-4 xxlg:grid-cols-5 hidden md:grid flex-[3_3_0%]"
+              ? "xs:grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xlg:grid-cols-4 xxlg:grid-cols-5 hidden md:grid flex-[2_3_0%]"
               : "xs:grid-cols-2 grid-sm:grid-cols-3 grid-md:grid-cols-4 grid-lg:grid-cols-4"
           }`}
         >
