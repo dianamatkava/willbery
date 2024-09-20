@@ -36,12 +36,23 @@ const CardDetails: FunctionComponent<{
       <CardDetailsInfo cardDetails={cardDetails} />
       <CardDetailsTabs cardTabs={() => getAllTags()} />
       {cardDetails.groups.map((group) => (
-        <CardDetailsGroup key={group.id} data={group}>
+        <CardDetailsGroup key={group.id} group={group} cardId={cardId}>
           {group.nodes.map((node) => (
-            <CardDetailsNode key={node.id} data={node}>
+            <CardDetailsNode
+              key={node.id}
+              node={node}
+              cardId={cardId}
+              groupId={group.id}
+            >
               {node.leafs &&
                 node.leafs.map((leaf) => (
-                  <CardDetailsLeaf key={leaf.name} data={leaf} />
+                  <CardDetailsLeaf
+                    key={leaf.name}
+                    leaf={leaf}
+                    nodeId={node.id}
+                    groupId={group.id}
+                    cardId={cardId}
+                  />
                 ))}
             </CardDetailsNode>
           ))}

@@ -19,7 +19,7 @@ export default function CardLeaf({
       </div>
       <div className="flex items-center justify-between">
         <ProgressBar
-          progress={progress}
+          progress={progress?.progressPercent}
           color="bg-green-500"
           height="h-2"
           className="w-[50px]"

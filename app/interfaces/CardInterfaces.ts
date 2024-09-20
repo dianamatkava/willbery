@@ -1,4 +1,4 @@
-export interface CardLeafsInterface {
+export interface CardLeafInterface {
   id: number;
   name: string;
   tag: string;
@@ -8,7 +8,7 @@ export interface CardNodesInterface {
   id: number;
   name: string;
   tag: string;
-  leafs: CardLeafsInterface[];
+  leafs: CardLeafInterface[];
 }
 
 export interface CardGroupsInterface {
