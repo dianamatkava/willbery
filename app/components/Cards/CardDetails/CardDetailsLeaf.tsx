@@ -8,7 +8,7 @@ export function CardDetailsLeaf() {
     <div className="w-full w-fit flex flex-row items-center justify-between py-0 pl-2 pr-0 box-border gap-2">
       <div className="w-full w-fit flex flex-row items-center justify-start gap-1">
         <IoReturnDownForward size={18} />
-        <div className="w-fit font-medium flex items-center shrink-0 text-xs">
+        <div className="w-fit font-medium flex items-center text-xs">
           Practice
         </div>
       </div>
@@ -32,10 +32,10 @@ export function CardDetailsLeaf() {
             </div>
           </div>
           <div className="shadow-[1px_1px_1px_rgba(0,_0,_0,_0.15)] text-xxxs font-medium rounded-md bg-gainsboro-100 flex flex-row items-center px-1 py-0.5 justify-center px-1 py-0.5 w-[50px] cursor-pointer">
-            2122/1222
+            212/1222
           </div>
           <div className="shadow-[1px_1px_1px_rgba(0,_0,_0,_0.15)] text-xxxs font-medium rounded-md bg-gainsboro-100 flex flex-row items-center justify-center px-1 py-0.5 w-[30px] cursor-pointer">
-            4/w
+            4h/w
           </div>
         </div>
         <div className="flex items-center justify-center gap-0">
