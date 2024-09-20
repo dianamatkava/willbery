@@ -7,6 +7,9 @@ import ContentEditable from "react-contenteditable";
 
 export function CardDetailsInfo({ cardDetails }) {
   const updateCardName = useStore((state) => state.updateCardName);
+  const updateCardDescription = useStore(
+    (state) => state.updateCardDescription
+  );
 
   const [fields, setFields] = useState({
     name: cardDetails.name || "",
@@ -42,12 +45,18 @@ export function CardDetailsInfo({ cardDetails }) {
 
   // Handle blur event to save changes
   const handleBlur = (field) => {
-    if (currentFieldValue.current !== cardDetails[field]) {
-      updateCardName(cardDetails.id, currentFieldValue.current);
-      console.log(
-        `Field ${field} saved with value:`,
-        currentFieldValue.current
-      );
+    if (
+      currentFieldValue.current &&
+      currentFieldValue.current !== cardDetails[field]
+    ) {
+      switch (field) {
+        case "name":
+          updateCardName(cardDetails.id, currentFieldValue.current);
+          break;
+        case "description":
+          updateCardDescription(cardDetails.id, currentFieldValue.current);
+          break;
+      }
     }
   };
 
@@ -90,15 +99,14 @@ export function CardDetailsInfo({ cardDetails }) {
           </div>
         </div>
       </div>
-      {cardDetails.description ? (
-        <div className="w-full h-fit text-sm cursor-pointer text-grey-800">
-          {cardDetails.description}
-        </div>
-      ) : (
-        <div className="w-full h-fit text-sm text-darkgray-100">
-          Click here to add description
-        </div>
-      )}
+      <div className="w-full h-fit text-sm cursor-pointer text-grey-800">
+        <ContentEditable
+          html={fields.description || ""}
+          onChange={(e) => handleChange(e, "description")}
+          onBlur={() => handleBlur("description")}
+          className="editable-content editable-text-area"
+        />
+      </div>
     </div>
   );
 }

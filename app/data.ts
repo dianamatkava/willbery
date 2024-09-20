@@ -110,9 +110,14 @@ const learningCards = [
               {
                 id: 1,
                 name: "Beginner",
-                progress: 100,
                 status: "Completed",
                 tag: "Book",
+
+                progress: {
+                  progressPercent: 100,
+                  progressSpent: 74,
+                  progressTotal: 183,
+                },
                 topics: [
                   {
                     id: 1,
@@ -128,7 +133,11 @@ const learningCards = [
               {
                 id: 2,
                 name: "Intermediate",
-                progress: 74,
+                progress: {
+                  progressPercent: 100,
+                  progressSpent: 74,
+                  progressTotal: 183,
+                },
                 status: "Paused",
                 tag: "Book",
                 topics: [
@@ -147,7 +156,11 @@ const learningCards = [
                 id: 3,
                 name: "Advanced",
                 tag: "Book",
-                progress: 0,
+                progress: {
+                  progressPercent: 100,
+                  progressSpent: 74,
+                  progressTotal: 183,
+                },
                 status: "ToDO",
               },
             ],
@@ -258,7 +271,11 @@ const learningCards = [
             leafs: [
               {
                 name: "Java Syntax",
-                progress: 17,
+                progress: {
+                  progressPercent: 100,
+                  progressSpent: 74,
+                  progressTotal: 183,
+                },
                 tag: "Course",
                 status: "In Progress",
                 topics: [
@@ -275,7 +292,11 @@ const learningCards = [
               {
                 name: "Spring Boot",
                 tag: "Course",
-                progress: 0,
+                progress: {
+                  progressPercent: 100,
+                  progressSpent: 74,
+                  progressTotal: 183,
+                },
                 status: "ToDo",
                 topics: [],
               },
@@ -355,7 +376,11 @@ const learningCards = [
               {
                 id: 1,
                 name: "GitLab YAML syntax",
-                progress: 100,
+                progress: {
+                  progressPercent: 100,
+                  progressSpent: 74,
+                  progressTotal: 183,
+                },
                 tag: "Doc",
                 status: "Completed",
                 topics: [
@@ -576,20 +601,32 @@ const learningCards = [
             leafs: [
               {
                 name: "Unit 1",
-                progress: 94,
+                progress: {
+                  progressPercent: 100,
+                  progressSpent: 74,
+                  progressTotal: 183,
+                },
                 status: "In Progress",
                 topics: [],
                 tag: "Course",
               },
               {
                 name: "Unit 3",
-                progress: 0,
+                progress: {
+                  progressPercent: 100,
+                  progressSpent: 74,
+                  progressTotal: 183,
+                },
                 status: "ToDo",
                 tag: "Course",
               },
               {
                 name: "Unit 4",
-                progress: 0,
+                progress: {
+                  progressPercent: 100,
+                  progressSpent: 74,
+                  progressTotal: 183,
+                },
                 status: "ToDo",
                 tag: "Course",
               },
@@ -807,21 +844,33 @@ const learningCards = [
             leafs: [
               {
                 name: "Unit 1",
-                progress: 100,
+                progress: {
+                  progressPercent: 100,
+                  progressSpent: 74,
+                  progressTotal: 183,
+                },
                 status: "In Progress",
                 topics: [],
                 tag: "Course",
               },
               {
                 name: "Unit 2",
-                progress: 100,
+                progress: {
+                  progressPercent: 100,
+                  progressSpent: 74,
+                  progressTotal: 183,
+                },
                 status: "In Progress",
                 topics: [],
                 tag: "Course",
               },
               {
                 name: "Unit 3",
-                progress: 0,
+                progress: {
+                  progressPercent: 100,
+                  progressSpent: 74,
+                  progressTotal: 183,
+                },
                 status: "In Progress",
                 topics: [],
                 tag: "Course",

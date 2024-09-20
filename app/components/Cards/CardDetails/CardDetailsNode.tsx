@@ -3,14 +3,52 @@ import { IoAdd } from "react-icons/io5";
 import { IoMdMore } from "react-icons/io";
 // import { FaLink } from "react-icons/fa6";
 import ProgressBar from "../../ui-elements/ProgressBar";
+import { useState, useEffect, useRef } from "react";
+import useStore from "../../../stores/useStore";
+import ContentEditable from "react-contenteditable";
+import { CardNodeInterface } from "~/interfaces/CardInterfaces";
 
 export function CardDetailsNode({
   children,
-  data,
+  node,
+  cardId,
+  groupId,
 }: {
   children: React.ReactNode;
-  data: object;
+  node: CardNodeInterface;
+  cardId: number;
+  groupId: number;
 }) {
+  const [nodeName, setGroupName] = useState(node.name);
+  const updateNodeName = useStore((state) => state.updateNodeName);
+
+  const currentFieldValue = useRef(""); // Ref to keep track of the current field value
+
+  useEffect(() => {
+    setGroupName(node.name);
+  }, [node]);
+
+  // Handle change for ContentEditable
+  const handleChange = (e) => {
+    const value = e.target.value; // Extract innerText from ContentEditable
+    currentFieldValue.current = value; // Update ref
+    setGroupName(value);
+  };
+
+  // Handle Enter key to unfocus
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      e.target.blur();
+    }
+  };
+
+  // Handle blur event to save changes
+  const handleBlur = () => {
+    if (currentFieldValue.current && currentFieldValue.current !== nodeName) {
+      updateNodeName(cardId, groupId, node.id, currentFieldValue.current);
+    }
+  };
   return (
     <div className="self-stretch flex flex-col items-start justify-start gap-3 text-sm">
       <div className="w-full flex frex-wrap flex-row items-center justify-between box-border text-sm">
@@ -21,7 +59,13 @@ export function CardDetailsNode({
             src="aws-logo.svg"
           />
           <div className="w-fit font-medium flex items-center text-xsm leading-tight">
-            {data.name}
+            <ContentEditable
+              html={nodeName || ""}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              onBlur={handleBlur}
+              className="editable-content editable-lined"
+            />
           </div>
         </div>
         <div className="w-full flex flex-row items-start justify-end gap-1 text-xxs">
@@ -31,13 +75,13 @@ export function CardDetailsNode({
             </div> */}
             <div className="rounded-md text-gainsboro-400 border-gainsboro-400 border-[0.8px] border-solid box-border flex flex-row items-center justify-center py-1 px-1">
               <div className="leading-[100%] font-medium text-xxs cursor-pointer">
-                {data.tag}
+                {node.tag}
               </div>
             </div>
             <div className="w-fell flex flex-row items-center justify-end text-right text-xs  gap-1">
               <div className="w-full flex-1 flex flex-row items-center justify-center">
                 <ProgressBar
-                  progress={data.progress}
+                  progress={node.progress}
                   height={"h-2"}
                   className={"w-[50px] font-semibold text-xxs"}
                 />
