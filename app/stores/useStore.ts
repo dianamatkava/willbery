@@ -104,7 +104,11 @@ const useStore = create<CardStore>((set) => ({
     set((state) =>
       produce(state, (draft) => {
         const card = draft.cards.find((c) => c.id === cardId);
-        card.groups.push(newGroup);
+        if (card.groups) {
+          card.groups.push(newGroup);
+        } else {
+          card.groups = [newGroup];
+        }
       })
     );
   },
@@ -113,7 +117,11 @@ const useStore = create<CardStore>((set) => ({
       produce(state, (draft) => {
         const card = draft.cards.find((c) => c.id === cardId);
         const group = card.groups.find((g) => g.id === groupId);
-        group.nodes.push(newNode);
+        if (group.nodes) {
+          group.nodes.push(newNode);
+        } else {
+          group.nodes = [newNode];
+        }
       })
     );
   },
@@ -123,7 +131,11 @@ const useStore = create<CardStore>((set) => ({
         const card = draft.cards.find((c) => c.id === cardId);
         const group = card.groups.find((g) => g.id === groupId);
         const node = group.nodes.find((n) => n.id === nodeId);
-        node.leafs.push(newLeaf);
+        if (node.leafs) {
+          node.leafs.push(newLeaf);
+        } else {
+          node.leafs = [newLeaf];
+        }
       })
     );
   },
