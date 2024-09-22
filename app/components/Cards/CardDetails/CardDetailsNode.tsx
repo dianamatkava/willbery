@@ -3,7 +3,9 @@ import useStore from "../../../stores/useStore";
 import ContentEditable from "react-contenteditable";
 import { CardNodeInterface } from "~/interfaces/CardInterfaces";
 import AddItemComponent from "../../ui-elements/AddItemComponent";
-import CardDetailsLeafProgress from "./CardDetailsLeafProgress";
+import CardDetailsLeafProgress from "./CardDetailsProgress";
+import { v4 as uuidv4 } from "uuid";
+
 export function CardDetailsNode({
   children,
   node,
@@ -17,21 +19,29 @@ export function CardDetailsNode({
 }) {
   const [nodeName, setGroupName] = useState(node.name);
   const updateNodeName = useStore((state) => state.updateNodeName);
+  const createLeaf = useStore((state) => state.createLeaf);
 
-  const currentFieldValue = useRef(""); // Ref to keep track of the current field value
+  const currentFieldValue = useRef("");
+
+  const onAddItem = () => {
+    console.log("onAddItem");
+    createLeaf(cardId, groupId, node.id, {
+      id: uuidv4(),
+      name: "Untitled item",
+      tag: node.tag,
+    });
+  };
 
   useEffect(() => {
     setGroupName(node.name);
   }, [node]);
 
-  // Handle change for ContentEditable
   const handleChange = (e) => {
-    const value = e.target.value; // Extract innerText from ContentEditable
-    currentFieldValue.current = value; // Update ref
+    const value = e.target.value;
+    currentFieldValue.current = value;
     setGroupName(value);
   };
 
-  // Handle Enter key to unfocus
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -39,7 +49,6 @@ export function CardDetailsNode({
     }
   };
 
-  // Handle blur event to save changes
   const handleBlur = () => {
     if (currentFieldValue.current && currentFieldValue.current !== nodeName) {
       updateNodeName(cardId, groupId, node.id, currentFieldValue.current);
@@ -68,11 +77,12 @@ export function CardDetailsNode({
           tag={node.tag}
           progress={node.progress}
           className="w-full"
+          tagStyle="text-xxxs font-medium text-black border-black border-[1px] border-solid box-border py-1 px-1.5"
         />
       </div>
       {children}
       <AddItemComponent
-        onClick={() => {}}
+        onClick={onAddItem}
         displayText={`Add Item`}
         className="pl-2"
       />

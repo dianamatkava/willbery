@@ -6,10 +6,12 @@ export default function CardDetailsLeafProgress({
   progress,
   className,
   tag,
+  tagStyle = "text-xxxs text-gray-500 border-gainsboro-400 border-[0.8px] border-solid box-border py-1 px-1",
 }: {
   tag: string;
   progress: number;
   className?: string;
+  tagStyle?: string;
 }) {
   return (
     <div className="w-full flex flex-row items-start justify-end gap-1 text-xxs">
@@ -17,10 +19,12 @@ export default function CardDetailsLeafProgress({
         {/* <div className="rounded-sm bg-gainsboro-100 flex flex-row items-center justify-start p-1">
               <FaLink size={14} />
             </div> */}
-        <div className="text-xxxs rounded-md text-gray-500 border-gainsboro-400 border-[0.8px] border-solid box-border flex flex-row items-center justify-center py-1 px-1">
+        <div
+          className={`rounded-md flex flex-row items-center justify-center ${tagStyle}`}
+        >
           <div className="leading-[100%] font-medium cursor-pointer">{tag}</div>
         </div>
-        <div className="w-fell flex flex-row items-center justify-end text-right text-xs  gap-1">
+        <div className="w-fell flex flex-row items-center justify-end text-right text-xs gap-1">
           <div className="w-full flex-1 flex flex-row items-center justify-center">
             <ProgressBar
               progress={progress?.progressPercent}

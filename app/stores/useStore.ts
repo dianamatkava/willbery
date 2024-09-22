@@ -1,5 +1,10 @@
 import { create } from "zustand";
 import { CardInterface } from "~/interfaces/CardInterfaces";
+import { produce } from "immer";
+import { CardGroupInterface } from "~/interfaces/CardInterfaces";
+import { CardNodeInterface } from "~/interfaces/CardInterfaces";
+import { CardLeafInterface } from "~/interfaces/CardInterfaces";
+
 interface CardStore {
   cards: CardInterface[];
   updateCardName: (cardId: number, newName: string) => void;
@@ -22,6 +27,19 @@ interface CardStore {
     leafId: number,
     newLeafName: string
   ) => void;
+  createCard: (newCard: CardInterface) => void;
+  createGroup: (cardId: number, newGroup: CardGroupInterface) => void;
+  createNode: (
+    cardId: number,
+    groupId: number,
+    newNode: CardNodeInterface
+  ) => void;
+  createLeaf: (
+    cardId: number,
+    groupId: number,
+    nodeId: number,
+    newLeaf: CardLeafInterface
+  ) => void;
 }
 
 const useStore = create<CardStore>((set) => ({
@@ -29,6 +47,8 @@ const useStore = create<CardStore>((set) => ({
   setCards: (cards) => {
     set({ cards });
   },
+
+  // ################ Update Functions ################
   updateCardName: (cardId, newName) => {
     set((state) => {
       const updatedCards = state.cards.map((card) =>
@@ -46,71 +66,66 @@ const useStore = create<CardStore>((set) => ({
     });
   },
   updateGroupName: (cardId, groupId, newGroupName) => {
-    set((state) => ({
-      cards: state.cards.map((card) =>
-        card.id === cardId
-          ? {
-              ...card,
-              groups: card.groups.map((group) =>
-                group.id === groupId ? { ...group, name: newGroupName } : group
-              ),
-            }
-          : card
-      ),
-    }));
+    set((state) =>
+      produce(state, (draft) => {
+        const card = draft.cards.find((c) => c.id === cardId);
+        const group = card.groups.find((g) => g.id === groupId);
+        group.name = newGroupName;
+      })
+    );
   },
   updateNodeName: (cardId, groupId, nodeId, newNodeName) => {
-    set((state) => ({
-      cards: state.cards.map((card) =>
-        card.id === cardId
-          ? {
-              ...card,
-              groups: card.groups.map((group) =>
-                group.id === groupId
-                  ? {
-                      ...group,
-                      nodes: group.nodes.map((node) =>
-                        node.id === nodeId
-                          ? { ...node, name: newNodeName }
-                          : node
-                      ),
-                    }
-                  : group
-              ),
-            }
-          : card
-      ),
-    }));
+    set((state) =>
+      produce(state, (draft) => {
+        const card = draft.cards.find((c) => c.id === cardId);
+        const group = card.groups.find((g) => g.id === groupId);
+        const node = group.nodes.find((n) => n.id === nodeId);
+        node.name = newNodeName;
+      })
+    );
   },
   updateLeafName: (cardId, groupId, nodeId, leafId, newLeafName) => {
-    set((state) => ({
-      cards: state.cards.map((card) =>
-        card.id === cardId
-          ? {
-              ...card,
-              groups: card.groups.map((group) =>
-                group.id === groupId
-                  ? {
-                      ...group,
-                      nodes: group.nodes.map((node) =>
-                        node.id === nodeId
-                          ? {
-                              ...node,
-                              leafs: node.leafs.map((leaf) =>
-                                leaf.id === leafId
-                                  ? { ...leaf, name: newLeafName }
-                                  : leaf
-                              ),
-                            }
-                          : node
-                      ),
-                    }
-                  : group
-              ),
-            }
-          : card
-      ),
-    }));
+    set((state) =>
+      produce(state, (draft) => {
+        const card = draft.cards.find((c) => c.id === cardId);
+        const group = card.groups.find((g) => g.id === groupId);
+        const node = group.nodes.find((n) => n.id === nodeId);
+        const leaf = node.leafs.find((l) => l.id === leafId);
+        leaf.name = newLeafName;
+      })
+    );
+  },
+
+  // ################ Create Functions ################
+  createCard: (newCard) => {
+    set((state) => ({ cards: [...state.cards, newCard] }));
+  },
+  createGroup: (cardId, newGroup) => {
+    set((state) =>
+      produce(state, (draft) => {
+        const card = draft.cards.find((c) => c.id === cardId);
+        card.groups.push(newGroup);
+      })
+    );
+  },
+  createNode: (cardId, groupId, newNode) => {
+    set((state) =>
+      produce(state, (draft) => {
+        const card = draft.cards.find((c) => c.id === cardId);
+        const group = card.groups.find((g) => g.id === groupId);
+        group.nodes.push(newNode);
+      })
+    );
+  },
+  createLeaf: (cardId, groupId, nodeId, newLeaf) => {
+    set((state) =>
+      produce(state, (draft) => {
+        const card = draft.cards.find((c) => c.id === cardId);
+        const group = card.groups.find((g) => g.id === groupId);
+        const node = group.nodes.find((n) => n.id === nodeId);
+        node.leafs.push(newLeaf);
+      })
+    );
   },
 }));
 
