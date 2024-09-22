@@ -7,7 +7,7 @@ import { CardDetailsLeaf } from "./CardDetailsLeaf";
 import { IoClose } from "react-icons/io5";
 import useStore from "~/stores/useStore";
 import AddItemComponent from "~/components/ui-elements/AddItemComponent";
-
+import { v4 as uuidv4 } from "uuid";
 const CardDetails: FunctionComponent<{
   onClose: () => void;
   cardId: number;
@@ -16,13 +16,26 @@ const CardDetails: FunctionComponent<{
     state.cards.find((card) => card.id === cardId)
   );
 
+  const createGroup = useStore((state) => state.createGroup);
+
   const getAllTags = () => {
     const tags = new Set<string>();
-    const tagsList = cardDetails?.groups.map((group) =>
-      group.nodes.map((node) => node.tag)
+    const tagsList = cardDetails?.groups?.map((group) =>
+      group.nodes?.map((node) => node.tag)
     );
-    tagsList.forEach((list) => list.forEach((tag) => tags.add(tag)));
+    console.log(tagsList);
+    tagsList
+      ? tagsList.forEach((list) => list.forEach((tag) => tag && tags.add(tag)))
+      : null;
     return Array.from(tags);
+  };
+
+  const onAddSection = () => {
+    createGroup(cardId, {
+      id: uuidv4(),
+      name: "Untitled Section",
+      nodes: [],
+    });
   };
 
   return (
@@ -50,7 +63,7 @@ const CardDetails: FunctionComponent<{
                   {node.leafs &&
                     node.leafs.map((leaf) => (
                       <CardDetailsLeaf
-                        key={leaf.name}
+                        key={leaf.id}
                         leaf={leaf}
                         nodeId={node.id}
                         groupId={group.id}
@@ -62,7 +75,7 @@ const CardDetails: FunctionComponent<{
           </CardDetailsGroup>
         ))}
       <AddItemComponent
-        onClick={() => {}}
+        onClick={onAddSection}
         displayText={`Add Section`}
         className="pl-0 mt-4"
       />

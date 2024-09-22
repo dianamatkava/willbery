@@ -7,14 +7,13 @@ export interface CardLeafInterface {
 export interface CardNodeInterface {
   id: number;
   name: string;
-  tag: string;
+  tag?: string;
   leafs?: CardLeafInterface[];
 }
 
 export interface CardGroupInterface {
   id: number;
   name: string;
-  tag: string;
   nodes?: CardNodeInterface[];
 }
 

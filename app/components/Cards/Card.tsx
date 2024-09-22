@@ -14,28 +14,28 @@ export default function Card({
   return (
     <div>
       <CardInfo cardData={cardData} toggleCardDetails={toggleCardDetails} />
-      {cardData.tag && (
+      {/* {cardData.tag && (
         <div className="text-sm text-gray-500">{cardData.tag}</div>
-      )}
+      )} */}
       <div className="w-full flex flex-col items-center h-fit pr-[1.5px]">
         {cardData.groups &&
           cardData.groups.map((group) => (
             <CardGroup
-              key={group.name}
+              key={group.id}
               name={group.name}
               progress={group.progress}
             >
               {group.nodes &&
                 group.nodes.map((node) => (
                   <CardNode
-                    key={node.name}
+                    key={node.id}
                     name={node.name}
                     progress={node.progress}
                   >
                     {node.leafs &&
                       node.leafs.map((leaf) => (
                         <CardLeaf
-                          key={leaf.name}
+                          key={leaf.id}
                           name={leaf.name}
                           progress={leaf.progress}
                         />

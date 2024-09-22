@@ -24,7 +24,7 @@ export function CardDetailsNode({
   const currentFieldValue = useRef("");
 
   const onAddItem = () => {
-    console.log("onAddItem");
+    console.log(uuidv4(), node);
     createLeaf(cardId, groupId, node.id, {
       id: uuidv4(),
       name: "Untitled item",
