@@ -1,0 +1,47 @@
+import { IoMdMore } from "react-icons/io";
+import ProgressBar from "../../ui-elements/ProgressBar";
+import Counter from "../../ui-elements/Counter";
+
+export default function CardDetailsLeafProgress({
+  progress,
+  className,
+  tag,
+}: {
+  tag: string;
+  progress: number;
+  className?: string;
+}) {
+  return (
+    <div className="w-full flex flex-row items-start justify-end gap-1 text-xxs">
+      <div className="flex flex-row items-center justify-start gap-1">
+        {/* <div className="rounded-sm bg-gainsboro-100 flex flex-row items-center justify-start p-1">
+              <FaLink size={14} />
+            </div> */}
+        <div className="text-xxxs rounded-md text-gray-500 border-gainsboro-400 border-[0.8px] border-solid box-border flex flex-row items-center justify-center py-1 px-1">
+          <div className="leading-[100%] font-medium cursor-pointer">{tag}</div>
+        </div>
+        <div className="w-fell flex flex-row items-center justify-end text-right text-xs  gap-1">
+          <div className="w-full flex-1 flex flex-row items-center justify-center">
+            <ProgressBar
+              progress={progress?.progressPercent}
+              height={"h-2"}
+              className={"w-[50px] font-semibold text-xxs"}
+            />
+          </div>
+        </div>
+        <div className="text-xxs gap-1 font-medium flex flex-row items-center px-1 py-0.5 justify-center w-[60px] cursor-pointer">
+          <Counter
+            initial={progress?.progressSpent}
+            total={progress?.progressTotal}
+          />
+        </div>
+        <div className="shadow-[1px_1px_1px_rgba(0,_0,_0,_0.15)] text-xxxs font-medium rounded-md bg-gainsboro-100 flex flex-row items-center justify-center px-1 py-0.5 w-[30px] cursor-pointer">
+          4h/w
+        </div>
+      </div>
+      <div className="flex items-center justify-center gap-0 text-gray-300 hover:text-gray-500">
+        <IoMdMore size={18} className="cursor-pointer" />
+      </div>
+    </div>
+  );
+}

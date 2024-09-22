@@ -8,7 +8,7 @@ const ProgressBar = ({
   return (
     <div className="flex items-center">
       <div
-        className={`pr-1 pl-1 [font-family:'Roboto-SemiBold',Helvetica] font-semibold text-[${textColor}] text-center text-nowrap text-[8px]`}
+        className={`pr-1 pl-1 font-semibold text-[${textColor}] text-center text-nowrap text-[8px]`}
       >
         {progress}%
       </div>

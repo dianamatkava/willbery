@@ -7,6 +7,8 @@ import { useLoaderData } from "react-router-dom";
 import useStore from "~/stores/useStore";
 import { CardInterface } from "~/interfaces/CardInterfaces";
 import CardDetails from "~/components/Cards/CardDetails/CardDetails";
+import CardListInfo from "~/components/Cards/CardListHeader/CardListInfo";
+import CardListFilter from "~/components/Cards/CardListHeader/CardListFilter";
 
 export const loader = async () => {
   const cards = await getActivities();
@@ -15,6 +17,7 @@ export const loader = async () => {
 
 export default function Activities() {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
+  const [isCreateCard, setIsCreateCard] = useState<boolean>(false);
   const { cards } = useLoaderData() as { cards: CardInterface[] };
 
   const setCards = useStore((state) => state.setCards);
@@ -36,7 +39,10 @@ export default function Activities() {
         selectedCardId ? "px-1" : "px-6"
       }`}
     >
-      <CardListHeader />
+      <div className="w-full flex flex-row items-center justify-between text-center text-sm text-darkslategray font-roboto">
+        <CardListInfo />
+        <CardListFilter createCard={() => setIsCreateCard(true)} />
+      </div>
       <div className="flex w-full">
         <div
           className={`gap-2 grid grid-cols-1 xlg:grid-cols-5 xxlg:grid-cols-6 ${

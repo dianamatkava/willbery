@@ -6,6 +6,7 @@ import { CardDetailsNode } from "./CardDetailsNode";
 import { CardDetailsLeaf } from "./CardDetailsLeaf";
 import { IoClose } from "react-icons/io5";
 import useStore from "~/stores/useStore";
+import AddItemComponent from "~/components/ui-elements/AddItemComponent";
 
 const CardDetails: FunctionComponent<{
   onClose: () => void;
@@ -17,7 +18,7 @@ const CardDetails: FunctionComponent<{
 
   const getAllTags = () => {
     const tags = new Set<string>();
-    const tagsList = cardDetails.groups.map((group) =>
+    const tagsList = cardDetails?.groups.map((group) =>
       group.nodes.map((node) => node.tag)
     );
     tagsList.forEach((list) => list.forEach((tag) => tags.add(tag)));
@@ -35,29 +36,36 @@ const CardDetails: FunctionComponent<{
       </div>
       <CardDetailsInfo cardDetails={cardDetails} />
       <CardDetailsTabs cardTabs={() => getAllTags()} />
-      {cardDetails.groups.map((group) => (
-        <CardDetailsGroup key={group.id} group={group} cardId={cardId}>
-          {group.nodes.map((node) => (
-            <CardDetailsNode
-              key={node.id}
-              node={node}
-              cardId={cardId}
-              groupId={group.id}
-            >
-              {node.leafs &&
-                node.leafs.map((leaf) => (
-                  <CardDetailsLeaf
-                    key={leaf.name}
-                    leaf={leaf}
-                    nodeId={node.id}
-                    groupId={group.id}
-                    cardId={cardId}
-                  />
-                ))}
-            </CardDetailsNode>
-          ))}
-        </CardDetailsGroup>
-      ))}
+      {cardDetails.groups &&
+        cardDetails.groups.map((group) => (
+          <CardDetailsGroup key={group.id} group={group} cardId={cardId}>
+            {group.nodes &&
+              group.nodes.map((node) => (
+                <CardDetailsNode
+                  key={node.id}
+                  node={node}
+                  cardId={cardId}
+                  groupId={group.id}
+                >
+                  {node.leafs &&
+                    node.leafs.map((leaf) => (
+                      <CardDetailsLeaf
+                        key={leaf.name}
+                        leaf={leaf}
+                        nodeId={node.id}
+                        groupId={group.id}
+                        cardId={cardId}
+                      />
+                    ))}
+                </CardDetailsNode>
+              ))}
+          </CardDetailsGroup>
+        ))}
+      <AddItemComponent
+        onClick={() => {}}
+        displayText={`Add Section`}
+        className="pl-0 mt-4"
+      />
     </div>
   );
 };

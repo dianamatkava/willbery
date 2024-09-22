@@ -6,20 +6,24 @@ import { LuListFilter } from "react-icons/lu";
 import { LuFolderEdit } from "react-icons/lu";
 import { PiLineVerticalBold } from "react-icons/pi";
 
-export default function CardListFilter() {
+export default function CardListFilter({
+  createCard,
+}: {
+  createCard: () => void;
+}) {
   return (
-    <div className="bg-white flex flex-row items-center justify-start py-1 py-1 gap-1 text-left text-text-brand-secondary">
-      <div className="rounded-md bg-gainsboro flex flex-row items-center justify-start p-1 gap-2">
-        <div className="shadow-[1px_2px_4px_rgba(0,_0,_0,_0.25)] rounded-8xs bg-white flex flex-row items-center justify-start p-1 cursor-pointer">
-          <PiSquaresFour size={14} />
+    <div className="bg-white flex flex-row items-center justify-start py-1 py-1 gap-1 text-left">
+      <div className="rounded-md bg-gainsboro-100 flex flex-row items-center justify-start p-1 gap-3">
+        <div className="shadow-[1px_2px_4px_rgba(0,_0,_0,_0.25)] rounded-md bg-white flex flex-row items-center justify-start p-1 cursor-pointer">
+          <PiSquaresFour size={15} />
         </div>
-        <IoIosList size={18} className="cursor-pointer hover:text-gray-500" />
+        <IoIosList size={20} className="cursor-pointer hover:text-gray-500" />
         <LuGanttChart
-          size={17}
+          size={20}
           className="cursor-pointer hover:text-gray-500"
         />
         <AiOutlineNodeIndex
-          size={17}
+          size={20}
           className="cursor-pointer hover:text-gray-500"
         />
       </div>
@@ -47,10 +51,13 @@ export default function CardListFilter() {
         />
       </div>
       <div className="flex flex-row items-center justify-start gap-1">
-        <div className="rounded-md bg-white border-border-brand-default border-1 border-solid box-border h-1 overflow-hidden flex flex-row items-center justify-center p-3 gap-space-200 hover:text-gray-500 hover:border-gray-500">
-          <div className="leading-[100%] text-xs font-medium cursor-pointer">
+        <div className="rounded-md border border-black box-border overflow-hidden flex flex-row items-center justify-center p-2 gap-2 hover:text-gray-500 hover:border-gray-500">
+          <button
+            className="leading-[100%] text-xs font-medium cursor-pointer"
+            onClick={createCard}
+          >
             Add Card
-          </div>
+          </button>
         </div>
       </div>
       <img className="w-1 h-1" alt="" src="more_vert.svg" />

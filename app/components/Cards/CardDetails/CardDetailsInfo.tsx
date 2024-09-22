@@ -4,6 +4,7 @@ import { LuTags } from "react-icons/lu";
 import { useState, useEffect, useRef } from "react";
 import useStore from "../../../stores/useStore";
 import ContentEditable from "react-contenteditable";
+import setHtml from "react-contenteditable";
 
 export function CardDetailsInfo({ cardDetails }) {
   const updateCardName = useStore((state) => state.updateCardName);
@@ -14,21 +15,19 @@ export function CardDetailsInfo({ cardDetails }) {
   const [fields, setFields] = useState({
     name: cardDetails.name || "",
     description: cardDetails.description || "",
+    tag: cardDetails.tag || "",
   });
-
-  const currentFieldValue = useRef(""); // Ref to keep track of the current field value
 
   useEffect(() => {
     setFields({
       name: cardDetails.name || "",
       description: cardDetails.description || "",
+      tag: cardDetails.tag || "",
     });
   }, [cardDetails]);
 
-  // Handle change for ContentEditable
   const handleChange = (e, field) => {
-    const value = e.target.value; // Extract innerText from ContentEditable
-    currentFieldValue.current = value; // Update ref
+    const value = e.target.value;
     setFields((prevFields) => ({
       ...prevFields,
       [field]: value,
@@ -44,32 +43,50 @@ export function CardDetailsInfo({ cardDetails }) {
   };
 
   // Handle blur event to save changes
-  const handleBlur = (field) => {
-    if (
-      currentFieldValue.current &&
-      currentFieldValue.current !== cardDetails[field]
-    ) {
+  const handleBlur = (e, field) => {
+    if (e.target.innerText && e.target.innerText !== cardDetails[field]) {
       switch (field) {
         case "name":
-          updateCardName(cardDetails.id, currentFieldValue.current);
+          updateCardName(cardDetails.id, e.target.innerText);
           break;
         case "description":
-          updateCardDescription(cardDetails.id, currentFieldValue.current);
+          updateCardDescription(cardDetails.id, e.target.innerText);
           break;
       }
     }
   };
 
+  const handleSelectClick = (field) => {
+    const selectHtml = `<select>
+      <option value="option1">Option 1</option>
+      <option value="option2">Option 2</option>
+    </select>`;
+    setFields((prevFields) => ({
+      ...prevFields,
+      [field]: selectHtml,
+    }));
+  };
+
   return (
     <div className="flex flex-col items-start justify-start gap-6 max-w-[455px]">
       <div className="h-full flex flex-row items-center justify-start box-border gap-5">
-        <div className="w-[200px] h-full rounded-md bg-gainsboro-100 hover:bg-grey-700 flex flex-row items-center justify-center">
-          <LuPlus
-            size={34}
-            className="cursor-pointer text-grey-100 group-hover:text-grey-300"
-            color="#808080"
-          />
-        </div>
+        {cardDetails.image ? (
+          <div className="w-[100px] h-full rounded-[100%] flex flex-row items-center justify-center shadow-[1px_1px_1px_rgba(0,_0,_0,_0.05)]">
+            <img
+              src={cardDetails.image}
+              alt="icon"
+              className="w-full h-full object-cover rounded-[100%]"
+            />
+          </div>
+        ) : (
+          <div className="w-[100px] h-full rounded-[100%] bg-gainsboro-100 hover:bg-grey-700 flex flex-row items-center justify-center">
+            <LuPlus
+              size={34}
+              className="cursor-pointer text-grey-100 group-hover:text-grey-300"
+              color="#808080"
+            />
+          </div>
+        )}
 
         <div className="flex flex-col items-start justify-center gap-1 w-full">
           <div className="flex items-center gap-1 h-[42px]">
@@ -78,24 +95,31 @@ export function CardDetailsInfo({ cardDetails }) {
                 html={fields.name || ""}
                 onChange={(e) => handleChange(e, "name")}
                 onKeyDown={handleKeyDown}
-                onBlur={() => handleBlur("name")}
+                onBlur={(e) => handleBlur(e, "name")}
                 className="editable-content"
               />
             </h2>
           </div>
 
           <div className="flex flex-row items-center justify-center gap-1 text-sm">
-            <div className="w-[26px] rounded-md bg-gainsboro-100 h-6 flex flex-row items-center justify-center">
-              <LuSmilePlus size={18} className="cursor-pointer" />
-            </div>
-            <div className="w-[26px] rounded-md bg-gainsboro-100 h-6 flex flex-row items-center justify-center">
-              <LuTags size={18} className="cursor-pointer" />
-            </div>
-            <div className="rounded-lg h-6 flex flex-row items-center justify-center px-2 box-border gap-1 cursor-pointer bg-black">
-              <div className="leading-[100%] text-white text-xs">
-                {cardDetails.tag}
+            {cardDetails.icon ? (
+              <p className="text-gainsboro-500">{cardDetails.icon}</p>
+            ) : (
+              <div className="w-[26px] rounded-md bg-gainsboro-100 h-6 flex flex-row items-center justify-center">
+                <LuSmilePlus size={18} className="cursor-pointer" />
               </div>
-            </div>
+            )}
+            {fields.tag ? (
+              <div className="rounded-lg h-6 flex flex-row items-center justify-center px-2 box-border gap-1 cursor-pointer bg-black">
+                <div className="leading-[100%] text-white text-xs">
+                  {fields.tag}
+                </div>
+              </div>
+            ) : (
+              <div className="w-[26px] rounded-md bg-gainsboro-100 h-6 flex flex-row items-center justify-center">
+                <LuTags size={18} className="cursor-pointer" />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -103,7 +127,7 @@ export function CardDetailsInfo({ cardDetails }) {
         <ContentEditable
           html={fields.description || ""}
           onChange={(e) => handleChange(e, "description")}
-          onBlur={() => handleBlur("description")}
+          onBlur={(e) => handleBlur(e, "description")}
           className="editable-content editable-text-area"
         />
       </div>
