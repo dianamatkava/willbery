@@ -4,7 +4,7 @@ export interface CardLeafInterface {
   tag: string;
 }
 
-export interface CardNodesInterface {
+export interface CardNodeInterface {
   id: number;
   name: string;
   tag: string;
@@ -15,7 +15,7 @@ export interface CardGroupsInterface {
   id: number;
   name: string;
   tag: string;
-  nodes: CardNodesInterface[];
+  nodes: CardNodeInterface[];
 }
 
 export interface CardInterface {

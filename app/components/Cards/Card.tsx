@@ -11,10 +11,12 @@ export default function Card({
   cardData: CardInterface;
   toggleCardDetails: () => void;
 }) {
-  console.log(cardData);
   return (
     <div>
       <CardInfo cardData={cardData} toggleCardDetails={toggleCardDetails} />
+      {cardData.tag && (
+        <div className="text-sm text-gray-500">{cardData.tag}</div>
+      )}
       <div className="w-full flex flex-col items-center h-fit pr-[1.5px]">
         {cardData.groups &&
           cardData.groups.map((group) => (
