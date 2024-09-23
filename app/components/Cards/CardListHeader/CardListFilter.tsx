@@ -1,13 +1,9 @@
-import {PiLineVerticalBold, PiSquaresFour} from "react-icons/pi";
-import {IoIosList} from "react-icons/io";
-import {LuFolderEdit, LuGanttChart, LuListFilter} from "react-icons/lu";
-import {AiOutlineNodeIndex} from "react-icons/ai";
+import { PiLineVerticalBold, PiSquaresFour } from "react-icons/pi";
+import { IoIosList } from "react-icons/io";
+import { LuFolderEdit, LuGanttChart, LuListFilter } from "react-icons/lu";
+import { AiOutlineNodeIndex } from "react-icons/ai";
 
-export default function CardListFilter({
-  createCard,
-}: {
-  createCard: () => void;
-}) {
+export default function CardListFilter() {
   return (
     <div className="bg-white flex flex-row items-center justify-start py-1 py-1 gap-1 text-left">
       <div className="rounded-md bg-gainsboro-100 flex flex-row items-center justify-start p-1 gap-3">
@@ -49,10 +45,7 @@ export default function CardListFilter({
       </div>
       <div className="flex flex-row items-center justify-start gap-1">
         <div className="rounded-md border border-black box-border overflow-hidden flex flex-row items-center justify-center p-2 gap-2 hover:text-gray-500 hover:border-gray-500">
-          <button
-            className="leading-[100%] text-xs font-medium cursor-pointer"
-            onClick={createCard}
-          >
+          <button className="leading-[100%] text-xs font-medium cursor-pointer">
             Add Card
           </button>
         </div>

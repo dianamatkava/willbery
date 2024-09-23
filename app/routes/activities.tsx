@@ -1,11 +1,10 @@
-import Card from "../../components/Cards/Card";
+import Card from "../components/Cards/Card";
 import { json } from "@remix-run/node";
 import { getActivities } from "~/data";
 import { useState, useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams, Outlet } from "react-router-dom";
 import useStore from "~/stores/useStore";
 import { CardInterface } from "~/interfaces/CardInterfaces";
-import CardDetails from "~/components/Cards/CardDetails/CardDetails";
 import CardListInfo from "~/components/Cards/CardListHeader/CardListInfo";
 import CardListFilter from "~/components/Cards/CardListHeader/CardListFilter";
 import { getTags, getDomains } from "~/data";
@@ -19,7 +18,6 @@ export const loader = async () => {
 
 export default function Activities() {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
-  const [isCreateCard, setIsCreateCard] = useState<boolean>(false);
 
   const { cards, tags, domains } = useLoaderData() as {
     cards: CardInterface[];
@@ -31,6 +29,8 @@ export default function Activities() {
   const storedCards = useStore((state) => state.cards);
   const setTags = useStore((state) => state.setTags);
   const setDomains = useStore((state) => state.setDomains);
+
+  const { cardId } = useParams();
 
   useEffect(() => {
     if (Array.isArray(cards)) {
@@ -44,9 +44,9 @@ export default function Activities() {
     }
   }, [cards, setCards, tags, setTags, domains, setDomains]);
 
-  const toggleCardDetails = (id: number) => {
-    setSelectedCardId((prev) => (prev === id ? null : id));
-  };
+  useEffect(() => {
+    setSelectedCardId(parseInt(cardId) || null);
+  }, [cardId]);
 
   return (
     <div
@@ -56,7 +56,7 @@ export default function Activities() {
     >
       <div className="w-full flex flex-row items-center justify-between text-center text-sm text-darkslategray font-roboto">
         <CardListInfo />
-        <CardListFilter createCard={() => setIsCreateCard(true)} />
+        <CardListFilter />
       </div>
       <div className="flex w-full">
         <div
@@ -73,7 +73,6 @@ export default function Activities() {
             >
               <Card
                 cardData={card}
-                toggleCardDetails={() => toggleCardDetails(card.id)}
                 imgPath={
                   "https://static.vecteezy.com/system/resources/previews/007/905/993/original/coding-programming-illustration-icon-orange-and-dark-blue-screen-developer-environment-for-computer-science-poster-or-graphic-element-vector.jpg"
                 }
@@ -81,14 +80,7 @@ export default function Activities() {
             </div>
           ))}
         </div>
-        {selectedCardId && (
-          <div className="flex items-center justify-center flex-[1.5_2_0%] mx-auto">
-            <CardDetails
-              onClose={() => setSelectedCardId(null)}
-              cardId={selectedCardId}
-            />
-          </div>
-        )}
+        <Outlet />
       </div>
     </div>
   );
