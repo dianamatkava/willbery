@@ -3,9 +3,8 @@ import { useState, useEffect } from "react";
 import useStore from "../../../stores/useStore";
 import ContentEditable from "react-contenteditable";
 import { CardLeafInterface } from "~/interfaces/CardInterfaces";
-import CardDetailsLeafProgress from "./CardDetailsProgress";
-import { IoMdMore } from "react-icons/io";
-import { IoIosPlay } from "react-icons/io";
+import CardDetailsProgress from "./CardDetailsProgress";
+import CardDetailsUntracked from "./CardDetailsUntracked";
 
 export function CardDetailsLeaf({
   leaf,
@@ -26,6 +25,9 @@ export function CardDetailsLeaf({
     duration: leaf.progress?.duration,
   });
   const updateLeafName = useStore((state) => state.updateLeafName);
+  const updateLeafTag = useStore((state) => state.updateLeafTag);
+  const updateTags = useStore((state) => state.updateTags);
+  const tags = useStore((state) => state.tags);
 
   useEffect(() => {
     setFields({
@@ -61,6 +63,12 @@ export function CardDetailsLeaf({
       }
     }
   };
+
+  const onSelectTag = (option: string) => {
+    updateLeafTag(cardId, groupId, nodeId, leaf.id, option);
+    updateTags(option);
+  };
+
   return (
     <div className="w-full w-fit flex flex-row items-center justify-between py-0 pl-2 pr-0 box-border gap-2">
       <div className="w-full w-fit flex flex-row items-center justify-start gap-1">
@@ -76,30 +84,20 @@ export function CardDetailsLeaf({
         </span>
       </div>
       {leaf.progress ? (
-        <CardDetailsLeafProgress
+        <CardDetailsProgress
           tag={leaf.tag}
+          tags={tags}
+          onSelect={onSelectTag}
           progress={leaf.progress}
           className="pl-0 mt-[-10px]"
         />
       ) : (
-        <div className="w-full flex flex-row items-center justify-end gap-1 text-xxs">
-          <div className="flex flex-row items-center justify-start gap-2">
-            <div className="flex flex-row items-center justify-start gap-2">
-              <div className="text-xxxs rounded-md text-gray-500 border-gainsboro-400 border-[0.8px] border-solid box-border flex flex-row items-center justify-center py-1 px-1">
-                <div className="leading-[100%] font-medium cursor-pointer">
-                  {leaf.tag}
-                </div>
-              </div>
-            </div>
-            <div className="rounded-md bg-black flex flex-row items-center justify-center text-xxs px-1 py-[0.5px] text-white">
-              <div className="leading-[100%] font-medium">Track</div>
-              <IoIosPlay size={14} />
-            </div>
-          </div>
-          <div className="flex items-center justify-center gap-0 text-gray-300 hover:text-gray-500">
-            <IoMdMore size={18} className="cursor-pointer" />
-          </div>
-        </div>
+        <CardDetailsUntracked
+          data={leaf}
+          tags={tags}
+          onSelectTag={onSelectTag}
+          tagStyle="text-xxxs text-gray-500 border-gainsboro-400 border-[0.8px] border-solid box-border py-1 px-1"
+        />
       )}
     </div>
   );

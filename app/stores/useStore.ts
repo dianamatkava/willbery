@@ -36,6 +36,13 @@ interface CardStore {
     leafId: number,
     newLeafName: string
   ) => void;
+  updateLeafTag: (
+    cardId: number,
+    groupId: number,
+    nodeId: number,
+    leafId: number,
+    newLeafTag: string
+  ) => void;
   createCard: (newCard: CardInterface) => void;
   createGroup: (cardId: number, newGroup: CardGroupInterface) => void;
   createNode: (
@@ -127,6 +134,17 @@ const useStore = create<CardStore>((set) => ({
         const node = group.nodes.find((n) => n.id === nodeId);
         const leaf = node.leafs.find((l) => l.id === leafId);
         leaf.name = newLeafName;
+      })
+    );
+  },
+  updateLeafTag: (cardId, groupId, nodeId, leafId, newLeafTag) => {
+    set((state) =>
+      produce(state, (draft) => {
+        const card = draft.cards.find((c) => c.id === cardId);
+        const group = card.groups.find((g) => g.id === groupId);
+        const node = group.nodes.find((n) => n.id === nodeId);
+        const leaf = node.leafs.find((l) => l.id === leafId);
+        leaf.tag = newLeafTag;
       })
     );
   },

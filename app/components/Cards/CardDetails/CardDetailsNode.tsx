@@ -1,11 +1,12 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import useStore from "../../../stores/useStore";
 import ContentEditable from "react-contenteditable";
-import {CardNodeInterface} from "~/interfaces/CardInterfaces";
+import { CardNodeInterface } from "~/interfaces/CardInterfaces";
 import AddItemComponent from "../../ui-elements/AddItemComponent";
-import CardDetailsLeafProgress from "./CardDetailsProgress";
-import {v4 as uuidv4} from "uuid";
-import {AiOutlineLink} from "react-icons/ai";
+import CardDetailsProgress from "./CardDetailsProgress";
+import { v4 as uuidv4 } from "uuid";
+import { AiOutlineLink } from "react-icons/ai";
+import CardDetailsUntracked from "./CardDetailsUntracked";
 
 export function CardDetailsNode({
   children,
@@ -22,6 +23,7 @@ export function CardDetailsNode({
   const updateNodeTag = useStore((state) => state.updateNodeTag);
   const updateTags = useStore((state) => state.updateTags);
   const createLeaf = useStore((state) => state.createLeaf);
+  const tags = useStore((state) => state.tags);
 
   const [fields, setFields] = useState({
     name: node.name,
@@ -94,13 +96,23 @@ export function CardDetailsNode({
             />
           </div>
         </div>
-        <CardDetailsLeafProgress
-          tag={node.tag}
-          progress={node.progress}
-          onSelect={onSelectTag}
-          className="w-full"
-          tagStyle="text-xxxs font-medium text-black border-black border-[1px] border-solid box-border py-1 px-1.5"
-        />
+        {node.progress ? (
+          <CardDetailsProgress
+            tag={node.tag}
+            tags={tags}
+            progress={node.progress}
+            onSelect={onSelectTag}
+            className="w-full"
+            tagStyle="text-xxxs font-medium text-black border-black border-[1px] border-solid box-border py-1 px-1.5"
+          />
+        ) : (
+          <CardDetailsUntracked
+            data={node}
+            tags={tags}
+            onSelectTag={onSelectTag}
+            tagStyle="text-xxxs font-medium text-black border-black border-[1px] border-solid box-border py-1 px-1.5"
+          />
+        )}
       </div>
       {children}
       <AddItemComponent
