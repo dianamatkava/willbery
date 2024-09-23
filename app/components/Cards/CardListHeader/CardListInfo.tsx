@@ -1,6 +1,6 @@
-import { HiOutlineRocketLaunch } from "react-icons/hi2";
-import { FaChevronRight } from "react-icons/fa6";
-import { LuLayers } from "react-icons/lu";
+import {HiOutlineRocketLaunch} from "react-icons/hi2";
+import {FaChevronRight} from "react-icons/fa6";
+import {LuLayers} from "react-icons/lu";
 
 export default function CardListInfo() {
   return (

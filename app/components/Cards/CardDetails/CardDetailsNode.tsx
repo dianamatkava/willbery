@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import {useEffect, useState} from "react";
 import useStore from "../../../stores/useStore";
 import ContentEditable from "react-contenteditable";
-import { CardNodeInterface } from "~/interfaces/CardInterfaces";
+import {CardNodeInterface} from "~/interfaces/CardInterfaces";
 import AddItemComponent from "../../ui-elements/AddItemComponent";
 import CardDetailsLeafProgress from "./CardDetailsProgress";
-import { v4 as uuidv4 } from "uuid";
-import { AiOutlineLink } from "react-icons/ai";
+import {v4 as uuidv4} from "uuid";
+import {AiOutlineLink} from "react-icons/ai";
 
 export function CardDetailsNode({
   children,

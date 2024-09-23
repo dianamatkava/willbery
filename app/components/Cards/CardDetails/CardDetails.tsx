@@ -1,13 +1,14 @@
-import { FunctionComponent } from "react";
-import { CardDetailsInfo } from "./CardDetailsInfo";
-import { CardDetailsTabs } from "./CardDetailsTabs";
-import { CardDetailsGroup } from "./CardDetailsGroup";
-import { CardDetailsNode } from "./CardDetailsNode";
-import { CardDetailsLeaf } from "./CardDetailsLeaf";
-import { IoClose } from "react-icons/io5";
+import {FunctionComponent} from "react";
+import {CardDetailsInfo} from "./CardDetailsInfo";
+import {CardDetailsTabs} from "./CardDetailsTabs";
+import {CardDetailsGroup} from "./CardDetailsGroup";
+import {CardDetailsNode} from "./CardDetailsNode";
+import {CardDetailsLeaf} from "./CardDetailsLeaf";
+import {IoClose} from "react-icons/io5";
 import useStore from "~/stores/useStore";
 import AddItemComponent from "~/components/ui-elements/AddItemComponent";
-import { v4 as uuidv4 } from "uuid";
+import {v4 as uuidv4} from "uuid";
+
 const CardDetails: FunctionComponent<{
   onClose: () => void;
   cardId: number;
