@@ -1,88 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////
-// Fake database
-////////////////////////////////////////////////////////////////////////////////
-
-import { matchSorter } from "match-sorter";
-// import sortBy from "sort-by";
-import invariant from "tiny-invariant";
-
-////////////////////////////////////////////////////////////////////////////////
-// This is just a fake DB table.
-
-const fakeActivities = {
-  records: {} as Record<string, object>,
-
-  async getAll(): Promise<object[]> {
-    return Object.keys(fakeActivities.records).map(
-      (key) => fakeActivities.records[key]
-    );
-  },
-
-  async get(id: string): Promise<object | null> {
-    return fakeActivities.records[id] || null;
-  },
-
-  async create(values: object): Promise<object> {
-    const id = Math.random().toString(36).substring(2, 9);
-    const createdAt = new Date().toISOString();
-    const newActivity = { id, createdAt, ...values };
-    fakeActivities.records[id] = newActivity;
-    return newActivity;
-  },
-
-  async set(id: string, values: object): Promise<object> {
-    const activity = await fakeActivities.get(id);
-    invariant(activity, `No activity found for ${id}`);
-    const updatedActivity = { ...activity, ...values };
-    fakeActivities.records[id] = updatedActivity;
-    return updatedActivity;
-  },
-
-  destroy(id: string): null {
-    delete fakeActivities.records[id];
-    return null;
-  },
-};
-
-////////////////////////////////////////////////////////////////////////////////
-// Handful of helper functions to be called from route loaders and actions
-export async function getActivities(query?: string | null) {
-  let Activities = learningCards;
-  if (query) {
-    Activities = matchSorter(Activities, query, {
-      keys: ["first", "last"],
-    });
-  }
-  return Activities;
-}
-
-export async function createEmptyActivity() {
-  const activity = await fakeActivities.create({});
-  return activity;
-}
-
-export async function getActivity(id: string) {
-  return fakeActivities.get(id);
-}
-
-export async function updateActivity(id: string, updates: object) {
-  const activity = await fakeActivities.get(id);
-  if (!activity) {
-    throw new Error(`No activity found for ${id}`);
-  }
-  await fakeActivities.set(id, { ...activity, ...updates });
-  return activity;
-}
-
-export async function deleteActivity(id: string) {
-  fakeActivities.destroy(id);
-}
-
-// - **Skill Area:** The specific skill or topic being learned.
-// - **tag:** The broader category or domain of the skill.
-// - **Learning Resources:** Includes various materials and projects for learning.
-// - **Resource Tag:** Tags for specific technologies or tools relevant to each resource
-
 export function getTags() {
   return tags;
 }
@@ -97,6 +12,25 @@ const tags = [
   "Article",
   "Podcast",
 ];
+
+export function getDomains() {
+  return domains;
+}
+
+const domains = [
+  "Frontend",
+  "Backend",
+  "DevOps",
+  "AI",
+  "DS&ML",
+  "Cybersecurity",
+  "Blockchain",
+  "Game Development",
+];
+
+export function getActivities() {
+  return learningCards;
+}
 
 const learningCards = [
   {

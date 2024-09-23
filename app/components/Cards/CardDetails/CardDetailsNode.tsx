@@ -103,7 +103,7 @@ export function CardDetailsNode({
             progress={node.progress}
             onSelect={onSelectTag}
             className="w-full"
-            tagStyle="text-xxxs font-medium text-black border-black border-[1px] border-solid box-border py-1 px-1.5"
+            tagStyle="text-xxxs font-medium text-black border-black border-[1px]  border-solid box-border py-1 px-1.5"
           />
         ) : (
           <CardDetailsUntracked

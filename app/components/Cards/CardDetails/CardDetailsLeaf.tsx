@@ -58,7 +58,7 @@ export function CardDetailsLeaf({
     if (e.target.innerText && e.target.innerText !== leaf[field]) {
       switch (field) {
         case "name":
-          updateLeafName(cardId, nodeId, groupId, leaf.id, e.target.innerText);
+          updateLeafName(cardId, groupId, nodeId, leaf.id, e.target.innerText);
           break;
       }
     }

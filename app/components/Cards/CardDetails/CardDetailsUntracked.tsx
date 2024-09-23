@@ -31,7 +31,7 @@ export default function CardDetailsUntracked({
             )}
           </CreatableSelectInput>
         </div>
-        <div className="rounded-md bg-black flex flex-row items-center justify-center text-xxs px-1 py-[0.5px] text-white">
+        <div className="rounded-md bg-black flex flex-row items-center justify-center text-xxs h-full px-1.5 text-white">
           <div className="leading-[100%] font-medium">Track</div>
           <IoIosPlay size={14} />
         </div>
