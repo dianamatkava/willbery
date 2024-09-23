@@ -4,16 +4,10 @@ import CardGroup from "./CardContent/CardGroup";
 import CardLeaf from "./CardContent/CardLeaf";
 import { CardInterface } from "~/interfaces/CardInterfaces";
 
-export default function Card({
-  cardData,
-  toggleCardDetails,
-}: {
-  cardData: CardInterface;
-  toggleCardDetails: () => void;
-}) {
+export default function Card({ cardData }: { cardData: CardInterface }) {
   return (
     <div>
-      <CardInfo cardData={cardData} toggleCardDetails={toggleCardDetails} />
+      <CardInfo cardData={cardData} />
 
       <div className="w-full flex flex-col items-center h-fit pr-[1.5px]">
         {cardData.groups &&

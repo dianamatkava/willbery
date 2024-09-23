@@ -31,7 +31,7 @@ export default function CardNode({
                 <img
                   className="w-4 h-4 rounded-sm max-w-full max-h-full cursor-pointer"
                   alt=""
-                  src="aws-logo.svg"
+                  src="/aws-logo.svg"
                 />
                 <div className="font-semibold text-realblack text-xxs tracking-[0] leading-[normal] cursor-pointer flex-1">
                   {name}

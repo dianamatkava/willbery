@@ -137,7 +137,6 @@ const useStore = create<CardStore>((set) => ({
         const card = draft.cards.find((c) => c.id === cardId);
         const group = card.groups.find((g) => g.id === groupId);
         const node = group.nodes.find((n) => n.id === nodeId);
-        console.log("node", node, newNodeName);
         node.name = newNodeName;
       })
     );

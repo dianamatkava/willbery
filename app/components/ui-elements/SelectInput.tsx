@@ -170,7 +170,6 @@ export function SelectHeader({
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = (value: string) => {
-    console.log("handleSearch", value);
     setSearchQuery(value);
     onSearch(value);
   };

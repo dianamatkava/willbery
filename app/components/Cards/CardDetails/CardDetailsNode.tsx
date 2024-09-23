@@ -78,7 +78,7 @@ export function CardDetailsNode({
               <img
                 className="w-5 h-5 rounded-md max-w-full max-h-full cursor-pointer"
                 alt={node.name}
-                src={node.link.icon}
+                src={`/${node.link.icon}`}
               />
             </a>
           ) : (
