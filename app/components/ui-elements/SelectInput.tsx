@@ -7,12 +7,12 @@ export default function CreatableSelectInput({
   value,
   options,
   onSelect,
-  tagStyle,
+  children,
 }: {
   value: string;
   options: string[];
   onSelect: (option: string) => void;
-  tagStyle?: string;
+  children?: React.ReactNode;
 }) {
   const [isSelected, setIsSelected] = useState(false);
   const [optionsList, setOptionsList] = useState(options);
@@ -63,13 +63,7 @@ export default function CreatableSelectInput({
             }
           }}
         >
-          <div
-            className={`rounded-md flex flex-row items-center justify-center ${tagStyle}`}
-          >
-            <div className="leading-[100%] font-medium cursor-pointer">
-              {value}
-            </div>
-          </div>
+          {children}
         </div>
       ) : (
         <div
@@ -92,7 +86,9 @@ export default function CreatableSelectInput({
             value={value}
             onSearch={onSearch}
             onCreate={onSelectOption}
-          />
+          >
+            {children}
+          </SelectHeader>
           <SelectComponent
             value={value}
             options={optionsList}
@@ -164,10 +160,12 @@ export function SelectHeader({
   value,
   onSearch,
   onCreate,
+  children,
 }: {
   value: string;
   onSearch: (q: string) => void;
   onCreate: (e, q: string) => void;
+  children?: React.ReactNode;
 }) {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -179,10 +177,7 @@ export function SelectHeader({
 
   return (
     <div className="self-stretch rounded-md rounded-b-none bg-gray-100 border-gray-300 border-b-[0.5px] border-solid box-border flex flex-row items-center justify-start py-1 px-2 gap-1">
-      <div className="rounded bg-white border-darkslategray border-[1px] border-solid box-border h-[17px] flex flex-row items-center justify-center py-1 px-1.5 gap-1">
-        <div className="leading-[100%] font-medium">{value}</div>
-        <img className="" alt="" src="close.svg" />
-      </div>
+      {children}
       <div className="leading-[100%] font-medium text-xxs text-black border-b-[0.5px] border-solid border-gray-300">
         <ContentEditable
           html={searchQuery}

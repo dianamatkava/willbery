@@ -1,32 +1,31 @@
-import {IoMdMore} from "react-icons/io";
+import { IoMdMore } from "react-icons/io";
 import ProgressBar from "../../ui-elements/ProgressBar";
 import Counter from "../../ui-elements/Counter";
 import CreatableSelectInput from "../../ui-elements/SelectInput";
 import useStore from "../../../stores/useStore";
+import TagComponent from "../../ui-elements/TagComponent";
 
-export default function CardDetailsLeafProgress({
+export default function CardDetailsProgress({
   onSelect,
   progress,
+  tags,
   className,
   tagStyle = "text-xxxs text-gray-500 border-gainsboro-400 border-[0.8px] border-solid box-border py-1 px-1",
   tag,
 }: {
   onSelect: (option: string) => void;
   tag: string;
+  tags: string[];
   progress: number;
   className?: string;
   tagStyle?: string;
 }) {
-  const tags = useStore((state) => state.tags);
   return (
     <div className="w-full flex flex-row items-start justify-end gap-1 text-xxs">
       <div className="relative flex flex-row items-center justify-start gap-1">
-        <CreatableSelectInput
-          value={tag}
-          options={tags}
-          onSelect={onSelect}
-          tagStyle={tagStyle}
-        />
+        <CreatableSelectInput value={tag} options={tags} onSelect={onSelect}>
+          <TagComponent value={tag} className={tagStyle} />
+        </CreatableSelectInput>
         <div className="w-fell flex flex-row items-center justify-end text-right text-xs gap-1">
           <div className="w-full flex-1 flex flex-row items-center justify-center">
             <ProgressBar
