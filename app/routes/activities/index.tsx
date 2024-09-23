@@ -9,25 +9,33 @@ import { CardInterface } from "~/interfaces/CardInterfaces";
 import CardDetails from "~/components/Cards/CardDetails/CardDetails";
 import CardListInfo from "~/components/Cards/CardListHeader/CardListInfo";
 import CardListFilter from "~/components/Cards/CardListHeader/CardListFilter";
+import { getTags } from "~/data";
 
 export const loader = async () => {
   const cards = await getActivities();
-  return json({ cards });
+  const tags = await getTags();
+  return json({ cards, tags });
 };
 
 export default function Activities() {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
   const [isCreateCard, setIsCreateCard] = useState<boolean>(false);
+
   const { cards } = useLoaderData() as { cards: CardInterface[] };
+  const { tags } = useLoaderData() as { tags: string[] };
 
   const setCards = useStore((state) => state.setCards);
   const storedCards = useStore((state) => state.cards);
+  const setTags = useStore((state) => state.setTags);
 
   useEffect(() => {
     if (Array.isArray(cards)) {
       setCards(cards);
     }
-  }, [cards, setCards]);
+    if (Array.isArray(tags)) {
+      setTags(tags);
+    }
+  }, [cards, setCards, tags, setTags]);
 
   const toggleCardDetails = (id: number) => {
     setSelectedCardId((prev) => (prev === id ? null : id));

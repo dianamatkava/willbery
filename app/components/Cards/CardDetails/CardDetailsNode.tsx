@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import useStore from "../../../stores/useStore";
 import ContentEditable from "react-contenteditable";
 import { CardNodeInterface } from "~/interfaces/CardInterfaces";
 import AddItemComponent from "../../ui-elements/AddItemComponent";
 import CardDetailsLeafProgress from "./CardDetailsProgress";
 import { v4 as uuidv4 } from "uuid";
+import { AiOutlineLink } from "react-icons/ai";
 
 export function CardDetailsNode({
   children,
@@ -17,14 +18,17 @@ export function CardDetailsNode({
   cardId: number;
   groupId: number;
 }) {
-  const [nodeName, setGroupName] = useState(node.name);
   const updateNodeName = useStore((state) => state.updateNodeName);
+  const updateNodeTag = useStore((state) => state.updateNodeTag);
+  const updateTags = useStore((state) => state.updateTags);
   const createLeaf = useStore((state) => state.createLeaf);
 
-  const currentFieldValue = useRef("");
+  const [fields, setFields] = useState({
+    name: node.name,
+    tag: node.tag,
+  });
 
   const onAddItem = () => {
-    console.log(uuidv4(), node);
     createLeaf(cardId, groupId, node.id, {
       id: uuidv4(),
       name: "Untitled item",
@@ -33,13 +37,12 @@ export function CardDetailsNode({
   };
 
   useEffect(() => {
-    setGroupName(node.name);
+    setFields({ name: node.name, tag: node.tag });
   }, [node]);
 
-  const handleChange = (e) => {
+  const handleChange = (e, field: string) => {
     const value = e.target.value;
-    currentFieldValue.current = value;
-    setGroupName(value);
+    setFields({ ...fields, [field]: value });
   };
 
   const handleKeyDown = (e) => {
@@ -49,26 +52,44 @@ export function CardDetailsNode({
     }
   };
 
-  const handleBlur = () => {
-    if (currentFieldValue.current && currentFieldValue.current !== nodeName) {
-      updateNodeName(cardId, groupId, node.id, currentFieldValue.current);
+  const handleBlur = (e, field) => {
+    if (e.target.innerText && e.target.innerText !== node[field]) {
+      switch (field) {
+        case "name":
+          updateNodeName(cardId, groupId, node.id, e.target.innerText);
+          break;
+      }
     }
   };
+
+  const onSelectTag = (option: string) => {
+    updateNodeTag(cardId, groupId, node.id, option);
+    updateTags(option);
+  };
+
   return (
     <div className="self-stretch flex flex-col items-start justify-start gap-3 text-sm">
       <div className="w-full flex frex-wrap flex-row items-center justify-between box-border text-sm">
         <div className="w-full max-w-[180px] flex flex-row items-center justify-start gap-2">
-          <img
-            className="w-5 h-5 rounded-md max-w-full max-h-full cursor-pointer"
-            alt=""
-            src="aws-logo.svg"
-          />
+          {node.link ? (
+            <a href={node.link.url}>
+              <img
+                className="w-5 h-5 rounded-md max-w-full max-h-full cursor-pointer"
+                alt={node.name}
+                src={node.link.icon}
+              />
+            </a>
+          ) : (
+            <div className="bg-gainsboro-100 w-4 h-4 flex items-center justify-center rounded-md shadow-[1px_1px_1px_rgba(0,_0,_0,_0.15)]">
+              <AiOutlineLink size={12} />
+            </div>
+          )}
           <div className="w-fit font-medium flex items-center text-xsm leading-tight">
             <ContentEditable
-              html={nodeName || ""}
-              onChange={handleChange}
+              html={fields.name || ""}
+              onChange={(e) => handleChange(e, "name")}
               onKeyDown={handleKeyDown}
-              onBlur={handleBlur}
+              onBlur={(e) => handleBlur(e, "name")}
               className="editable-content editable-lined"
             />
           </div>
@@ -76,6 +97,7 @@ export function CardDetailsNode({
         <CardDetailsLeafProgress
           tag={node.tag}
           progress={node.progress}
+          onSelect={onSelectTag}
           className="w-full"
           tagStyle="text-xxxs font-medium text-black border-black border-[1px] border-solid box-border py-1 px-1.5"
         />

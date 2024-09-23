@@ -56,17 +56,6 @@ export function CardDetailsInfo({ cardDetails }) {
     }
   };
 
-  const handleSelectClick = (field) => {
-    const selectHtml = `<select>
-      <option value="option1">Option 1</option>
-      <option value="option2">Option 2</option>
-    </select>`;
-    setFields((prevFields) => ({
-      ...prevFields,
-      [field]: selectHtml,
-    }));
-  };
-
   return (
     <div className="flex flex-col items-start justify-start gap-6 max-w-[455px]">
       <div className="h-full flex flex-row items-center justify-start box-border gap-5">

@@ -49,7 +49,6 @@ export function CardDetailsGroup({
   };
 
   const onAddItem = () => {
-    console.log("cardId, group.id", cardId, group.id);
     createNode(cardId, group.id, {
       id: uuidv4(),
       name: "Untitled Item",

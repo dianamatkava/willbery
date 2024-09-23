@@ -23,7 +23,6 @@ const CardDetails: FunctionComponent<{
     const tagsList = cardDetails?.groups?.map((group) =>
       group.nodes?.map((node) => node.tag)
     );
-    console.log(tagsList);
     tagsList
       ? tagsList.forEach((list) => list.forEach((tag) => tag && tags.add(tag)))
       : null;
