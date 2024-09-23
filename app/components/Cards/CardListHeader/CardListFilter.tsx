@@ -1,10 +1,7 @@
-import { PiSquaresFour } from "react-icons/pi";
-import { IoIosList } from "react-icons/io";
-import { LuGanttChart } from "react-icons/lu";
-import { AiOutlineNodeIndex } from "react-icons/ai";
-import { LuListFilter } from "react-icons/lu";
-import { LuFolderEdit } from "react-icons/lu";
-import { PiLineVerticalBold } from "react-icons/pi";
+import {PiLineVerticalBold, PiSquaresFour} from "react-icons/pi";
+import {IoIosList} from "react-icons/io";
+import {LuFolderEdit, LuGanttChart, LuListFilter} from "react-icons/lu";
+import {AiOutlineNodeIndex} from "react-icons/ai";
 
 export default function CardListFilter({
   createCard,

@@ -5,7 +5,6 @@ import ContentEditable from "react-contenteditable";
 import { CardLeafInterface } from "~/interfaces/CardInterfaces";
 import CardDetailsLeafProgress from "./CardDetailsProgress";
 import { IoMdMore } from "react-icons/io";
-import { CgTrack } from "react-icons/cg";
 import { IoIosPlay } from "react-icons/io";
 
 export function CardDetailsLeaf({

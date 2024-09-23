@@ -1,13 +1,12 @@
-import { IoMdMore } from "react-icons/io";
+import {IoMdMore} from "react-icons/io";
 import ProgressBar from "../../ui-elements/ProgressBar";
 import Accordion from "../../ui-elements/Accordion";
-import { useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import ContentEditable from "react-contenteditable";
 import AddItemComponent from "../../ui-elements/AddItemComponent";
-import { v4 as uuidv4 } from "uuid";
+import {v4 as uuidv4} from "uuid";
 import useStore from "../../../stores/useStore";
-import { useRef, useEffect } from "react";
-import { CardGroupInterface } from "~/interfaces/CardInterfaces";
+import {CardGroupInterface} from "~/interfaces/CardInterfaces";
 
 export function CardDetailsGroup({
   children,

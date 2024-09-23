@@ -1,10 +1,7 @@
-import { LuPlus } from "react-icons/lu";
-import { LuSmilePlus } from "react-icons/lu";
-import { LuTags } from "react-icons/lu";
-import { useState, useEffect, useRef } from "react";
+import {LuPlus, LuSmilePlus, LuTags} from "react-icons/lu";
+import {useEffect, useState} from "react";
 import useStore from "../../../stores/useStore";
 import ContentEditable from "react-contenteditable";
-import setHtml from "react-contenteditable";
 
 export function CardDetailsInfo({ cardDetails }) {
   const updateCardName = useStore((state) => state.updateCardName);
