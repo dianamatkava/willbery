@@ -83,6 +83,21 @@ export async function deleteActivity(id: string) {
 // - **Learning Resources:** Includes various materials and projects for learning.
 // - **Resource Tag:** Tags for specific technologies or tools relevant to each resource
 
+export function getTags() {
+  return tags;
+}
+
+const tags = [
+  "Book",
+  "Course",
+  "Roadmap",
+  "Doc",
+  "Project",
+  "Video",
+  "Article",
+  "Podcast",
+];
+
 const learningCards = [
   {
     id: "1",
@@ -106,6 +121,10 @@ const learningCards = [
             technology: "React",
             tag: "Book",
             progress: 74,
+            link: {
+              url: "https://www.udemy.com/course/the-ultimate-react-course/",
+              icon: "aws-logo.svg",
+            },
             leafs: [
               {
                 id: "1-1-1-1",
@@ -348,6 +367,10 @@ const learningCards = [
             progress: 100,
             certificate: false,
             leafs: [],
+            link: {
+              url: "https://aws.amazon.com/certification/certified-cloud-practitioner/",
+              icon: "aws-logo.svg",
+            },
           },
           {
             id: "3-1-2",

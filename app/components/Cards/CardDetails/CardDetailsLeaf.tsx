@@ -40,7 +40,6 @@ export function CardDetailsLeaf({
 
   const handleChange = (e, field) => {
     const value = e.target.value;
-    console.log("handleChange", value);
     setFields((prevFields) => ({
       ...prevFields,
       [field]: value,

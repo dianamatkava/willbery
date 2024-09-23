@@ -7,6 +7,9 @@ import { CardLeafInterface } from "~/interfaces/CardInterfaces";
 
 interface CardStore {
   cards: CardInterface[];
+  tags: string[];
+
+  updateTags: (newTag: string) => void;
   updateCardName: (cardId: number, newName: string) => void;
   updateGroupName: (
     cardId: number,
@@ -19,6 +22,12 @@ interface CardStore {
     groupId: number,
     nodeId: number,
     newNodeName: string
+  ) => void;
+  updateNodeTag: (
+    cardId: number,
+    groupId: number,
+    nodeId: number,
+    newNodeTag: string
   ) => void;
   updateLeafName: (
     cardId: number,
@@ -47,8 +56,23 @@ const useStore = create<CardStore>((set) => ({
   setCards: (cards) => {
     set({ cards });
   },
+  tags: [],
+  setTags: (tags) => {
+    set({ tags });
+  },
 
   // ################ Update Functions ################
+  updateTags: (newTag) => {
+    set((state) => {
+      if (state.tags.includes(newTag)) {
+        return { tags: state.tags };
+      }
+      const updatedTags = [...state.tags, newTag];
+      // remove duplicates
+      const tagsSet = new Set(updatedTags);
+      return { tags: Array.from(tagsSet) };
+    });
+  },
   updateCardName: (cardId, newName) => {
     set((state) => {
       const updatedCards = state.cards.map((card) =>
@@ -80,7 +104,18 @@ const useStore = create<CardStore>((set) => ({
         const card = draft.cards.find((c) => c.id === cardId);
         const group = card.groups.find((g) => g.id === groupId);
         const node = group.nodes.find((n) => n.id === nodeId);
+        console.log("node", node, newNodeName);
         node.name = newNodeName;
+      })
+    );
+  },
+  updateNodeTag: (cardId, groupId, nodeId, newNodeTag) => {
+    set((state) =>
+      produce(state, (draft) => {
+        const card = draft.cards.find((c) => c.id === cardId);
+        const group = card.groups.find((g) => g.id === groupId);
+        const node = group.nodes.find((n) => n.id === nodeId);
+        node.tag = newNodeTag;
       })
     );
   },

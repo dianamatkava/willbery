@@ -1,29 +1,32 @@
 import { IoMdMore } from "react-icons/io";
 import ProgressBar from "../../ui-elements/ProgressBar";
 import Counter from "../../ui-elements/Counter";
+import CreatableSelectInput from "../../ui-elements/SelectInput";
+import useStore from "../../../stores/useStore";
 
 export default function CardDetailsLeafProgress({
+  onSelect,
   progress,
   className,
-  tag,
   tagStyle = "text-xxxs text-gray-500 border-gainsboro-400 border-[0.8px] border-solid box-border py-1 px-1",
+  tag,
 }: {
+  onSelect: (option: string) => void;
   tag: string;
   progress: number;
   className?: string;
   tagStyle?: string;
 }) {
+  const tags = useStore((state) => state.tags);
   return (
     <div className="w-full flex flex-row items-start justify-end gap-1 text-xxs">
-      <div className="flex flex-row items-center justify-start gap-1">
-        {/* <div className="rounded-sm bg-gainsboro-100 flex flex-row items-center justify-start p-1">
-              <FaLink size={14} />
-            </div> */}
-        <div
-          className={`rounded-md flex flex-row items-center justify-center ${tagStyle}`}
-        >
-          <div className="leading-[100%] font-medium cursor-pointer">{tag}</div>
-        </div>
+      <div className="relative flex flex-row items-center justify-start gap-1">
+        <CreatableSelectInput
+          value={tag}
+          options={tags}
+          onSelect={onSelect}
+          tagStyle={tagStyle}
+        />
         <div className="w-fell flex flex-row items-center justify-end text-right text-xs gap-1">
           <div className="w-full flex-1 flex flex-row items-center justify-center">
             <ProgressBar
