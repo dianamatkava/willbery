@@ -110,7 +110,7 @@ export function SelectComponent({
   onSelect: (e, option: string) => void;
 }) {
   return (
-    <div className="w-full flex flex-col items-start justify-start py-1 pb-1 px-2 gap-1.5 text-xxs text-gray-700">
+    <div className="w-fullmax-w-[200px] flex flex-col items-start justify-start py-1 pb-1 px-2 gap-1.5 text-xxs text-gray-700">
       {options ? (
         <div>
           <div className="leading-[100%] font-medium pb-1">

@@ -8,9 +8,12 @@ import { CardLeafInterface } from "~/interfaces/CardInterfaces";
 interface CardStore {
   cards: CardInterface[];
   tags: string[];
+  domains: string[];
 
   updateTags: (newTag: string) => void;
+  updateDomains: (newDomain: string) => void;
   updateCardName: (cardId: number, newName: string) => void;
+  updateCardTag: (cardId: number, newTag: string) => void;
   updateGroupName: (
     cardId: number,
     groupId: number,
@@ -67,8 +70,23 @@ const useStore = create<CardStore>((set) => ({
   setTags: (tags) => {
     set({ tags });
   },
+  domains: [],
+  setDomains: (domains) => {
+    set({ domains });
+  },
 
   // ################ Update Functions ################
+  updateDomains: (newDomain) => {
+    set((state) => {
+      if (state.domains.includes(newDomain)) {
+        return { domains: state.domains };
+      }
+      const updatedDomains = [...state.domains, newDomain];
+      // remove duplicates
+      const domainsSet = new Set(updatedDomains);
+      return { domains: Array.from(domainsSet) };
+    });
+  },
   updateTags: (newTag) => {
     set((state) => {
       if (state.tags.includes(newTag)) {
@@ -84,6 +102,14 @@ const useStore = create<CardStore>((set) => ({
     set((state) => {
       const updatedCards = state.cards.map((card) =>
         card.id === cardId ? { ...card, name: newName } : card
+      );
+      return { cards: updatedCards };
+    });
+  },
+  updateCardTag: (cardId, newTag) => {
+    set((state) => {
+      const updatedCards = state.cards.map((card) =>
+        card.id === cardId ? { ...card, tag: newTag } : card
       );
       return { cards: updatedCards };
     });

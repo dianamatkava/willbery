@@ -1,25 +1,28 @@
-import {LuPlus, LuSmilePlus, LuTags} from "react-icons/lu";
-import {useEffect, useState} from "react";
+import { LuPlus, LuSmilePlus, LuTag } from "react-icons/lu";
+import { useEffect, useState } from "react";
 import useStore from "../../../stores/useStore";
 import ContentEditable from "react-contenteditable";
+import CreatableSelectInput from "../../ui-elements/SelectInput";
+import TagComponent from "../../ui-elements/TagComponent";
 
-export function CardDetailsInfo({ cardDetails }) {
+export function CardDetailsInfo({ cardDetails }: { cardDetails: object }) {
+  const tags = useStore((state) => state.domains);
   const updateCardName = useStore((state) => state.updateCardName);
   const updateCardDescription = useStore(
     (state) => state.updateCardDescription
   );
+  const updateCardTag = useStore((state) => state.updateCardTag);
+  const updateDomains = useStore((state) => state.updateDomains);
 
   const [fields, setFields] = useState({
     name: cardDetails.name || "",
     description: cardDetails.description || "",
-    tag: cardDetails.tag || "",
   });
 
   useEffect(() => {
     setFields({
       name: cardDetails.name || "",
       description: cardDetails.description || "",
-      tag: cardDetails.tag || "",
     });
   }, [cardDetails]);
 
@@ -51,6 +54,11 @@ export function CardDetailsInfo({ cardDetails }) {
           break;
       }
     }
+  };
+
+  const onSelectTag = (option: string) => {
+    updateCardTag(cardDetails.id, option);
+    updateDomains(option);
   };
 
   return (
@@ -87,7 +95,8 @@ export function CardDetailsInfo({ cardDetails }) {
             </h2>
           </div>
 
-          <div className="flex flex-row items-center justify-center gap-1 text-sm">
+          <div className="relative w-full flex flex-row items-center justify-start gap-1 text-sm">
+            {/* Card Icon */}
             {cardDetails.icon ? (
               <p className="text-gainsboro-500">{cardDetails.icon}</p>
             ) : (
@@ -95,17 +104,24 @@ export function CardDetailsInfo({ cardDetails }) {
                 <LuSmilePlus size={18} className="cursor-pointer" />
               </div>
             )}
-            {fields.tag ? (
-              <div className="rounded-lg h-6 flex flex-row items-center justify-center px-2 box-border gap-1 cursor-pointer bg-black">
-                <div className="leading-[100%] text-white text-xs">
-                  {fields.tag}
-                </div>
-              </div>
-            ) : (
-              <div className="w-[26px] rounded-md bg-gainsboro-100 h-6 flex flex-row items-center justify-center">
-                <LuTags size={18} className="cursor-pointer" />
-              </div>
-            )}
+
+            {/* Card Tag */}
+            <CreatableSelectInput
+              value={cardDetails.tag}
+              options={tags}
+              onSelect={onSelectTag}
+            >
+              {cardDetails.tag ? (
+                <TagComponent
+                  value={cardDetails.tag}
+                  className={
+                    "text-white text-xs rounded-lg h-6 flex flex-row items-center justify-center px-2 box-border gap-1 cursor-pointer bg-black"
+                  }
+                />
+              ) : (
+                <LuTag size={14} />
+              )}
+            </CreatableSelectInput>
           </div>
         </div>
       </div>

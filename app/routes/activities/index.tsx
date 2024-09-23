@@ -1,4 +1,3 @@
-import CardListHeader from "~/components/Cards/CardListHeader/CardListHeader";
 import Card from "../../components/Cards/Card";
 import { json } from "@remix-run/node";
 import { getActivities } from "~/data";
@@ -9,24 +8,29 @@ import { CardInterface } from "~/interfaces/CardInterfaces";
 import CardDetails from "~/components/Cards/CardDetails/CardDetails";
 import CardListInfo from "~/components/Cards/CardListHeader/CardListInfo";
 import CardListFilter from "~/components/Cards/CardListHeader/CardListFilter";
-import { getTags } from "~/data";
+import { getTags, getDomains } from "~/data";
 
 export const loader = async () => {
   const cards = await getActivities();
   const tags = await getTags();
-  return json({ cards, tags });
+  const domains = await getDomains();
+  return json({ cards, tags, domains });
 };
 
 export default function Activities() {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
   const [isCreateCard, setIsCreateCard] = useState<boolean>(false);
 
-  const { cards } = useLoaderData() as { cards: CardInterface[] };
-  const { tags } = useLoaderData() as { tags: string[] };
+  const { cards, tags, domains } = useLoaderData() as {
+    cards: CardInterface[];
+    tags: string[];
+    domains: string[];
+  };
 
   const setCards = useStore((state) => state.setCards);
   const storedCards = useStore((state) => state.cards);
   const setTags = useStore((state) => state.setTags);
+  const setDomains = useStore((state) => state.setDomains);
 
   useEffect(() => {
     if (Array.isArray(cards)) {
@@ -35,7 +39,10 @@ export default function Activities() {
     if (Array.isArray(tags)) {
       setTags(tags);
     }
-  }, [cards, setCards, tags, setTags]);
+    if (Array.isArray(domains)) {
+      setDomains(domains);
+    }
+  }, [cards, setCards, tags, setTags, domains, setDomains]);
 
   const toggleCardDetails = (id: number) => {
     setSelectedCardId((prev) => (prev === id ? null : id));
