@@ -7,6 +7,7 @@ import CardDetailsProgress from "./CardDetailsProgress";
 import { v4 as uuidv4 } from "uuid";
 import { AiOutlineLink } from "react-icons/ai";
 import CardDetailsUntracked from "./CardDetailsUntracked";
+import Tracking from "../../Tracking/Tracking";
 
 export function CardDetailsNode({
   children,
@@ -114,6 +115,7 @@ export function CardDetailsNode({
           />
         )}
       </div>
+      <Tracking />
       {children}
       <AddItemComponent
         onClick={onAddItem}
