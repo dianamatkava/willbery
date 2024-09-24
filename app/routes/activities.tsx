@@ -1,7 +1,7 @@
 import Card from "../components/Cards/Card";
 import { json } from "@remix-run/node";
 import { getActivities } from "~/data";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useLoaderData, useParams, Outlet } from "react-router-dom";
 import useStore from "~/stores/useStore";
 import { CardInterface } from "~/interfaces/CardInterfaces";
@@ -9,44 +9,45 @@ import CardListInfo from "~/components/Cards/CardListHeader/CardListInfo";
 import CardListFilter from "~/components/Cards/CardListHeader/CardListFilter";
 import { getTags, getDomains } from "~/data";
 
+interface LoaderData {
+  cards: CardInterface[];
+  tags: string[];
+  domains: string[];
+}
+
 export const loader = async () => {
   const cards = await getActivities();
   const tags = await getTags();
   const domains = await getDomains();
-  return json({ cards, tags, domains });
+  return json<LoaderData>({ cards, tags, domains });
 };
 
 export default function Activities() {
-  const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
+  const { cardId } = useParams();
+  const selectedCardId = cardId ? cardId : null;
 
+  const setCards = useStore((state) => state.setCards);
+  const setTags = useStore((state) => state.setTags);
+  const setDomains = useStore((state) => state.setDomains);
   const { cards, tags, domains } = useLoaderData() as {
     cards: CardInterface[];
     tags: string[];
     domains: string[];
   };
 
-  const setCards = useStore((state) => state.setCards);
-  const storedCards = useStore((state) => state.cards);
-  const setTags = useStore((state) => state.setTags);
-  const setDomains = useStore((state) => state.setDomains);
-
-  const { cardId } = useParams();
+  const cardsState = useStore((state) => state.cards);
 
   useEffect(() => {
-    if (Array.isArray(cards)) {
+    if (cards.length > 0) {
       setCards(cards);
     }
-    if (Array.isArray(tags)) {
+    if (tags.length > 0) {
       setTags(tags);
     }
-    if (Array.isArray(domains)) {
+    if (domains.length > 0) {
       setDomains(domains);
     }
-  }, [cards, setCards, tags, setTags, domains, setDomains]);
-
-  useEffect(() => {
-    setSelectedCardId(parseInt(cardId) || null);
-  }, [cardId]);
+  }, [cards, tags, domains, setCards, setTags, setDomains]);
 
   return (
     <div
@@ -66,18 +67,14 @@ export default function Activities() {
               : "xs:grid-cols-2 grid-sm:grid-cols-3 grid-md:grid-cols-4 grid-lg:grid-cols-4"
           }`}
         >
-          {storedCards.map((card) => (
-            <div
-              className="max-w-[275px] max-h-[350px] min-h-[230px] bg-white rounded-md border-[0.5px] border-solid border-[#d1d1d1] shadow-[1px_1px_1px_rgba(0,_0,_0,_0.05)]"
+          {cardsState.map((card) => (
+            <Card
               key={card.id}
-            >
-              <Card
-                cardData={card}
-                imgPath={
-                  "https://static.vecteezy.com/system/resources/previews/007/905/993/original/coding-programming-illustration-icon-orange-and-dark-blue-screen-developer-environment-for-computer-science-poster-or-graphic-element-vector.jpg"
-                }
-              />
-            </div>
+              cardData={card}
+              imgPath={
+                "https://static.vecteezy.com/system/resources/previews/007/905/993/original/coding-programming-illustration-icon-orange-and-dark-blue-screen-developer-environment-for-computer-science-poster-or-graphic-element-vector.jpg"
+              }
+            />
           ))}
         </div>
         <Outlet />

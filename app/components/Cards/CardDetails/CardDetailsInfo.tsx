@@ -62,7 +62,7 @@ export function CardDetailsInfo({ cardDetails }: { cardDetails: object }) {
   };
 
   return (
-    <div className="flex flex-col items-start justify-start gap-6 max-w-[455px]">
+    <div className="flex flex-col items-start justify-start gap-6 w-full">
       <div className="h-full flex flex-row items-center justify-start box-border gap-5">
         {cardDetails.image ? (
           <div className="w-[100px] h-full rounded-[100%] flex flex-row items-center justify-center shadow-[1px_1px_1px_rgba(0,_0,_0,_0.05)]">
@@ -119,7 +119,9 @@ export function CardDetailsInfo({ cardDetails }: { cardDetails: object }) {
                   }
                 />
               ) : (
-                <LuTag size={14} />
+                <div className="w-[26px] rounded-md bg-gainsboro-100 h-6 flex flex-row items-center justify-center">
+                  <LuTag size={18} />
+                </div>
               )}
             </CreatableSelectInput>
           </div>
@@ -127,7 +129,7 @@ export function CardDetailsInfo({ cardDetails }: { cardDetails: object }) {
       </div>
       <div className="w-full h-fit text-sm cursor-pointer text-grey-800">
         <ContentEditable
-          html={fields.description || ""}
+          html={fields.description || "Click to add a description"}
           onChange={(e) => handleChange(e, "description")}
           onBlur={(e) => handleBlur(e, "description")}
           className="editable-content editable-text-area"

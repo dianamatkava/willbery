@@ -39,14 +39,14 @@ const learningCards = [
     description:
       "Frontend Development is the practice of building user interfaces for web applications.",
     tag: "Frontend",
-    progress: 50,
+    progress: { progressPercent: 67 },
     image:
       "https://media.licdn.com/dms/image/D4D12AQHtI0C1YdohQA/article-cover_image-shrink_720_1280/0/1694192663813?e=2147483647&v=beta&t=PzCttA7epMxw1abHI7hk3ig4ZozBvCQ0hratnFnkK9M",
     groups: [
       {
         id: "1-1",
         name: "React",
-        progress: 50,
+        progress: { progressPercent: 67 },
         nodes: [
           {
             id: "1-1-1",
@@ -54,7 +54,9 @@ const learningCards = [
             source: "Udemy",
             technology: "React",
             tag: "Book",
-            progress: 74,
+            progress: {
+              progressPercent: 100,
+            },
             link: {
               url: "https://www.udemy.com/course/the-ultimate-react-course/",
               icon: "aws-logo.svg",
@@ -127,7 +129,7 @@ const learningCards = [
             source: "Roadmap.sh",
             tag: "Roadmap",
             technology: "React",
-            progress: 16,
+            progress: { progressPercent: 67 },
           },
         ],
         practice: [
@@ -142,7 +144,9 @@ const learningCards = [
             id: "1-1-p2",
             name: "Willbery",
             status: "In Progress",
-            progress: 20,
+            progress: {
+              progressPercent: 100,
+            },
             topics: ["Remix", "React", "Tailwind"],
             timeSpent: 16,
           },
@@ -151,7 +155,7 @@ const learningCards = [
       {
         id: "1-2",
         name: "TypeScript",
-        progress: 50,
+        progress: { progressPercent: 67 },
         nodes: [
           {
             id: "1-2-1",
@@ -159,7 +163,7 @@ const learningCards = [
             source: "Roadmap.sh",
             tag: "Roadmap",
             technology: "TypeScript",
-            progress: 11,
+            progress: { progressPercent: 67 },
             leafs: [],
           },
         ],
@@ -168,7 +172,7 @@ const learningCards = [
       {
         id: "1-3",
         name: "Next.JS",
-        progress: 50,
+        progress: { progressPercent: 67 },
         nodes: [
           {
             id: "1-3-1",
@@ -211,12 +215,12 @@ const learningCards = [
     description:
       "Java Development is the practice of building applications using the Java programming language.",
     tag: "Java",
-    progress: 13.5,
+    progress: { progressPercent: 67 },
     image:
       "https://japan.zdnet.com/storage/2021/09/15/765dc76ff8f55ce268feeb881011003f/t/584/438/d/java-logo_1280x960.jpg",
     groups: [
       {
-        progress: 50,
+        progress: { progressPercent: 67 },
         id: "2-1",
         name: "Java",
         nodes: [
@@ -225,7 +229,9 @@ const learningCards = [
             name: "Java Spring Boot",
             source: "JetBrains Academy",
             tag: "Course",
-            progress: 74,
+            progress: {
+              progressPercent: 100,
+            },
             leafs: [
               {
                 id: "2-1-1-1",
@@ -266,7 +272,7 @@ const learningCards = [
           },
           {
             id: "2-1-2",
-            progress: 50,
+            progress: { progressPercent: 67 },
             name: "Java Development",
             source: "MOOC.fi",
             tag: "Course",
@@ -284,12 +290,12 @@ const learningCards = [
     description:
       "Cloud Development is the practice of building applications using the cloud.",
     tag: "DevOps",
-    progress: 89,
+    progress: { progressPercent: 67 },
     image:
       "https://old.roi4cio.com/fileadmin/user_upload/Amazon_WorkSpaces.png",
     groups: [
       {
-        progress: 50,
+        progress: { progressPercent: 67 },
         id: "3-1",
         name: "AWS",
         nodes: [
@@ -298,7 +304,7 @@ const learningCards = [
             name: "Could Practitioner",
             source: "AWS Skill Builder",
             tag: "Course",
-            progress: 100,
+            progress: { progressPercent: 67 },
             certificate: false,
             leafs: [],
             link: {
@@ -311,7 +317,7 @@ const learningCards = [
             name: "SAA-C03",
             source: "Udemy | Maarek",
             tag: "Course",
-            progress: 79,
+            progress: { progressPercent: 67 },
             leafs: [],
           },
         ],
@@ -325,7 +331,7 @@ const learningCards = [
     description:
       "CI/CD is the practice of building applications using the cloud.",
     tag: "DevOps",
-    progress: 34.5,
+    progress: { progressPercent: 67 },
     image: "https://mlops-guide.github.io/MLOps/CICDML/ci-cd.png",
     groups: [
       {
@@ -337,7 +343,7 @@ const learningCards = [
             name: "GitLab Official Documentation",
             source: "GitLab Official Documentation",
             tag: "Doc",
-            progress: 13,
+            progress: { progressPercent: 67 },
             certificate: false,
             leafs: [
               {
@@ -375,7 +381,7 @@ const learningCards = [
                 id: "4-1-1-2",
                 name: "GitLab Documentation",
                 tag: "Doc",
-                progress: 13,
+                progress: { progressPercent: 67 },
                 status: "In Progress",
                 topics: [],
               },
@@ -399,7 +405,7 @@ const learningCards = [
     name: "AI",
     description: "AI is the practice of building applications using the cloud.",
     tag: "AI",
-    progress: 34.5,
+    progress: { progressPercent: 67 },
     image:
       "https://static.vecteezy.com/system/resources/thumbnails/042/386/484/small/artificial-intelligence-banner-web-icon-illustration-concept-vector.jpg",
     groups: [
@@ -412,7 +418,7 @@ const learningCards = [
             name: "CS50AI",
             tag: "Course",
             source: "GitLab Official Documentation",
-            progress: 57,
+            progress: { progressPercent: 67 },
             certificate: false,
             leafs: [],
           },
@@ -421,7 +427,7 @@ const learningCards = [
             name: "Regression and Classification",
             source: "CodeSygnal",
             tag: "Course",
-            progress: 100,
+            progress: { progressPercent: 67 },
             certificate: false,
             leafs: [],
           },
@@ -471,7 +477,9 @@ const learningCards = [
     name: "DS&ML",
     description: "AI is the practice of building applications using the cloud.",
     tag: "AI",
-    progress: 34.5,
+    progress: {
+      progressPercent: 100,
+    },
     image: "https://assets.eweek.com/uploads/2021/01/Data.science.png",
     groups: [
       {
@@ -483,7 +491,9 @@ const learningCards = [
             tag: "Course",
             name: "Kaggle | Intro to Machine Learning",
             source: "Kaggle",
-            progress: 100,
+            progress: {
+              progressPercent: 100,
+            },
             certificate: false,
             leafs: [],
           },
@@ -492,7 +502,9 @@ const learningCards = [
             tag: "Course",
             name: "Kaggle | Data Visualization",
             source: "Kaggle",
-            progress: 100,
+            progress: {
+              progressPercent: 100,
+            },
             certificate: false,
             leafs: [],
           },
@@ -501,7 +513,9 @@ const learningCards = [
             tag: "Course",
             name: "Kaggle | Statistic and Probability",
             source: "Khan Academy",
-            progress: 23,
+            progress: {
+              progressPercent: 100,
+            },
             certificate: false,
             leafs: [],
           },
@@ -551,7 +565,9 @@ const learningCards = [
     name: "Math for ML",
     description: " Math for ML",
     tag: "AI",
-    progress: 34.5,
+    progress: {
+      progressPercent: 100,
+    },
     image:
       "https://i.ytimg.com/vi/YCOaV7Ol0MQ/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBVR7UKvTlvzVliW0Bn-aTwdSXBnA",
     groups: [
@@ -563,7 +579,9 @@ const learningCards = [
             id: "7-1-1",
             name: "Linear Algebra",
             source: "Khan",
-            progress: 95,
+            progress: {
+              progressPercent: 99,
+            },
             certificate: false,
             tag: "Course",
             leafs: [
@@ -607,7 +625,9 @@ const learningCards = [
             id: "7-1-2",
             name: "18.06SC | Linear Algebra",
             source: "MIT",
-            progress: 27,
+            progress: {
+              progressPercent: 100,
+            },
             certificate: false,
             leafs: [],
             tag: "Course",
@@ -632,7 +652,9 @@ const learningCards = [
     description:
       "Docker is the practice of building applications using the cloud.",
     tag: "DevOps",
-    progress: 34.5,
+    progress: {
+      progressPercent: 100,
+    },
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaZfE89zqZ2kSsp__u7cPfCKEdUZyZfEGqWQ&s",
     groups: [
@@ -645,7 +667,9 @@ const learningCards = [
             id: "8-1-1",
             name: "Docker Roadmap",
             source: "Roadmap.sh",
-            progress: 80,
+            progress: {
+              progressPercent: 100,
+            },
             certificate: false,
             leafs: [],
             tag: "Roadmap.sh",
@@ -663,7 +687,9 @@ const learningCards = [
             id: "8-1-3",
             name: "Docker Deep Dive",
             source: "Book",
-            progress: 60,
+            progress: {
+              progressPercent: 100,
+            },
             certificate: false,
             leafs: [],
             tag: "Book",
@@ -679,7 +705,7 @@ const learningCards = [
     description:
       "Python is the practice of building applications using the cloud.",
     tag: "Python",
-    progress: 50,
+    progress: { progressPercent: 67 },
     image:
       "https://media.dev.to/cdn-cgi/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2Ftteuu4xw5tomxb7l0xjx.png",
     groups: [
@@ -692,7 +718,7 @@ const learningCards = [
             id: "9-1-1",
             name: "FastAPI Documentation",
             source: "FastAPI Documentation",
-            progress: 0,
+            progress: { progressPercent: 67 },
             certificate: false,
             leafs: [],
             tag: "Documentation",
@@ -709,7 +735,7 @@ const learningCards = [
             id: "9-2-1",
             name: "Advanced Python",
             source: "Book",
-            progress: 70,
+            progress: { progressPercent: 67 },
             certificate: false,
             leafs: [],
             tag: "Book",
@@ -718,7 +744,7 @@ const learningCards = [
             id: "9-2-2",
             name: "Cosmic Python",
             source: "Book",
-            progress: 100,
+            progress: { progressPercent: 67 },
             certificate: false,
             leafs: [],
             tag: "Book",
@@ -727,7 +753,7 @@ const learningCards = [
             id: "9-2-3",
             name: "Mark Lutz",
             source: "Book",
-            progress: 100,
+            progress: { progressPercent: 67 },
             certificate: false,
             leafs: [],
             tag: "Book",
@@ -742,7 +768,7 @@ const learningCards = [
     name: "C#",
     description: "C# is the practice of building applications using the cloud.",
     tag: "C#",
-    progress: 50,
+    progress: { progressPercent: 67 },
     image:
       "https://res.cloudinary.com/practicaldev/image/fetch/s--2XdEnCAM--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://raw.githubusercontent.com/sandeepkumar17/td-dev.to/di-collection-posts/assets/blog-cover/c-sharp.png",
     groups: [
@@ -755,7 +781,7 @@ const learningCards = [
             id: "10-1-1",
             name: "Microsoft Learn C# Syntax",
             source: "Microsoft Learn",
-            progress: 0,
+            progress: { progressPercent: 67 },
             certificate: true,
             leafs: [],
             tag: "Course",
@@ -764,7 +790,7 @@ const learningCards = [
             id: "10-1-2",
             name: "Stepik C# Syntax",
             source: "Stepik",
-            progress: 0,
+            progress: { progressPercent: 67 },
             certificate: true,
             leafs: [],
             tag: "Course",
@@ -781,7 +807,7 @@ const learningCards = [
             id: "10-2-1",
             name: "Unity 3D",
             source: "Unity Course",
-            progress: 5,
+            progress: { progressPercent: 67 },
             certificate: false,
             leafs: [],
             tag: "Course",
@@ -796,7 +822,7 @@ const learningCards = [
     name: "OS",
     description: "OS is the practice of building applications using the cloud.",
     tag: "DevOps",
-    progress: 50,
+    progress: { progressPercent: 67 },
     image:
       "https://lh6.googleusercontent.com/rRMlIyP-oBvqUb3VYRg1-rem09tAueDTOdi7ZfB38ecuaSuMh27DEAdFyPQbei9wi8PLqzvP8T5HCvP5ilxLkqjxigErSgeoKa3G0Thq0VJyPwx-8ef3d7_RnyashRphy4hKWVXDHnvEvE0AIMnUOfY",
     groups: [
@@ -809,7 +835,7 @@ const learningCards = [
             id: "11-1-1",
             name: "Linux Journey",
             source: "Linux Journey",
-            progress: 50,
+            progress: { progressPercent: 67 },
             certificate: false,
             tag: "Course",
             leafs: [

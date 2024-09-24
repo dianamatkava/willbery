@@ -9,14 +9,28 @@ import useStore from "../stores/useStore";
 import AddItemComponent from "../components/ui-elements/AddItemComponent";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+
 const CardDetails: FunctionComponent = () => {
+  const createGroup = useStore((state) => state.createGroup);
+
   const { cardId } = useParams();
-  const cardDetails = useStore((state) =>
-    state.cards.find((card) => card.id === cardId)
+  const cardDetails = useStore(
+    (state) => state.cards.find((card) => card.id === cardId) // ignore
   );
 
   if (!cardDetails) {
-    return <div>Loading...</div>; // Handle loading or not found case
+    return (
+      <div className="flex items-center justify-center flex-[1.5_2_0%] mx-auto w-min-[450px]">
+        <div
+          className="relative h-full flex-1 w-full rounded-sm rounded-tr-none rounded-b-none 
+    border-[#d1d1d1] border-[0.5px] border-solid box-border flex flex-col items-start 
+    justify-start p-4 mx-2 gap-5 text-left text-smi text-miscellaneous-floating-tab-text-unselected"
+        >
+          Loading...
+        </div>
+      </div>
+    );
   }
 
   const getAllTags = () => {
@@ -31,11 +45,11 @@ const CardDetails: FunctionComponent = () => {
   };
 
   const onAddSection = () => {
-    // createGroup(cardDetails.id, {
-    //   id: uuidv4(),
-    //   name: "Untitled Section",
-    //   nodes: [],
-    // });
+    createGroup(cardDetails.id, {
+      id: uuidv4(),
+      name: "Untitled Section",
+      nodes: [],
+    });
   };
 
   return (

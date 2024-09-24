@@ -6,13 +6,7 @@ import { StatsIcon } from "./icons/StatsIcon";
 import { TrashIcon } from "./icons/TrashIcon";
 import { WillberyLogo } from "./icons/WillberyLogo";
 
-import {
-  Link,
-  NavLink,
-  // useLocation,
-  // useNavigate,
-  // useOutlet,
-} from "@remix-run/react";
+import { Link, NavLink } from "@remix-run/react";
 
 export default function SideBar() {
   const navLinkClass = ({
