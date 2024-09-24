@@ -103,39 +103,28 @@ input {
   box-sizing: border-box;
 }
 
-/* General input styling */
-input[type="number"] {
-  -webkit-appearance: none; /* Hide default appearance */
-  -moz-appearance: textfield;
+select {
   appearance: none;
-  box-shadow: none;
+  box-sizing: border-box;
   border: none;
-  outline: none;
   background: none;
-  padding: 0;
+  outline: none;
+  box-shadow: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  height: 20px;
+  background-color: white;
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+}
+
+.remove-number-styles::-webkit-outer-spin-button,
+.remove-number-styles::-webkit-inner-spin-button {
+  -webkit-appearance: none;
   margin: 0;
-}
-
-/* Hide the spinner by default */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  opacity: 0; /* Hide spinner */
-}
-
-/* Show spinner on hover and focus */
-input[type="number"]:hover::-webkit-inner-spin-button,
-input[type="number"]:focus::-webkit-inner-spin-button {
-  opacity: 1; /* Show spinner */
-}
-
-/* For Firefox */
-input[type="number"]::-moz-inner-spin-button {
-  display: none;
-}
-
-input[type="number"]:hover::-moz-inner-spin-button,
-input[type="number"]:focus::-moz-inner-spin-button {
-  display: inline;
 }
 
 html {
