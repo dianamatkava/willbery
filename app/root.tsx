@@ -1,13 +1,10 @@
 import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
-  // Link,
-  // NavLink, // used to indecate the active link, when the URL that matches <NavLink to>, then isActive=true
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  // useLoaderData,
 } from "@remix-run/react";
 
 import SideBar from "./components/SideBar";

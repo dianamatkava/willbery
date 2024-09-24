@@ -10,6 +10,10 @@ interface CardStore {
   tags: string[];
   domains: string[];
 
+  setCards: (cards: CardInterface[]) => void;
+  setTags: (tags: string[]) => void;
+  setDomains: (domains: string[]) => void;
+
   updateTags: (newTag: string) => void;
   updateDomains: (newDomain: string) => void;
   updateCardName: (cardId: number, newName: string) => void;
@@ -64,10 +68,12 @@ interface CardStore {
 const useStore = create<CardStore>((set) => ({
   cards: [],
   setCards: (cards) => {
+    console.log("setCards", cards);
     set({ cards });
   },
   tags: [],
   setTags: (tags) => {
+    console.log("setCards", tags);
     set({ tags });
   },
   domains: [],
@@ -176,7 +182,8 @@ const useStore = create<CardStore>((set) => ({
 
   // ################ Create Functions ################
   createCard: (newCard) => {
-    set((state) => ({ cards: [...state.cards, newCard] }));
+    console.log("createCard", newCard);
+    set((state) => ({ cards: [newCard, ...state.cards] }));
   },
   createGroup: (cardId, newGroup) => {
     set((state) =>

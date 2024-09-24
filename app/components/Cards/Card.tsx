@@ -6,7 +6,7 @@ import { CardInterface } from "~/interfaces/CardInterfaces";
 
 export default function Card({ cardData }: { cardData: CardInterface }) {
   return (
-    <div>
+    <div className="max-w-[275px] max-h-[350px] min-h-[230px] bg-white rounded-md border-[0.5px] border-solid border-[#d1d1d1] shadow-[1px_1px_1px_rgba(0,_0,_0,_0.05)]">
       <CardInfo cardData={cardData} />
 
       <div className="w-full flex flex-col items-center h-fit pr-[1.5px]">
@@ -19,11 +19,7 @@ export default function Card({ cardData }: { cardData: CardInterface }) {
             >
               {group.nodes &&
                 group.nodes.map((node) => (
-                  <CardNode
-                    key={node.id}
-                    name={node.name}
-                    progress={node.progress}
-                  >
+                  <CardNode key={node.id} node={node}>
                     {node.leafs &&
                       node.leafs.map((leaf) => (
                         <CardLeaf

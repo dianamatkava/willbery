@@ -73,13 +73,13 @@ export function CardDetailsGroup({
             </div>
           </div>
           <div className="w-full flex flex-row items-center justify-end gap-1">
-            <div className="w-full flex-1 flex flex-row items-center justify-end gap-1">
+            {group.progress && (
               <ProgressBar
                 progress={group.progress}
                 height={"h-2"}
                 className={"w-[60px] font-semibold text-xxs"}
               />
-            </div>
+            )}
             <div className="flex items-center justify-center gap-0 text-gray-300 hover:text-gray-500">
               <IoMdMore size={18} className="cursor-pointer" />
             </div>

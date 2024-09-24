@@ -6,7 +6,7 @@ export default function CardLeaf({
   progress,
 }: {
   name: string;
-  progress: number;
+  progress: object;
 }) {
   return (
     <div className="flex w-full justify-between items-center px-1 pl-4 py-1">
@@ -17,14 +17,13 @@ export default function CardLeaf({
           {name}
         </div>
       </div>
-      <div className="flex items-center justify-between">
-        <ProgressBar
-          progress={progress?.progressPercent}
-          color="bg-green-500"
-          height="h-2"
-          className="w-[50px]"
-        />
-      </div>
+
+      <ProgressBar
+        progress={progress}
+        color="bg-green-500"
+        height="h-2"
+        className="w-[50px]"
+      />
     </div>
   );
 }

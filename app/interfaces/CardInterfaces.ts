@@ -19,7 +19,7 @@ export interface CardGroupInterface {
 
 export interface CardInterface {
   id: number;
-  tag: string;
+  tag?: string;
   name: string;
   description: string;
   groups?: CardGroupInterface[];
