@@ -6,7 +6,7 @@ export default function Accordion({
   hidden = false,
   setExpanded,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   expanded: boolean;
   hidden?: boolean;
   setExpanded: (expanded: boolean) => void;
@@ -29,9 +29,11 @@ export default function Accordion({
       <Arrow
         direction={expanded ? "right" : "down"}
         color="#5A5A5A"
-        className={`cursor-pointer w-4 h-4 ${hidden ? "hidden" : ""}`} // Fixed size for the arrow
+        className={`cursor-pointer w-4 h-4 ${
+          hidden ? "hidden" : ""
+        } hover:color-gray-200`}
       />
-      {children}
+      {children || null}
     </div>
   );
 }

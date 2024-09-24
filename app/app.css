@@ -24,6 +24,120 @@
   --responsive-device-width: 768px;
 }
 
+.parent-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(var(--grid-min-width, 220px), 1fr)
+  );
+  max-width: var(--grid-max-width, 275px);
+}
+
+@media (min-width: var(--grid-sm)) {
+  .parent-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+@media (min-width: var(--grid-md)) {
+  .parent-grid {
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
+  }
+}
+
+@media (min-width: var(--grid-lg)) {
+  .parent-grid {
+    grid-template-columns: repeat(4, minmax(220px, 1fr));
+  }
+}
+
+@media (min-width: var(--grid-xlg)) {
+  .parent-grid {
+    grid-template-columns: repeat(5, minmax(220px, 1fr));
+  }
+}
+
+@media (min-width: var(--grid-xxlg)) {
+  .parent-grid {
+    grid-template-columns: repeat(6, minmax(220px, 1fr));
+  }
+}
+
+.editable-content {
+  min-width: 100px;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.editable-text-area:focus {
+  border: 0.5px solid #d9d9d9;
+  padding: 4px;
+  height: 100px;
+  border-radius: 6px;
+}
+
+.editable-lined:focus {
+  border-radius: 0px;
+  border-bottom: 0.5px solid #d9d9d9;
+  padding-bottom: 2px;
+}
+
+.editable-content:focus {
+  border-color: #d9d9d9;
+}
+
+.placeholder {
+  color: #d9d9d9;
+}
+
+input {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  box-shadow: none;
+  appearance: none;
+  box-sizing: border-box;
+}
+
+/* General input styling */
+input[type="number"] {
+  -webkit-appearance: none; /* Hide default appearance */
+  -moz-appearance: textfield;
+  appearance: none;
+  box-shadow: none;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Hide the spinner by default */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 0; /* Hide spinner */
+}
+
+/* Show spinner on hover and focus */
+input[type="number"]:hover::-webkit-inner-spin-button,
+input[type="number"]:focus::-webkit-inner-spin-button {
+  opacity: 1; /* Show spinner */
+}
+
+/* For Firefox */
+input[type="number"]::-moz-inner-spin-button {
+  display: none;
+}
+
+input[type="number"]:hover::-moz-inner-spin-button,
+input[type="number"]:focus::-moz-inner-spin-button {
+  display: inline;
+}
+
 html {
   box-sizing: border-box;
 }
@@ -54,7 +168,6 @@ body {
   color: #121212;
 }
 textarea,
-input,
 button {
   font-size: 1rem;
   font-family: inherit;
@@ -72,7 +185,6 @@ button {
 }
 
 textarea:hover,
-input:hover,
 button:hover {
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.6), 0 1px 2px hsla(0, 0%, 0%, 0.2);
 }

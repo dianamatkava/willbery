@@ -10,7 +10,7 @@ export default function CardGroup({
 }: {
   children: React.ReactNode;
   name: string;
-  progress: number;
+  progress: object;
 }) {
   const [expanded, setExpanded] = useState(true);
   return (
@@ -34,8 +34,7 @@ export default function CardGroup({
           {/* <div className="border-b-[0.4px] border-solid border-[#eaeaea] w-fit"></div> */}
         </div>
         <ProgressBar
-          progress={17}
-          color="#2D4468FF"
+          progress={progress}
           height="h-2"
           textColor="#777777"
           className="w-[50px]"
