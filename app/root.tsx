@@ -1,13 +1,10 @@
 import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
-  // Link,
-  // NavLink, // used to indecate the active link, when the URL that matches <NavLink to>, then isActive=true
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  // useLoaderData,
 } from "@remix-run/react";
 
 import SideBar from "./components/SideBar";
@@ -28,9 +25,9 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="w-full">
         <SideBar />
-        <div className="flex-1 p-4 w-full h-fit pb-28">
+        <div className="flex-1 m-4 w-full h-fit pb-28 max-w-[1600px]">
           <Outlet />
         </div>
 

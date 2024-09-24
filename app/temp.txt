@@ -1,0 +1,10 @@
+// {/* </CreatableSelectInput>
+//               <div className="rounded-lg h-6 flex flex-row items-center justify-center px-2 box-border gap-1 cursor-pointer bg-black">
+//                 <div className="leading-[100%] text-white text-xs">
+//                   {fields.tag}
+//                 </div>
+//               </div>
+//             ) : (
+//               <div className="w-[26px] rounded-md bg-gainsboro-100 h-6 flex flex-row items-center justify-center">
+//                 <LuTags size={18} className="cursor-pointer" />
+//               </div> */
