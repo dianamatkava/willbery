@@ -5,6 +5,7 @@ import ContentEditable from "react-contenteditable";
 import { CardLeafInterface } from "~/interfaces/CardInterfaces";
 import CardDetailsProgress from "./CardDetailsProgress";
 import CardDetailsUntracked from "./CardDetailsUntracked";
+import Tracking from "../../Tracking/Tracking";
 
 export function CardDetailsLeaf({
   leaf,
@@ -24,6 +25,7 @@ export function CardDetailsLeaf({
     total: leaf.progress?.progressTotal,
     duration: leaf.progress?.duration,
   });
+  const [isEditingTracking, setIsEditingTracking] = useState(false);
   const updateLeafName = useStore((state) => state.updateLeafName);
   const updateLeafTag = useStore((state) => state.updateLeafTag);
   const updateTags = useStore((state) => state.updateTags);
@@ -70,35 +72,39 @@ export function CardDetailsLeaf({
   };
 
   return (
-    <div className="w-full w-fit flex flex-row items-center justify-between py-0 pl-2 pr-0 box-border gap-2">
-      <div className="w-full w-fit flex flex-row items-center justify-start gap-1">
-        <IoReturnDownForward size={18} className="text-gray-400" />
-        <span className="w-fit font-medium flex items-center text-xs">
-          <ContentEditable
-            html={fields.name || ""}
-            onChange={(e) => handleChange(e, "name")}
-            onKeyDown={handleKeyDown}
-            onBlur={(e) => handleBlur(e, "name")}
-            className="editable-content editable-lined"
+    <>
+      <div className="w-full w-fit flex flex-row items-center justify-between py-0 pl-2 pr-0 box-border gap-2">
+        <div className="w-full w-fit flex flex-row items-center justify-start gap-1">
+          <IoReturnDownForward size={18} className="text-gray-400" />
+          <span className="w-fit font-medium flex items-center text-xs">
+            <ContentEditable
+              html={fields.name || ""}
+              onChange={(e) => handleChange(e, "name")}
+              onKeyDown={handleKeyDown}
+              onBlur={(e) => handleBlur(e, "name")}
+              className="editable-content editable-lined"
+            />
+          </span>
+        </div>
+        {leaf.progress ? (
+          <CardDetailsProgress
+            tag={leaf.tag}
+            tags={tags}
+            onSelect={onSelectTag}
+            progress={leaf.progress}
+            className="pl-0 mt-[-10px]"
           />
-        </span>
+        ) : (
+          <CardDetailsUntracked
+            data={leaf}
+            tags={tags}
+            onSelectTag={onSelectTag}
+            onEditTracking={() => setIsEditingTracking(!isEditingTracking)}
+            tagStyle="text-xxxs text-gray-500 border-gainsboro-400 border-[0.8px] border-solid box-border py-1 px-1"
+          />
+        )}
       </div>
-      {leaf.progress ? (
-        <CardDetailsProgress
-          tag={leaf.tag}
-          tags={tags}
-          onSelect={onSelectTag}
-          progress={leaf.progress}
-          className="pl-0 mt-[-10px]"
-        />
-      ) : (
-        <CardDetailsUntracked
-          data={leaf}
-          tags={tags}
-          onSelectTag={onSelectTag}
-          tagStyle="text-xxxs text-gray-500 border-gainsboro-400 border-[0.8px] border-solid box-border py-1 px-1"
-        />
-      )}
-    </div>
+      {isEditingTracking && <Tracking />}
+    </>
   );
 }

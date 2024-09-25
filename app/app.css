@@ -158,29 +158,19 @@ body {
 }
 textarea,
 button {
-  font-size: 1rem;
-  font-family: inherit;
-  border: none;
-  border-radius: 8px;
-  padding: 0.5rem 0.75rem;
-  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.2);
-  background-color: white;
-  line-height: 1.5;
+  all: unset; /* Removes all styles */
+  display: inline-block; /* Ensures it remains a block-level element */
+  cursor: pointer; /* Adds the pointer cursor back for usability */
+  padding: 0;
   margin: 0;
-}
-button {
-  color: #3992ff;
-  font-weight: 500;
+  border: none;
+  background: none;
+  font: inherit; /* Inherit font styling from parent elements */
+  text-align: inherit; /* Inherit text alignment */
 }
 
-textarea:hover,
-button:hover {
+textarea:hover {
   box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.6), 0 1px 2px hsla(0, 0%, 0%, 0.2);
-}
-
-button:active {
-  box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.4);
-  transform: translateY(1px);
 }
 
 #contact h1 {

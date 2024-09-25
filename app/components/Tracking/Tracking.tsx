@@ -1,7 +1,8 @@
 import { FunctionComponent } from "react";
-import { GoInfo } from "react-icons/go";
-import { FiClock } from "react-icons/fi";
-import { CgInfinity } from "react-icons/cg";
+import NumberInput from "./Inputs/NumberInput";
+import DatePickerInput from "./Inputs/DatePickerInput";
+import DurationInput from "./Inputs/DurationInput";
+import FrequencyInput from "./Inputs/MultipleInput";
 
 const Tracking: FunctionComponent = () => {
   return (
@@ -15,59 +16,9 @@ const Tracking: FunctionComponent = () => {
           </div>
           <div className="self-stretch flex flex-col items-start justify-start pt-0 px-0 pb-2 gap-5 text-xxs">
             <div className="self-stretch flex flex-row items-start justify-between">
-              <div className="w-[110px] flex flex-col items-start justify-start gap-2">
-                <div className="flex flex-row items-start justify-start gap-1">
-                  <div className="leading-1 font-semibold w-full">
-                    Total Units
-                  </div>
-                  <div className="w-fit h-2 overflow-hidden shrink-0">
-                    <GoInfo size={8} />
-                  </div>
-                </div>
-                <div className="self-stretch rounded-md bg-grey-100 border-grey-200 hover:border-gray-300 border-[1px] border-solid box-border h-[30px] overflow-hidden shrink-0 flex flex-row items-center justify-between p-space-200 text-xxs">
-                  <input
-                    type="number"
-                    placeholder="0"
-                    min={0}
-                    className="w-full h-4"
-                  />
-                </div>
-              </div>
-              <div className="w-[110px] flex flex-col items-start justify-start gap-2">
-                <div className="flex flex-row items-start justify-start gap-1">
-                  <div className="leading-1 font-semibold w-full">
-                    Completed Units
-                  </div>
-                  <div className="w-fit h-2 overflow-hidden shrink-0">
-                    <GoInfo size={8} />
-                  </div>
-                </div>
-                <div className="self-stretch rounded-md bg-grey-100 border-grey-200 hover:border-gray-300 border-[1px] border-solid box-border h-[30px] overflow-hidden shrink-0 flex flex-row items-center justify-between p-space-200 text-xxs">
-                  <input
-                    type="number"
-                    placeholder="0"
-                    min={0}
-                    className="w-full h-4"
-                  />
-                </div>
-              </div>
-              <div className="w-[110px] flex flex-col items-start justify-start gap-2">
-                <div className="flex flex-row items-start justify-start gap-1">
-                  <div className="leading-1 font-semibold w-full">
-                    Start Date
-                  </div>
-                  <div className="w-fit h-2 overflow-hidden shrink-0">
-                    <GoInfo size={8} />
-                  </div>
-                </div>
-                <div className="self-stretch rounded-md bg-grey-100 border-grey-200 hover:border-gray-300 border-[1px] border-solid box-border h-[30px] overflow-hidden shrink-0 flex flex-row items-center justify-between p-space-200 text-xxs">
-                  <input
-                    aria-label="Date"
-                    type="date"
-                    value={`${new Date().toISOString().split("T")[0]}`}
-                  />
-                </div>
-              </div>
+              <NumberInput label="Total Units" />
+              <NumberInput label="Completed Units" />
+              <DatePickerInput label="Start Date" />
             </div>
             <div className="w-fit h-[11px] flex flex-row items-center justify-start gap-2">
               <div className="leading-1 font-semibold w-full">Track Time</div>
@@ -77,77 +28,9 @@ const Tracking: FunctionComponent = () => {
               </div>
             </div>
             <div className="self-stretch flex flex-row items-start justify-between">
-              <div className="w-[110px] flex flex-col items-start justify-start gap-2">
-                <div className="flex flex-row items-start justify-start gap-1">
-                  <div className="leading-1 font-semibold w-full">Duration</div>
-                  <div className="w-fit h-2 overflow-hidden shrink-0">
-                    <GoInfo size={8} />
-                  </div>
-                </div>
-                <div className="w-[110px] rounded-md border-gray-200 hover:border-gray-300 border-[1px] border-solid box-border h-[30px] overflow-hidden shrink-0 flex flex-row items-center justify-between p-space-200 text-xxs">
-                  <input
-                    type="number"
-                    placeholder="2"
-                    min={0}
-                    className="w-full h-4 remove-number-styles cursor-pointer"
-                  />
-                  <div className="w-fit flex flex-row items-center justify-center gap-1">
-                    <span className="flex flex-row items-start text-xxs space-y-2 text-gray-400">
-                      <span className="font-semibold px-1"> / </span> hours
-                    </span>
-                    <FiClock size={12} />
-                  </div>
-                </div>
-              </div>
-              <div className="w-[110px] flex flex-col items-start justify-start gap-2">
-                <div className="flex flex-row items-start justify-start gap-1">
-                  <div className="leading-1 font-semibold w-full">
-                    Frequency
-                  </div>
-                  <div className="w-fit h-2 overflow-hidden shrink-0">
-                    <GoInfo size={8} />
-                  </div>
-                </div>
-                <div className="self-stretch rounded-md bg-grey-100 border-grey-200 hover:border-gray-300 border-[1px] border-solid box-border h-[30px] overflow-hidden shrink-0 flex flex-row justify-between p-space-200 text-xxs items-center">
-                  <input
-                    type="number"
-                    placeholder="2"
-                    min={0}
-                    className="w-4 h-4 remove-number-styles cursor-pointer"
-                  />
-                  <span className="flex flex-col items-start text-xxs space-y-2 text-gray-400">
-                    {" "}
-                    times /{" "}
-                  </span>
-                  <select
-                    name=""
-                    id=""
-                    className="h-fit flex flex-col justify-center text-center items-center text-xxs cursor-pointer hover:text-blue-400 hover:font-semibold"
-                  >
-                    <option value="1">week</option>
-                    <option value="1">2 weeks</option>
-                    <option value="1">3 weeks</option>
-                    <option value="1">4 weeks</option>
-                    <option value="2">month</option>
-                  </select>
-                </div>
-              </div>
-              <div className="w-[110px] flex flex-col items-start justify-start gap-2">
-                <div className="flex flex-row flex-nowrap items-start justify-start gap-1">
-                  <div className="leading-1 font-semibold w-full text-nowrap">{`\${Tag} Total Duration`}</div>
-                  <div className="w-fit h-2 overflow-hidden shrink-0">
-                    <GoInfo size={8} />
-                  </div>
-                </div>
-                <div className="w-[110px] rounded-md border-gray-200 hover:border-gray-300 border-[1px] border-solid box-border h-[30px] overflow-hidden shrink-0 flex flex-row items-center justify-between p-space-200 text-3xs text-darkslategray-100">
-                  <div className="leading-1 font-medium text-gray-400">
-                    Unlimited
-                  </div>
-                  <div className="w-4 h-4 overflow-hidden shrink-0">
-                    <CgInfinity size={14} />
-                  </div>
-                </div>
-              </div>
+              <DurationInput label="Duration" placeholder="2" />
+              <FrequencyInput label="Frequency" />
+              <DurationInput label="Total Duration" initialEmpty={true} />
             </div>
           </div>
           <div className="self-stretch text-xxs text-gray-500">
