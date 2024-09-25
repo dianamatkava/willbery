@@ -57,6 +57,12 @@ interface CardStore {
     groupId: number,
     newNode: CardNodeInterface
   ) => void;
+  createNodeTracking: (
+    cardId: number,
+    groupId: number,
+    nodeId: number,
+    newTracking: object
+  ) => void;
   createLeaf: (
     cardId: number,
     groupId: number,
@@ -68,12 +74,10 @@ interface CardStore {
 const useStore = create<CardStore>((set) => ({
   cards: [],
   setCards: (cards) => {
-    console.log("setCards", cards);
     set({ cards });
   },
   tags: [],
   setTags: (tags) => {
-    console.log("setCards", tags);
     set({ tags });
   },
   domains: [],
@@ -182,7 +186,6 @@ const useStore = create<CardStore>((set) => ({
 
   // ################ Create Functions ################
   createCard: (newCard) => {
-    console.log("createCard", newCard);
     set((state) => ({ cards: [newCard, ...state.cards] }));
   },
   createGroup: (cardId, newGroup) => {
@@ -207,6 +210,16 @@ const useStore = create<CardStore>((set) => ({
         } else {
           group.nodes = [newNode];
         }
+      })
+    );
+  },
+  createNodeTracking: (cardId, groupId, nodeId, newTracking) => {
+    set((state) =>
+      produce(state, (draft) => {
+        const card = draft.cards.find((c) => c.id === cardId);
+        const group = card.groups.find((g) => g.id === groupId);
+        const node = group.nodes.find((n) => n.id === nodeId);
+        node.tracking = newTracking;
       })
     );
   },

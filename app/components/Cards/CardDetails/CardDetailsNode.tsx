@@ -7,7 +7,7 @@ import CardDetailsProgress from "./CardDetailsProgress";
 import { v4 as uuidv4 } from "uuid";
 import { AiOutlineLink } from "react-icons/ai";
 import CardDetailsUntracked from "./CardDetailsUntracked";
-import Tracking from "../../Tracking/Tracking";
+import CreateTracking from "../../Tracking/CreateTracking";
 
 export function CardDetailsNode({
   children,
@@ -20,7 +20,9 @@ export function CardDetailsNode({
   cardId: number;
   groupId: number;
 }) {
+  const [isEditingTracking, setIsEditingTracking] = useState(false);
   const updateNodeName = useStore((state) => state.updateNodeName);
+  const createNodeTracking = useStore((state) => state.createNodeTracking);
   const updateNodeTag = useStore((state) => state.updateNodeTag);
   const updateTags = useStore((state) => state.updateTags);
   const createLeaf = useStore((state) => state.createLeaf);
@@ -36,6 +38,13 @@ export function CardDetailsNode({
       id: uuidv4(),
       name: "Untitled item",
       tag: node.tag,
+    });
+  };
+
+  const onAddTracking = (values: any) => {
+    createNodeTracking(cardId, groupId, node.id, {
+      id: uuidv4(),
+      ...values,
     });
   };
 
@@ -111,11 +120,13 @@ export function CardDetailsNode({
             data={node}
             tags={tags}
             onSelectTag={onSelectTag}
+            onEditTracking={() => setIsEditingTracking(!isEditingTracking)}
             tagStyle="text-xxxs font-medium text-black border-black border-[1px] border-solid box-border py-1 px-1.5"
           />
         )}
+        <p>{node.tracking?.startDate}</p>
       </div>
-      <Tracking />
+      {isEditingTracking && <CreateTracking onSubmit={onAddTracking} />}
       {children}
       <AddItemComponent
         onClick={onAddItem}

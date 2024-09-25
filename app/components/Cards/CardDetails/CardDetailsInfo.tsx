@@ -2,7 +2,7 @@ import { LuPlus, LuSmilePlus, LuTag } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import useStore from "../../../stores/useStore";
 import ContentEditable from "react-contenteditable";
-import CreatableSelectInput from "../../ui-elements/SelectInput";
+import CreatableSelectInput from "../../ui-elements/CreatableSelectInput";
 import TagComponent from "../../ui-elements/TagComponent";
 
 export function CardDetailsInfo({ cardDetails }: { cardDetails: object }) {
