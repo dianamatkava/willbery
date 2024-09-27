@@ -124,7 +124,6 @@ export function CardDetailsNode({
             tagStyle="text-xxxs font-medium text-black border-black border-[1px] border-solid box-border py-1 px-1.5"
           />
         )}
-        <p>{node.tracking?.startDate}</p>
       </div>
       {isEditingTracking && <CreateTracking onSubmit={onAddTracking} />}
       {children}

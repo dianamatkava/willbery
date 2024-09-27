@@ -1,72 +1,77 @@
 import { create } from "zustand";
-import { CardInterface } from "~/interfaces/CardInterfaces";
+import { CardInterface, TrackingInterface } from "~/interfaces/CardInterfaces";
 import { produce } from "immer";
-import { CardGroupInterface } from "~/interfaces/CardInterfaces";
-import { CardNodeInterface } from "~/interfaces/CardInterfaces";
-import { CardLeafInterface } from "~/interfaces/CardInterfaces";
+import {
+  CardGroupInterface,
+  CardLeafInterface,
+  CardNodeInterface,
+  UserInterface,
+} from "~/interfaces/CardInterfaces";
 
 interface CardStore {
   cards: CardInterface[];
   tags: string[];
   domains: string[];
+  user: UserInterface | null;
 
   setCards: (cards: CardInterface[]) => void;
   setTags: (tags: string[]) => void;
   setDomains: (domains: string[]) => void;
+  setUser: (user: UserInterface) => void;
 
   updateTags: (newTag: string) => void;
   updateDomains: (newDomain: string) => void;
-  updateCardName: (cardId: number, newName: string) => void;
-  updateCardTag: (cardId: number, newTag: string) => void;
+  updateCardName: (cardId: string, newName: string) => void;
+  updateCardTag: (cardId: string, newTag: string) => void;
   updateGroupName: (
-    cardId: number,
-    groupId: number,
+    cardId: string,
+    groupId: string,
     newGroupName: string
   ) => void;
-  updateCardDescription: (cardId: number, newDescription: string) => void;
+  updateCardDescription: (cardId: string, newDescription: string) => void;
   updateNodeName: (
-    cardId: number,
-    groupId: number,
-    nodeId: number,
+    cardId: string,
+    groupId: string,
+    nodeId: string,
     newNodeName: string
   ) => void;
   updateNodeTag: (
-    cardId: number,
-    groupId: number,
-    nodeId: number,
+    cardId: string,
+    groupId: string,
+    nodeId: string,
     newNodeTag: string
   ) => void;
   updateLeafName: (
-    cardId: number,
-    groupId: number,
-    nodeId: number,
-    leafId: number,
+    cardId: string,
+    groupId: string,
+    nodeId: string,
+    leafId: string,
     newLeafName: string
   ) => void;
   updateLeafTag: (
-    cardId: number,
-    groupId: number,
-    nodeId: number,
-    leafId: number,
+    cardId: string,
+    groupId: string,
+    nodeId: string,
+    leafId: string,
     newLeafTag: string
   ) => void;
   createCard: (newCard: CardInterface) => void;
-  createGroup: (cardId: number, newGroup: CardGroupInterface) => void;
+  createGroup: (cardId: string, newGroup: CardGroupInterface) => void;
   createNode: (
-    cardId: number,
-    groupId: number,
+    cardId: string,
+    groupId: string,
     newNode: CardNodeInterface
   ) => void;
   createNodeTracking: (
-    cardId: number,
-    groupId: number,
-    nodeId: number,
+    cardId: string,
+    groupId: string,
+    nodeId: string,
     newTracking: object
   ) => void;
   createLeaf: (
-    cardId: number,
-    groupId: number,
-    nodeId: number,
+    cardId: string,
+    groupId: string,
+    nodeId: string,
     newLeaf: CardLeafInterface
   ) => void;
 }
@@ -83,6 +88,11 @@ const useStore = create<CardStore>((set) => ({
   domains: [],
   setDomains: (domains) => {
     set({ domains });
+  },
+
+  user: null,
+  setUser: (user) => {
+    set({ user });
   },
 
   // ################ Update Functions ################
@@ -213,7 +223,12 @@ const useStore = create<CardStore>((set) => ({
       })
     );
   },
-  createNodeTracking: (cardId, groupId, nodeId, newTracking) => {
+  createNodeTracking: (
+    cardId: string,
+    groupId: string,
+    nodeId: string,
+    newTracking: TrackingInterface
+  ) => {
     set((state) =>
       produce(state, (draft) => {
         const card = draft.cards.find((c) => c.id === cardId);
@@ -234,6 +249,17 @@ const useStore = create<CardStore>((set) => ({
         } else {
           node.leafs = [newLeaf];
         }
+      })
+    );
+  },
+  createLeafTracking: (cardId, groupId, nodeId, leafId, newTracking) => {
+    set((state) =>
+      produce(state, (draft) => {
+        const card = draft.cards.find((c) => c.id === cardId);
+        const group = card.groups.find((g) => g.id === groupId);
+        const node = group.nodes.find((n) => n.id === nodeId);
+        const leaf = node.leafs.find((l) => l.id === leafId);
+        leaf.tracking = newTracking;
       })
     );
   },

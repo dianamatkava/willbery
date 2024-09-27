@@ -1,25 +1,32 @@
-import Card from "../components/Cards/Card";
 import { json } from "@remix-run/node";
-import { getActivities } from "~/data";
 import { useEffect } from "react";
 import { useLoaderData, useParams, Outlet } from "react-router-dom";
-import useStore from "~/stores/useStore";
-import { CardInterface } from "~/interfaces/CardInterfaces";
+import { CardInterface, UserInterface } from "~/interfaces/CardInterfaces";
+
+import Card from "../components/Cards/Card";
 import CardListInfo from "~/components/Cards/CardListHeader/CardListInfo";
 import CardListFilter from "~/components/Cards/CardListHeader/CardListFilter";
-import { getTags, getDomains } from "~/data";
+
+import useStore from "~/stores/useStore";
+import { connectToDatabase } from "~/utils/mongoose.server";
+import UserModel from "../models/UserModel";
+import CardModel from "../models/CardModel";
 
 interface LoaderData {
   cards: CardInterface[];
-  tags: string[];
-  domains: string[];
+  user: UserInterface;
 }
 
 export const loader = async () => {
-  const cards = await getActivities();
-  const tags = await getTags();
-  const domains = await getDomains();
-  return json<LoaderData>({ cards, tags, domains });
+  await connectToDatabase();
+  const user: UserInterface | null = await UserModel.findOne({
+    email: "diana.matkava.pr@willbery.com",
+  });
+  const cards: CardInterface[] | null = await CardModel.find({
+    user: user,
+  });
+
+  return json<LoaderData>({ cards, user });
 };
 
 export default function Activities() {
@@ -27,12 +34,11 @@ export default function Activities() {
   const selectedCardId = cardId ? cardId : null;
 
   const setCards = useStore((state) => state.setCards);
-  const setTags = useStore((state) => state.setTags);
-  const setDomains = useStore((state) => state.setDomains);
-  const { cards, tags, domains } = useLoaderData() as {
+  const setUser = useStore((state) => state.setUser);
+
+  const { cards, user } = useLoaderData() as {
     cards: CardInterface[];
-    tags: string[];
-    domains: string[];
+    user: UserInterface;
   };
 
   const cardsState = useStore((state) => state.cards);
@@ -41,13 +47,10 @@ export default function Activities() {
     if (cards.length > 0) {
       setCards(cards);
     }
-    if (tags.length > 0) {
-      setTags(tags);
+    if (user) {
+      setUser(user);
     }
-    if (domains.length > 0) {
-      setDomains(domains);
-    }
-  }, [cards, tags, domains, setCards, setTags, setDomains]);
+  }, [cards, user, setCards, setUser]);
 
   return (
     <div
