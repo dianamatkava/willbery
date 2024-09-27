@@ -5,21 +5,23 @@ import { AiOutlineNodeIndex } from "react-icons/ai";
 import useStore from "~/stores/useStore";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { createCardCrud } from "~/clientCruds/Card";
+import { CardInterface } from "~/interfaces/CardInterfaces";
 
 export default function CardListFilter() {
+  const user = useStore((state) => state.user);
   const createCard = useStore((state) => state.createCard);
   const navigate = useNavigate();
 
-  const handleAddCard = () => {
+  const handleAddCard = async () => {
     const newCardId = uuidv4();
-    createCard({
+    const cardData: CardInterface = {
       id: newCardId,
       name: "Untitled Card",
-      description: "",
-      groups: [],
-    });
+    };
+    createCard(cardData);
     navigate(`/activities/${newCardId}`);
+    await createCardCrud({ userId: user._id, cardData: cardData });
   };
 
   return (

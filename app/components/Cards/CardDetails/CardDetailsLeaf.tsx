@@ -5,7 +5,8 @@ import ContentEditable from "react-contenteditable";
 import { CardLeafInterface } from "~/interfaces/CardInterfaces";
 import CardDetailsProgress from "./CardDetailsProgress";
 import CardDetailsUntracked from "./CardDetailsUntracked";
-import Tracking from "../../Tracking/Tracking";
+import CreateTracking from "../../Tracking/CreateTracking";
+import { v4 as uuidv4 } from "uuid";
 
 export function CardDetailsLeaf({
   leaf,
@@ -28,8 +29,16 @@ export function CardDetailsLeaf({
   const [isEditingTracking, setIsEditingTracking] = useState(false);
   const updateLeafName = useStore((state) => state.updateLeafName);
   const updateLeafTag = useStore((state) => state.updateLeafTag);
+  const createLeafTracking = useStore((state) => state.createLeafTracking);
   const updateTags = useStore((state) => state.updateTags);
   const tags = useStore((state) => state.tags);
+
+  const onAddTracking = (values: any) => {
+    createLeafTracking(cardId, groupId, nodeId, leaf.id, {
+      id: uuidv4(),
+      ...values,
+    });
+  };
 
   useEffect(() => {
     setFields({
@@ -104,7 +113,7 @@ export function CardDetailsLeaf({
           />
         )}
       </div>
-      {isEditingTracking && <Tracking />}
+      {isEditingTracking && <CreateTracking onSubmit={onAddTracking} />}
     </>
   );
 }

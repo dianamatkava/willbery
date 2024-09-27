@@ -4,8 +4,13 @@ import useStore from "../../../stores/useStore";
 import ContentEditable from "react-contenteditable";
 import CreatableSelectInput from "../../ui-elements/CreatableSelectInput";
 import TagComponent from "../../ui-elements/TagComponent";
+import { CardInterface } from "~/interfaces/CardInterfaces";
 
-export function CardDetailsInfo({ cardDetails }: { cardDetails: object }) {
+export function CardDetailsInfo({
+  cardDetails,
+}: {
+  cardDetails: CardInterface;
+}) {
   const tags = useStore((state) => state.domains);
   const updateCardName = useStore((state) => state.updateCardName);
   const updateCardDescription = useStore(
@@ -97,8 +102,8 @@ export function CardDetailsInfo({ cardDetails }: { cardDetails: object }) {
 
           <div className="relative w-full flex flex-row items-center justify-start gap-1 text-sm">
             {/* Card Icon */}
-            {cardDetails.icon ? (
-              <p className="text-gainsboro-500">{cardDetails.icon}</p>
+            {cardDetails.image ? (
+              <p className="text-gainsboro-500">{cardDetails.image}</p>
             ) : (
               <div className="w-[26px] rounded-md bg-gainsboro-100 h-6 flex flex-row items-center justify-center">
                 <LuSmilePlus size={18} className="cursor-pointer" />
