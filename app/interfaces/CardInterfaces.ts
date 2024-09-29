@@ -1,5 +1,7 @@
+import mongoose from "mongoose";
+
 export interface UserInterface {
-  _id: string;
+  _id: mongoose.Types.ObjectId;
   name: string;
   email: string;
   tags: TagInterface[];
@@ -36,7 +38,7 @@ export interface TrackingInterface {
 }
 
 export interface CardLeafInterface {
-  id: string;
+  _id: mongoose.Types.ObjectId;
   name: string;
   status?: string;
   tag: string;
@@ -45,7 +47,7 @@ export interface CardLeafInterface {
 }
 
 export interface CardNodeInterface {
-  id: string;
+  _id: mongoose.Types.ObjectId;
   name: string;
   source?: string;
   technology?: string;
@@ -57,14 +59,14 @@ export interface CardNodeInterface {
 }
 
 export interface CardGroupInterface {
-  id: string;
+  _id: mongoose.Types.ObjectId;
   name: string;
   progress?: ProgressInterface;
   nodes?: CardNodeInterface[];
 }
 
 export interface CardInterface {
-  id: string;
+  _id: mongoose.Types.ObjectId;
   name: string;
   description?: string;
   tag?: string;

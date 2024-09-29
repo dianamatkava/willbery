@@ -16,7 +16,7 @@ const CardDetails: FunctionComponent = () => {
 
   const { cardId } = useParams();
   const cardDetails = useStore(
-    (state) => state.cards.find((card) => card.id === cardId) // ignore
+    (state) => state.cards.find((card) => card._id.toString() === cardId) // ignore
   );
 
   if (!cardDetails) {

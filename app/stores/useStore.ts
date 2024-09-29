@@ -121,7 +121,7 @@ const useStore = create<CardStore>((set) => ({
   updateCardName: (cardId, newName) => {
     set((state) => {
       const updatedCards = state.cards.map((card) =>
-        card.id === cardId ? { ...card, name: newName } : card
+        card._id.toString() === cardId ? { ...card, name: newName } : card
       );
       return { cards: updatedCards };
     });
@@ -129,7 +129,7 @@ const useStore = create<CardStore>((set) => ({
   updateCardTag: (cardId, newTag) => {
     set((state) => {
       const updatedCards = state.cards.map((card) =>
-        card.id === cardId ? { ...card, tag: newTag } : card
+        card._id.toString() === cardId ? { ...card, tag: newTag } : card
       );
       return { cards: updatedCards };
     });
@@ -137,7 +137,9 @@ const useStore = create<CardStore>((set) => ({
   updateCardDescription: (cardId, newDescription) => {
     set((state) => {
       const updatedCards = state.cards.map((card) =>
-        card.id === cardId ? { ...card, description: newDescription } : card
+        card._id.toString() === cardId
+          ? { ...card, description: newDescription }
+          : card
       );
       return { cards: updatedCards };
     });
@@ -145,8 +147,8 @@ const useStore = create<CardStore>((set) => ({
   updateGroupName: (cardId, groupId, newGroupName) => {
     set((state) =>
       produce(state, (draft) => {
-        const card = draft.cards.find((c) => c.id === cardId);
-        const group = card.groups.find((g) => g.id === groupId);
+        const card = draft.cards.find((c) => c._id.toString() === cardId);
+        const group = card.groups.find((g) => g._id.toString() === groupId);
         group.name = newGroupName;
       })
     );
@@ -154,9 +156,9 @@ const useStore = create<CardStore>((set) => ({
   updateNodeName: (cardId, groupId, nodeId, newNodeName) => {
     set((state) =>
       produce(state, (draft) => {
-        const card = draft.cards.find((c) => c.id === cardId);
-        const group = card.groups.find((g) => g.id === groupId);
-        const node = group.nodes.find((n) => n.id === nodeId);
+        const card = draft.cards.find((c) => c._id.toString() === cardId);
+        const group = card.groups.find((g) => g._id.toString() === groupId);
+        const node = group.nodes.find((n) => n._id.toString() === nodeId);
         node.name = newNodeName;
       })
     );
@@ -164,9 +166,9 @@ const useStore = create<CardStore>((set) => ({
   updateNodeTag: (cardId, groupId, nodeId, newNodeTag) => {
     set((state) =>
       produce(state, (draft) => {
-        const card = draft.cards.find((c) => c.id === cardId);
-        const group = card.groups.find((g) => g.id === groupId);
-        const node = group.nodes.find((n) => n.id === nodeId);
+        const card = draft.cards.find((c) => c._id.toString() === cardId);
+        const group = card.groups.find((g) => g._id.toString() === groupId);
+        const node = group.nodes.find((n) => n._id.toString() === nodeId);
         node.tag = newNodeTag;
       })
     );
@@ -174,10 +176,10 @@ const useStore = create<CardStore>((set) => ({
   updateLeafName: (cardId, groupId, nodeId, leafId, newLeafName) => {
     set((state) =>
       produce(state, (draft) => {
-        const card = draft.cards.find((c) => c.id === cardId);
-        const group = card.groups.find((g) => g.id === groupId);
-        const node = group.nodes.find((n) => n.id === nodeId);
-        const leaf = node.leafs.find((l) => l.id === leafId);
+        const card = draft.cards.find((c) => c._id.toString() === cardId);
+        const group = card.groups.find((g) => g._id.toString() === groupId);
+        const node = group.nodes.find((n) => n._id.toString() === nodeId);
+        const leaf = node.leafs.find((l) => l._id.toString() === leafId);
         leaf.name = newLeafName;
       })
     );
@@ -185,10 +187,10 @@ const useStore = create<CardStore>((set) => ({
   updateLeafTag: (cardId, groupId, nodeId, leafId, newLeafTag) => {
     set((state) =>
       produce(state, (draft) => {
-        const card = draft.cards.find((c) => c.id === cardId);
-        const group = card.groups.find((g) => g.id === groupId);
-        const node = group.nodes.find((n) => n.id === nodeId);
-        const leaf = node.leafs.find((l) => l.id === leafId);
+        const card = draft.cards.find((c) => c._id.toString() === cardId);
+        const group = card.groups.find((g) => g._id.toString() === groupId);
+        const node = group.nodes.find((n) => n._id.toString() === nodeId);
+        const leaf = node.leafs.find((l) => l._id.toString() === leafId);
         leaf.tag = newLeafTag;
       })
     );
@@ -201,7 +203,7 @@ const useStore = create<CardStore>((set) => ({
   createGroup: (cardId, newGroup) => {
     set((state) =>
       produce(state, (draft) => {
-        const card = draft.cards.find((c) => c.id === cardId);
+        const card = draft.cards.find((c) => c._id.toString() === cardId);
         if (card.groups) {
           card.groups.push(newGroup);
         } else {
@@ -213,8 +215,8 @@ const useStore = create<CardStore>((set) => ({
   createNode: (cardId, groupId, newNode) => {
     set((state) =>
       produce(state, (draft) => {
-        const card = draft.cards.find((c) => c.id === cardId);
-        const group = card.groups.find((g) => g.id === groupId);
+        const card = draft.cards.find((c) => c._id.toString() === cardId);
+        const group = card.groups.find((g) => g._id.toString() === groupId);
         if (group.nodes) {
           group.nodes.push(newNode);
         } else {
@@ -231,9 +233,9 @@ const useStore = create<CardStore>((set) => ({
   ) => {
     set((state) =>
       produce(state, (draft) => {
-        const card = draft.cards.find((c) => c.id === cardId);
-        const group = card.groups.find((g) => g.id === groupId);
-        const node = group.nodes.find((n) => n.id === nodeId);
+        const card = draft.cards.find((c) => c._id.toString() === cardId);
+        const group = card.groups.find((g) => g._id.toString() === groupId);
+        const node = group.nodes.find((n) => n._id.toString() === nodeId);
         node.tracking = newTracking;
       })
     );
@@ -241,9 +243,9 @@ const useStore = create<CardStore>((set) => ({
   createLeaf: (cardId, groupId, nodeId, newLeaf) => {
     set((state) =>
       produce(state, (draft) => {
-        const card = draft.cards.find((c) => c.id === cardId);
-        const group = card.groups.find((g) => g.id === groupId);
-        const node = group.nodes.find((n) => n.id === nodeId);
+        const card = draft.cards.find((c) => c._id.toString() === cardId);
+        const group = card.groups.find((g) => g._id.toString() === groupId);
+        const node = group.nodes.find((n) => n._id.toString() === nodeId);
         if (node.leafs) {
           node.leafs.push(newLeaf);
         } else {
@@ -255,10 +257,10 @@ const useStore = create<CardStore>((set) => ({
   createLeafTracking: (cardId, groupId, nodeId, leafId, newTracking) => {
     set((state) =>
       produce(state, (draft) => {
-        const card = draft.cards.find((c) => c.id === cardId);
-        const group = card.groups.find((g) => g.id === groupId);
-        const node = group.nodes.find((n) => n.id === nodeId);
-        const leaf = node.leafs.find((l) => l.id === leafId);
+        const card = draft.cards.find((c) => c._id.toString() === cardId);
+        const group = card.groups.find((g) => g._id.toString() === groupId);
+        const node = group.nodes.find((n) => n._id.toString() === nodeId);
+        const leaf = node.leafs.find((l) => l._id.toString() === leafId);
         leaf.tracking = newTracking;
       })
     );

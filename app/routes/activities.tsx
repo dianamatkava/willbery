@@ -1,6 +1,6 @@
 import { json } from "@remix-run/node";
 import { useEffect } from "react";
-import { useLoaderData, useParams, Outlet } from "react-router-dom";
+import { useLoaderData, useParams, Outlet, redirect } from "react-router-dom";
 import { CardInterface, UserInterface } from "~/interfaces/CardInterfaces";
 
 import Card from "../components/Cards/Card";
@@ -12,9 +12,25 @@ import { connectToDatabase } from "~/utils/mongoose.server";
 import UserModel from "../models/UserModel";
 import CardModel from "../models/CardModel";
 
+import { getUser, createDummyCardCrud } from "~/clientCruds/Card";
+
 interface LoaderData {
   cards: CardInterface[];
   user: UserInterface;
+}
+
+export async function action({ request }) {
+  if (request.method == "POST") {
+    // get user from access token
+    const user = await getUser();
+    const card = await createDummyCardCrud({ user });
+    setTimeout(() => {
+      console.log("This message appears after 20 milliseconds.");
+    }, 20000000);
+    console.log(card);
+    return redirect(`/activities/${card._id.toString()}`);
+  }
+  return json({});
 }
 
 export const loader = async () => {
@@ -72,7 +88,7 @@ export default function Activities() {
         >
           {cardsState.map((card) => (
             <Card
-              key={card.id}
+              key={card._id.toString()}
               cardData={card}
               imgPath={
                 "https://static.vecteezy.com/system/resources/previews/007/905/993/original/coding-programming-illustration-icon-orange-and-dark-blue-screen-developer-environment-for-computer-science-poster-or-graphic-element-vector.jpg"

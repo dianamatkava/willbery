@@ -15,7 +15,7 @@ export function CardDetailsGroup({
 }: {
   children: React.ReactNode;
   group: CardGroupInterface;
-  cardId: number;
+  cardId: string;
 }) {
   const [expanded, setExpanded] = useState(true);
   const [groupName, setGroupName] = useState(group.name);

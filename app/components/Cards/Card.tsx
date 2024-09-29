@@ -13,17 +13,17 @@ export default function Card({ cardData }: { cardData: CardInterface }) {
         {cardData.groups &&
           cardData.groups.map((group) => (
             <CardGroup
-              key={group.id}
+              key={group._id.toString()}
               name={group.name}
               progress={group.progress}
             >
               {group.nodes &&
                 group.nodes.map((node) => (
-                  <CardNode key={node.id} node={node}>
+                  <CardNode key={node._id.toString()} node={node}>
                     {node.leafs &&
                       node.leafs.map((leaf) => (
                         <CardLeaf
-                          key={leaf.id}
+                          key={leaf._id.toString()}
                           name={leaf.name}
                           progress={leaf.progress}
                         />
