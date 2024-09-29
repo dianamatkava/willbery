@@ -17,8 +17,8 @@ export function CardDetailsNode({
 }: {
   children: React.ReactNode;
   node: CardNodeInterface;
-  cardId: number;
-  groupId: number;
+  cardId: string;
+  groupId: string;
 }) {
   const [isEditingTracking, setIsEditingTracking] = useState(false);
   const updateNodeName = useStore((state) => state.updateNodeName);

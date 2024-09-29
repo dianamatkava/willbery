@@ -15,9 +15,9 @@ export function CardDetailsLeaf({
   cardId,
 }: {
   leaf: CardLeafInterface;
-  nodeId: number;
-  groupId: number;
-  cardId: number;
+  nodeId: string;
+  groupId: string;
+  cardId: string;
 }) {
   const [fields, setFields] = useState({
     name: leaf.name,

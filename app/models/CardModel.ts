@@ -52,10 +52,10 @@ const CardGroupSchema = new Schema({
 const CardSchema = new Schema({
   user: { type: mongoose.Schema.Types.ObjectId, required: true },
   name: { type: String, required: true },
-  description: { type: String, required: true },
-  tag: { type: mongoose.Schema.Types.ObjectId, required: true },
-  progress: { type: ProgressSchema, required: true },
-  image: { type: String, required: true },
+  description: { type: String, required: false },
+  tag: { type: mongoose.Schema.Types.ObjectId, required: false },
+  progress: { type: ProgressSchema, required: false },
+  image: { type: String, required: false },
   groups: [CardGroupSchema],
 });
 
