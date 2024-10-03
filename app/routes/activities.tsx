@@ -24,9 +24,6 @@ export async function action({ request }) {
     // get user from access token
     const user = await getUser();
     const card = await createDummyCardCrud({ user });
-    setTimeout(() => {
-      console.log("This message appears after 20 milliseconds.");
-    }, 20000000);
     console.log(card);
     return redirect(`/activities/${card._id.toString()}`);
   }
