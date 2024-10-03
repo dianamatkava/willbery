@@ -11,6 +11,7 @@ const ProgressSchema = new Schema({
 });
 
 const TrackingSchema = new Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
   description: { type: String, required: true },
   startDate: { type: Date, required: true },
   deadline: { type: Date },
@@ -22,20 +23,28 @@ const TrackingSchema = new Schema({
 });
 
 const CardLeafSchema = new Schema({
-  id: { type: String, required: true },
+  _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
   name: { type: String, required: true },
   status: { type: String },
-  tag: { type: mongoose.Schema.Types.ObjectId, required: true },
+  tag: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "TagModel",
+    required: true,
+  },
   progress: { type: ProgressSchema, required: true },
   tracking: { type: TrackingSchema, required: true },
 });
 
 const CardNodeSchema = new Schema({
-  id: { type: String, required: true },
+  _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
   name: { type: String, required: true },
   source: { type: String },
   technology: { type: String },
-  tag: { type: mongoose.Schema.Types.ObjectId, required: true },
+  tag: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "TagModel",
+    required: true,
+  },
   progress: { type: ProgressSchema, required: true },
   tracking: { type: TrackingSchema, required: true },
   link: { type: LinkSchema },
@@ -43,7 +52,7 @@ const CardNodeSchema = new Schema({
 });
 
 const CardGroupSchema = new Schema({
-  id: { type: String, required: true },
+  _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
   name: { type: String, required: true },
   progress: { type: ProgressSchema, required: true },
   nodes: [CardNodeSchema],

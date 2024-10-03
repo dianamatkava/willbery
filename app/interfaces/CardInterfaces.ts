@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 export interface CardUpdateOptions {
   name?: string;
   scoupe?: string | mongoose.Types.ObjectId;
+  tag?: string | mongoose.Types.ObjectId;
 }
 
 export interface UserInterface {
@@ -43,7 +44,7 @@ export interface CardLeafInterface {
   _id: mongoose.Types.ObjectId;
   name: string;
   status?: string;
-  tag: string;
+  tag: TagInterface;
   progress?: ProgressInterface;
   tracking?: TrackingInterface;
 }
@@ -53,7 +54,7 @@ export interface CardNodeInterface {
   name: string;
   source?: string;
   technology?: string;
-  tag?: string;
+  tag?: TagInterface;
   progress?: ProgressInterface;
   tracking?: TrackingInterface;
   link?: LinkInterface;

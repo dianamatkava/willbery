@@ -22,12 +22,12 @@ export default function CardDetailsUntracked({
       <div className="flex flex-row items-center justify-start gap-2">
         <div className="flex flex-row items-center justify-start gap-2">
           <CreatableSelectInput
-            value={data.tag}
+            value={data.tag?.name}
             options={tags}
             onSelect={onSelectTag}
           >
-            {data.tag ? (
-              <TagComponent value={data.tag} className={tagStyle} />
+            {data.tag?.name ? (
+              <TagComponent value={data.tag.name} className={tagStyle} />
             ) : (
               <LuTag size={14} />
             )}

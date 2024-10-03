@@ -9,11 +9,22 @@ import useStore from "../stores/useStore";
 import AddItemComponent from "../components/ui-elements/AddItemComponent";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import { json } from "@remix-run/node";
-import { updateCard, updateOrCreateScoupe } from "../cruds/cardCrud";
+import {
+  updateCard,
+  updateGroup,
+  updateNode,
+  updateLeaf,
+  updateOrCreateScoupe,
+  updateOrCreateTag,
+  pushDummyGroup,
+  pushDummyNode,
+  pushDummyLeaf,
+  getUser,
+} from "../cruds/cardCrud";
 import { CardUpdateOptions } from "../interfaces/CardInterfaces";
 import { Types } from "mongoose";
+import { useFetcher } from "@remix-run/react";
 
 function formDataToObject(formData) {
   const obj = {};
@@ -46,20 +57,95 @@ export async function action({ request, params }) {
         });
         if (scoupeObj && scoupeObj._id) {
           data.scoupe = scoupeObj._id as Types.ObjectId;
-          console.log("creating");
           await updateCard({ cardId, data });
-          console.log("created");
         } else {
           return json(
             { success: false, error: "Scoupe update or creation failed" },
             { status: 500 }
           );
         }
-
+        break;
+      }
+      case "tag": {
+        const tag = data.tag;
+        const tagObj = await updateOrCreateTag({
+          tag: String(tag),
+        });
+        if (tagObj && tagObj._id) {
+          const user = await getUser();
+          data.tag = tagObj._id as Types.ObjectId;
+          const groupId = queryParams.groupId;
+          const nodeId = queryParams?.nodeId;
+          const leafId = queryParams?.leafId;
+          if (leafId) {
+            await updateLeaf({ user, cardId, groupId, nodeId, leafId, data });
+          } else {
+            await updateNode({ user, cardId, groupId, nodeId, data });
+          }
+        } else {
+          return json(
+            { success: false, error: "Scoupe update or creation failed" },
+            { status: 500 }
+          );
+        }
+        break;
+      }
+      case "group": {
+        const groupId = queryParams.groupId;
+        const data = formDataToObject(formData);
+        const user = await getUser();
+        await updateGroup({ user, cardId, groupId, data });
+        break;
+      }
+      case "node": {
+        const groupId = queryParams.groupId;
+        const nodeId = queryParams.nodeId;
+        const data = formDataToObject(formData);
+        const user = await getUser();
+        await updateNode({ user, cardId, groupId, nodeId, data });
+        break;
+      }
+      case "leaf": {
+        const groupId = queryParams.groupId;
+        const nodeId = queryParams.nodeId;
+        const leafId = queryParams.leafId;
+        const data = formDataToObject(formData);
+        const user = await getUser();
+        await updateLeaf({ user, cardId, groupId, nodeId, leafId, data });
         break;
       }
       default: {
         await updateCard({ cardId, data });
+        break;
+      }
+    }
+
+    return json({ success: true });
+  } else if (request.method == "POST") {
+    const user = await getUser(); /// user will be retrieved in auth middleware
+    const cardId = params.cardId;
+    const url = new URL(request.url);
+    const queryParams = Object.fromEntries(url.searchParams.entries());
+
+    switch (queryParams?.create) {
+      case "section": {
+        await pushDummyGroup({ user, cardId });
+        break;
+      }
+      case "node": {
+        const groupId = queryParams?.groupId;
+        await pushDummyNode({ user, cardId, groupId });
+        break;
+      }
+      case "leaf": {
+        const formData = await request.formData();
+        const groupId = queryParams?.groupId;
+        const nodeId = queryParams?.nodeId;
+        const data = formDataToObject(formData);
+        await pushDummyLeaf({ user, cardId, groupId, nodeId, data });
+        break;
+      }
+      default: {
         break;
       }
     }
@@ -70,7 +156,7 @@ export async function action({ request, params }) {
 }
 
 const CardDetails: FunctionComponent = () => {
-  const createGroup = useStore((state) => state.createGroup);
+  const fetcher = useFetcher();
 
   const { cardId } = useParams();
   const cardDetails = useStore(
@@ -94,7 +180,7 @@ const CardDetails: FunctionComponent = () => {
   const getAllTags = () => {
     const tags = new Set<string>();
     const tagsList = cardDetails?.groups?.map((group) =>
-      group.nodes?.map((node) => node.tag)
+      group.nodes?.map((node) => node.tag?.name)
     );
     tagsList
       ? tagsList.forEach((list) => list.forEach((tag) => tag && tags.add(tag)))
@@ -102,11 +188,10 @@ const CardDetails: FunctionComponent = () => {
     return Array.from(tags);
   };
 
-  const onAddSection = () => {
-    createGroup(cardDetails._id.toString(), {
-      _id: uuidv4(),
-      name: "Untitled Section",
-      nodes: [],
+  const onAddSection = async () => {
+    await fetcher.submit(new FormData(), {
+      method: "post",
+      action: `/activities/${cardDetails._id.toString()}?create=section`,
     });
   };
 

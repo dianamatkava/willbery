@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { AiOutlineLink } from "react-icons/ai";
 import CardDetailsUntracked from "./CardDetailsUntracked";
 import CreateTracking from "../../Tracking/CreateTracking";
+import { useFetcher } from "@remix-run/react";
 
 export function CardDetailsNode({
   children,
@@ -20,24 +21,29 @@ export function CardDetailsNode({
   cardId: string;
   groupId: string;
 }) {
+  const fetcher = useFetcher();
   const [isEditingTracking, setIsEditingTracking] = useState(false);
   const updateNodeName = useStore((state) => state.updateNodeName);
   const createNodeTracking = useStore((state) => state.createNodeTracking);
   const updateNodeTag = useStore((state) => state.updateNodeTag);
-  const updateTags = useStore((state) => state.updateTags);
-  const createLeaf = useStore((state) => state.createLeaf);
-  const tags = useStore((state) => state.tags);
+  const tags = useStore((state) => state.cardTags);
 
   const [fields, setFields] = useState({
     name: node.name,
-    tag: node.tag,
+    tag: node?.tag?.name,
   });
 
-  const onAddItem = () => {
-    createLeaf(cardId, groupId, node._id.toString(), {
-      _id: uuidv4(),
-      name: "Untitled item",
-      tag: node.tag,
+  const onAddItem = async () => {
+    const formData = new FormData();
+
+    formData.append("name", "Untitled item");
+    if (node.tag) {
+      formData.append("tag", node.tag.name);
+    }
+
+    await fetcher.submit(formData, {
+      method: "post",
+      action: `/activities/${cardId}?create=leaf&groupId=${groupId}&nodeId=${node._id.toString()}`,
     });
   };
 
@@ -49,22 +55,22 @@ export function CardDetailsNode({
   };
 
   useEffect(() => {
-    setFields({ name: node.name, tag: node.tag });
+    setFields({ name: node.name, tag: node.tag?.name });
   }, [node]);
 
-  const handleChange = (e, field: string) => {
+  const handleChange = async (e, field: string) => {
     const value = e.target.value;
     setFields({ ...fields, [field]: value });
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      e.target.blur();
+      await e.target.blur();
     }
   };
 
-  const handleBlur = (e, field) => {
+  const handleBlur = async (e, field) => {
     if (e.target.innerText && e.target.innerText !== node[field]) {
       switch (field) {
         case "name":
@@ -77,11 +83,26 @@ export function CardDetailsNode({
           break;
       }
     }
+
+    const formData = new FormData();
+    formData.append(field, e.target.innerText);
+
+    await fetcher.submit(formData, {
+      method: "put",
+      action: `/activities/${cardId}?update=node&groupId=${groupId}&nodeId=${node._id.toString()}`,
+    });
   };
 
-  const onSelectTag = (option: string) => {
+  const onSelectTag = async (option: string) => {
     updateNodeTag(cardId, groupId, node._id.toString(), option);
-    updateTags(option);
+
+    const formData = new FormData();
+    formData.append("tag", option);
+
+    await fetcher.submit(formData, {
+      method: "put",
+      action: `/activities/${cardId}?update=tag&groupId=${groupId}&nodeId=${node._id.toString()}`,
+    });
   };
 
   return (
@@ -113,8 +134,8 @@ export function CardDetailsNode({
         </div>
         {node.progress ? (
           <CardDetailsProgress
-            tag={node.tag}
-            tags={tags}
+            tag={node.tag.name}
+            tags={tags.map((tag) => tag.name)}
             progress={node.progress}
             onSelect={onSelectTag}
             className="w-full"
@@ -123,7 +144,7 @@ export function CardDetailsNode({
         ) : (
           <CardDetailsUntracked
             data={node}
-            tags={tags}
+            tags={tags.map((tag) => tag.name)}
             onSelectTag={onSelectTag}
             onEditTracking={() => setIsEditingTracking(!isEditingTracking)}
             tagStyle="text-xxxs font-medium text-black border-black border-[1px] border-solid box-border py-1 px-1.5"

@@ -45,7 +45,23 @@ export const loader = async () => {
   });
   const cards: CardInterface[] | null = await CardModel.find({
     user: user,
-  }).populate("scoupe");
+  })
+    .populate("scoupe")
+    .populate({
+      path: "groups",
+      populate: {
+        path: "nodes.tag",
+      },
+    })
+    .populate({
+      path: "groups",
+      populate: {
+        path: "nodes",
+        populate: {
+          path: "leafs.tag",
+        },
+      },
+    });
 
   const scoupes: ScoupeInterface[] | null = await ScoupeModel.find({
     user: user,
@@ -77,6 +93,7 @@ export default function Activities() {
   const cardsState = useStore((state) => state.cards);
 
   useEffect(() => {
+    console.log(cards);
     if (cards.length > 0) {
       setCards(cards);
     }
