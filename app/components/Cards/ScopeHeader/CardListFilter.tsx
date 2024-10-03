@@ -2,24 +2,18 @@ import { PiLineVerticalBold, PiSquaresFour } from "react-icons/pi";
 import { IoIosList } from "react-icons/io";
 import { LuFolderEdit, LuGanttChart, LuListFilter } from "react-icons/lu";
 import { AiOutlineNodeIndex } from "react-icons/ai";
-import useStore from "~/stores/useStore";
-import { v4 as uuidv4 } from "uuid";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useFetcher } from "@remix-run/react";
 
 export default function CardListFilter() {
-  const createCard = useStore((state) => state.createCard);
-  const navigate = useNavigate();
+  const fetcher = useFetcher();
 
-  const handleAddCard = () => {
-    const newCardId = uuidv4();
-    createCard({
-      id: newCardId,
-      name: "Untitled Card",
-      description: "",
-      groups: [],
+  const handleAddCard = async (event) => {
+    // TODO: consider to update state here
+    event.preventDefault();
+    await fetcher.submit(new FormData(), {
+      method: "post",
+      action: "/activities",
     });
-    navigate(`/activities/${newCardId}`);
   };
 
   return (
@@ -61,23 +55,19 @@ export default function CardListFilter() {
           className="text-gray-300 cursor-pointer"
         />
       </div>
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={handleAddCard}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            handleAddCard();
-          }
-        }}
-        className="flex flex-row items-center justify-start gap-1"
-      >
-        <div className="rounded-md border border-black box-border overflow-hidden flex flex-row items-center justify-center p-2 gap-2 hover:text-gray-500 hover:border-gray-500">
-          <div className="leading-[100%] text-xs font-medium cursor-pointer">
-            Add Card
+      <fetcher.Form onSubmit={handleAddCard}>
+        <button
+          type="submit"
+          className="flex flex-row items-center justify-start gap-1"
+        >
+          <div className="rounded-md border border-black box-border overflow-hidden flex flex-row items-center justify-center p-2 gap-2 hover:text-gray-500 hover:border-gray-500">
+            <div className="leading-[100%] text-xs font-medium cursor-pointer">
+              Add Card
+            </div>
           </div>
-        </div>
-      </div>
+        </button>
+      </fetcher.Form>
+
       <img className="w-1 h-1" alt="" src="more_vert.svg" />
     </div>
   );

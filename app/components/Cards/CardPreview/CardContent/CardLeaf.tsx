@@ -1,4 +1,4 @@
-import ProgressBar from "../../ui-elements/ProgressBar";
+import ProgressBar from "~/components/ui-elements/ProgressBar";
 import { IoReturnDownForward } from "react-icons/io5";
 
 export default function CardLeaf({
