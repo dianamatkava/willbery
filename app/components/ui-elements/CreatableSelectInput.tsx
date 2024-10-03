@@ -10,7 +10,7 @@ export default function CreatableSelectInput({
   children,
 }: {
   value: string;
-  options: string[];
+  options: any;
   onSelect: (option: string) => void;
   children?: React.ReactNode;
 }) {

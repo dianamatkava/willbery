@@ -1,7 +1,12 @@
 import { json } from "@remix-run/node";
 import { useEffect } from "react";
 import { useLoaderData, useParams, Outlet, redirect } from "react-router-dom";
-import { CardInterface, UserInterface } from "~/interfaces/CardInterfaces";
+import {
+  CardInterface,
+  UserInterface,
+  ScoupeInterface,
+  TagInterface,
+} from "~/interfaces/CardInterfaces";
 
 import Card from "../components/Cards/CardPreview/Card";
 import CardListInfo from "~/components/Cards/ScopeHeader/CardListInfo";
@@ -11,12 +16,16 @@ import useStore from "~/stores/useStore";
 import { connectToDatabase } from "~/utils/mongoose.server";
 import UserModel from "../models/UserModel";
 import CardModel from "../models/CardModel";
+import ScoupeModel from "../models/ScoupeModel";
+import TagModel from "../models/TagModel";
 
 import { getUser, createDummyCardCrud } from "~/cruds/cardCrud";
 
 interface LoaderData {
   cards: CardInterface[];
   user: UserInterface;
+  scoupes: ScoupeInterface[];
+  cardTags: TagInterface[];
 }
 
 export async function action({ request }) {
@@ -38,7 +47,15 @@ export const loader = async () => {
     user: user,
   }).populate("scoupe");
 
-  return json<LoaderData>({ cards, user });
+  const scoupes: ScoupeInterface[] | null = await ScoupeModel.find({
+    user: user,
+  });
+
+  const cardTags: TagInterface[] | null = await TagModel.find({
+    user: user,
+  });
+
+  return json<LoaderData>({ cards, user, scoupes, cardTags });
 };
 
 export default function Activities() {
@@ -47,10 +64,14 @@ export default function Activities() {
 
   const setCards = useStore((state) => state.setCards);
   const setUser = useStore((state) => state.setUser);
+  const setScoupes = useStore((state) => state.setScoupes);
+  const setCardTags = useStore((state) => state.setCardTags);
 
-  const { cards, user } = useLoaderData() as {
+  const { cards, user, scoupes, cardTags } = useLoaderData() as {
     cards: CardInterface[];
     user: UserInterface;
+    scoupes: ScoupeInterface[];
+    cardTags: TagInterface[];
   };
 
   const cardsState = useStore((state) => state.cards);
@@ -62,7 +83,22 @@ export default function Activities() {
     if (user) {
       setUser(user);
     }
-  }, [cards, user, setCards, setUser]);
+    if (scoupes.length > 0) {
+      setScoupes(scoupes);
+    }
+    if (cardTags.length > 0) {
+      setCardTags(cardTags);
+    }
+  }, [
+    cards,
+    user,
+    scoupes,
+    cardTags,
+    setCards,
+    setUser,
+    setScoupes,
+    setCardTags,
+  ]);
 
   return (
     <div

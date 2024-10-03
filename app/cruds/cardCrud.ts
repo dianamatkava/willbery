@@ -1,7 +1,9 @@
 import { UserInterface, CardInterface } from "~/interfaces/CardInterfaces";
 import CardModel from "~/models/CardModel";
 import UserModel from "~/models/UserModel";
+import ScoupeModel from "~/models/ScoupeModel";
 import { Types } from "mongoose";
+import { CardUpdateOptions } from "~/interfaces/CardInterfaces";
 
 export const createDummyCardCrud = async ({
   user,
@@ -40,35 +42,19 @@ export const getCard = async ({
   return card;
 };
 
-function formDataToObject(formData) {
-  const obj = {};
-  formData.forEach((value, key) => {
-    if (obj[key]) {
-      if (!Array.isArray(obj[key])) {
-        obj[key] = [obj[key]];
-      }
-      obj[key].push(value);
-    } else {
-      obj[key] = value;
-    }
-  });
-  return obj;
-}
-
 export const updateCard = async ({
   cardId,
   data,
 }: {
   cardId: string;
-  data: { [key: string]: string | number };
+  data: CardUpdateOptions;
 }) => {
   const user = await getUser();
   const cardIdObject = new Types.ObjectId(cardId);
-
   try {
     const res = await CardModel.updateOne(
       { _id: cardIdObject, user: user._id },
-      { $set: formDataToObject(data) }
+      { $set: data }
     );
     if (res.acknowledged) {
       console.log("Card updated successfully:", res);
@@ -77,5 +63,19 @@ export const updateCard = async ({
     }
   } catch (err) {
     console.error("Error updating card:", err);
+  }
+};
+
+export const updateOrCreateScoupe = async ({ scoupe }: { scoupe: string }) => {
+  const user = await getUser();
+  try {
+    const res = await ScoupeModel.findOneAndUpdate(
+      { user: user._id, name: scoupe },
+      { name: scoupe },
+      { new: true, upsert: true }
+    );
+    return res;
+  } catch (err) {
+    console.error("Error updating or creating scoupe:", err);
   }
 };

@@ -13,13 +13,12 @@ export function CardDetailsInfo({
   cardDetails: CardInterface;
 }) {
   const fetcher = useFetcher();
-  const tags = useStore((state) => state.domains);
+  const scoupes = useStore((state) => state.scoupes);
   const updateCardName = useStore((state) => state.updateCardName);
   const updateCardDescription = useStore(
     (state) => state.updateCardDescription
   );
-  const updateCardTag = useStore((state) => state.updateCardTag);
-  const updateDomains = useStore((state) => state.updateDomains);
+  const updateCardScoupe = useStore((state) => state.updateCardScoupe);
 
   const [fields, setFields] = useState({
     name: cardDetails.name || "",
@@ -70,13 +69,13 @@ export function CardDetailsInfo({
     }
   };
 
-  const onSelectTag = async (option: string) => {
-    updateCardTag(cardDetails._id.toString(), option);
-    updateDomains(option);
+  const onSelectScoupe = async (option: string) => {
+    const scopeToUpdate = scoupes.filter((scoupe) => scoupe.name == option)[0];
+    updateCardScoupe(cardDetails._id.toString(), scopeToUpdate);
 
     // TODO: move this to function
     const formData = new FormData();
-    formData.append("tag", option);
+    formData.append("scoupe", option);
 
     await fetcher.submit(formData, {
       method: "put",
@@ -130,13 +129,13 @@ export function CardDetailsInfo({
 
             {/* Card Tag */}
             <CreatableSelectInput
-              value={cardDetails.tag}
-              options={tags}
-              onSelect={onSelectTag}
+              value={cardDetails.scoupe.name}
+              options={scoupes.map((scoupe: { name: string }) => scoupe.name)}
+              onSelect={onSelectScoupe}
             >
-              {cardDetails.tag ? (
+              {cardDetails.scoupe ? (
                 <TagComponent
-                  value={cardDetails.tag}
+                  value={cardDetails.scoupe.name}
                   className={
                     "text-white text-xs rounded-lg h-6 flex flex-row items-center justify-center px-2 box-border gap-1 cursor-pointer bg-black"
                   }

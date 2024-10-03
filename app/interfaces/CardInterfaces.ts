@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+export interface CardUpdateOptions {
+  name?: string;
+  scoupe?: string | mongoose.Types.ObjectId;
+}
 
 export interface UserInterface {
   _id: mongoose.Types.ObjectId;
@@ -10,7 +14,7 @@ export interface TagInterface {
   name: string;
 }
 
-export interface ScouptInterface {
+export interface ScoupeInterface {
   name: string;
 }
 
@@ -67,7 +71,7 @@ export interface CardInterface {
   _id: mongoose.Types.ObjectId;
   name: string;
   description?: string;
-  scoupe?: ScouptInterface;
+  scoupe?: ScoupeInterface;
   progress?: ProgressInterface;
   image?: string;
   groups?: CardGroupInterface[];

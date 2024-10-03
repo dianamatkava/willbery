@@ -7,24 +7,24 @@ import {
   CardGroupInterface,
   CardLeafInterface,
   CardNodeInterface,
+  ScoupeInterface,
+  TagInterface,
   UserInterface,
 } from "~/interfaces/CardInterfaces";
 
 interface CardStore {
   cards: CardInterface[];
-  tags: string[];
-  domains: string[];
   user: UserInterface | null;
+  scoupes: ScoupeInterface[] | null;
+  cardTags: TagInterface[] | null;
 
   setCards: (cards: CardInterface[]) => void;
-  setTags: (tags: string[]) => void;
-  setDomains: (domains: string[]) => void;
   setUser: (user: UserInterface) => void;
+  setScoupes: (scoupes: ScoupeInterface[]) => void;
+  setCardTags: (cardTags: TagInterface[]) => void;
 
-  updateTags: (newTag: string) => void;
-  updateDomains: (newDomain: string) => void;
   updateCardName: (cardId: string, newName: string) => void;
-  updateCardTag: (cardId: string, newTag: string) => void;
+  updateCardScoupe: (cardId: string, newScoupe: ScoupeInterface) => void;
   updateGroupName: (
     cardId: string,
     groupId: string,
@@ -88,13 +88,13 @@ const useStore = create<CardStore>()(
         setCards: (cards) => {
           set({ cards });
         },
-        tags: [],
-        setTags: (tags) => {
-          set({ tags });
+        cardTags: [],
+        setCardTags: (cardTags: TagInterface) => {
+          set({ cardTags });
         },
-        domains: [],
-        setDomains: (domains) => {
-          set({ domains });
+        scoupes: [],
+        setScoupes: (scoupes: ScoupeInterface) => {
+          set({ scoupes });
         },
 
         user: null,
@@ -103,28 +103,6 @@ const useStore = create<CardStore>()(
         },
 
         // ################ Update Functions ################
-        updateDomains: (newDomain) => {
-          set((state) => {
-            if (state.domains.includes(newDomain)) {
-              return { domains: state.domains };
-            }
-            const updatedDomains = [...state.domains, newDomain];
-            // remove duplicates
-            const domainsSet = new Set(updatedDomains);
-            return { domains: Array.from(domainsSet) };
-          });
-        },
-        updateTags: (newTag) => {
-          set((state) => {
-            if (state.tags.includes(newTag)) {
-              return { tags: state.tags };
-            }
-            const updatedTags = [...state.tags, newTag];
-            // remove duplicates
-            const tagsSet = new Set(updatedTags);
-            return { tags: Array.from(tagsSet) };
-          });
-        },
         updateCardName: (cardId, newName) => {
           set((state) => {
             const updatedCards = state.cards.map((card) =>
@@ -133,10 +111,13 @@ const useStore = create<CardStore>()(
             return { cards: updatedCards };
           });
         },
-        updateCardTag: (cardId, newTag) => {
+        updateCardScoupe: (cardId, newScoupe) => {
+          console.log(newScoupe);
           set((state) => {
             const updatedCards = state.cards.map((card) =>
-              card._id.toString() === cardId ? { ...card, tag: newTag } : card
+              card._id.toString() === cardId
+                ? { ...card, scoupe: newScoupe }
+                : card
             );
             return { cards: updatedCards };
           });
