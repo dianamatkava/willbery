@@ -1,4 +1,4 @@
-import CardInfo from "./CardInfo/CardInfo";
+import CardInfo from "./CardPreviewInfo/CardInfo";
 import CardNode from "./CardContent/CardNode";
 import CardGroup from "./CardContent/CardGroup";
 import CardLeaf from "./CardContent/CardLeaf";

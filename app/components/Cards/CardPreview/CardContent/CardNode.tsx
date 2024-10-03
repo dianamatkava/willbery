@@ -1,9 +1,9 @@
-import ProgressBar from "../../ui-elements/ProgressBar";
+import ProgressBar from "~/components/ui-elements/ProgressBar";
 import { useState } from "react";
-import Accordion from "../../ui-elements/Accordion";
+import Accordion from "~/components/ui-elements/Accordion";
 import React from "react";
 import { AiOutlineLink } from "react-icons/ai";
-import CardSourceLink from "../../ui-elements/CardSourceLink";
+import CardSourceLink from "~/components/ui-elements/CardSourceLink";
 
 export default function CardNode({
   children = null,

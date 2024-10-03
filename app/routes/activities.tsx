@@ -3,16 +3,16 @@ import { useEffect } from "react";
 import { useLoaderData, useParams, Outlet, redirect } from "react-router-dom";
 import { CardInterface, UserInterface } from "~/interfaces/CardInterfaces";
 
-import Card from "../components/Cards/Card";
-import CardListInfo from "~/components/Cards/CardListHeader/CardListInfo";
-import CardListFilter from "~/components/Cards/CardListHeader/CardListFilter";
+import Card from "../components/Cards/CardPreview/Card";
+import CardListInfo from "~/components/Cards/ScopeHeader/CardListInfo";
+import CardListFilter from "~/components/Cards/ScopeHeader/CardListFilter";
 
 import useStore from "~/stores/useStore";
 import { connectToDatabase } from "~/utils/mongoose.server";
 import UserModel from "../models/UserModel";
 import CardModel from "../models/CardModel";
 
-import { getUser, createDummyCardCrud } from "~/clientCruds/Card";
+import { getUser, createDummyCardCrud } from "~/cruds/cardCrud";
 
 interface LoaderData {
   cards: CardInterface[];
@@ -24,7 +24,6 @@ export async function action({ request }) {
     // get user from access token
     const user = await getUser();
     const card = await createDummyCardCrud({ user });
-    console.log(card);
     return redirect(`/activities/${card._id.toString()}`);
   }
   return json({});

@@ -78,7 +78,7 @@ interface CardStore {
   ) => void;
 }
 
-const useStore = create(
+const useStore = create<CardStore>()(
   devtools(
     // This enables Redux DevTools for debugging.
     persist(
@@ -236,6 +236,7 @@ const useStore = create(
               const group = card.groups.find(
                 (g) => g._id.toString() === groupId
               );
+              console.log(group);
               if (group.nodes) {
                 group.nodes.push(newNode);
               } else {

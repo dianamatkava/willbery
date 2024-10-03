@@ -1,4 +1,4 @@
-import { UserInterface } from "~/interfaces/CardInterfaces";
+import { UserInterface, CardInterface } from "~/interfaces/CardInterfaces";
 import CardModel from "~/models/CardModel";
 import UserModel from "~/models/UserModel";
 
@@ -23,4 +23,28 @@ export const getUser = async () => {
   }
 
   return user;
+};
+
+export const getCard = async ({
+  user,
+  cardId,
+}: {
+  user: UserInterface;
+  cardId: string;
+}): Promise<CardInterface | null> => {
+  const card: CardInterface = await CardModel.findOne({
+    _id: cardId,
+    user: user,
+  });
+  return card;
+};
+
+export const updateCard = async ({
+  card,
+  data,
+}: {
+  card: CardInterface;
+  data: object;
+}) => {
+  return;
 };
