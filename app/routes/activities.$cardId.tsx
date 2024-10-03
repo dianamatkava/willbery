@@ -11,14 +11,59 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { json } from "@remix-run/node";
-import { updateCard } from "../cruds/cardCrud";
+import { updateCard, updateOrCreateScoupe } from "../cruds/cardCrud";
+import { CardUpdateOptions } from "../interfaces/CardInterfaces";
+import { Types } from "mongoose";
+
+function formDataToObject(formData) {
+  const obj = {};
+  formData.forEach((value, key) => {
+    if (obj[key]) {
+      if (!Array.isArray(obj[key])) {
+        obj[key] = [obj[key]];
+      }
+      obj[key].push(value);
+    } else {
+      obj[key] = value;
+    }
+  });
+  return obj;
+}
 
 export async function action({ request, params }) {
   if (request.method == "PUT") {
     const cardId = params.cardId;
-    const data = await request.formData();
+    const formData = await request.formData();
+    const data: CardUpdateOptions = formDataToObject(formData);
 
-    await updateCard({ cardId, data });
+    const url = new URL(request.url);
+    const queryParams = Object.fromEntries(url.searchParams.entries());
+    switch (queryParams?.update) {
+      case "scoupe": {
+        const scoupe = data.scoupe;
+        const scoupeObj = await updateOrCreateScoupe({
+          scoupe: String(scoupe),
+        });
+        if (scoupeObj && scoupeObj._id) {
+          data.scoupe = scoupeObj._id as Types.ObjectId;
+          console.log("creating");
+          await updateCard({ cardId, data });
+          console.log("created");
+        } else {
+          return json(
+            { success: false, error: "Scoupe update or creation failed" },
+            { status: 500 }
+          );
+        }
+
+        break;
+      }
+      default: {
+        await updateCard({ cardId, data });
+        break;
+      }
+    }
+
     return json({ success: true });
   }
   return json({ success: false }, { status: 405 });
