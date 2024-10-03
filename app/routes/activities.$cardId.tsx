@@ -11,16 +11,14 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { json } from "@remix-run/node";
-import { getUser, getCard, updateCard } from "../cruds/cardCrud";
+import { updateCard } from "../cruds/cardCrud";
 
 export async function action({ request, params }) {
   if (request.method == "PUT") {
     const cardId = params.cardId;
-    const user = await getUser();
+    const data = await request.formData();
 
-    const card = await getCard({ user, cardId });
-    const { body } = await request.json();
-    await updateCard({ card, body });
+    await updateCard({ cardId, data });
     return json({ success: true });
   }
   return json({ success: false }, { status: 405 });

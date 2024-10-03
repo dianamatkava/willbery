@@ -36,7 +36,7 @@ export const loader = async () => {
   });
   const cards: CardInterface[] | null = await CardModel.find({
     user: user,
-  });
+  }).populate("scoupe");
 
   return json<LoaderData>({ cards, user });
 };
