@@ -108,7 +108,11 @@ export function CardDetailsInfo({
             className="w-[100px] h-full rounded-[100%] flex flex-row items-center justify-center shadow-[1px_1px_1px_rgba(0,_0,_0,_0.05)]"
           >
             <img
-              src={cardDetails.image}
+              src={
+                cardDetails.image.startsWith("https://")
+                  ? cardDetails.image
+                  : `/${cardDetails.image}`
+              }
               alt="icon"
               className="w-full h-full object-cover rounded-[100%]"
             />
@@ -162,13 +166,13 @@ export function CardDetailsInfo({
 
             {/* Card Tag */}
             <CreatableSelectInput
-              value={cardDetails.scoupe.name}
+              value={cardDetails.scoupe?.name}
               options={scoupes.map((scoupe: { name: string }) => scoupe.name)}
               onSelect={onSelectScoupe}
             >
               {cardDetails.scoupe ? (
                 <TagComponent
-                  value={cardDetails.scoupe.name}
+                  value={cardDetails.scoupe?.name}
                   className={
                     "text-white text-xs rounded-lg h-6 flex flex-row items-center justify-center px-2 box-border gap-1 cursor-pointer bg-black"
                   }
@@ -184,7 +188,7 @@ export function CardDetailsInfo({
       </div>
       <div className="w-full h-fit text-sm cursor-pointer text-grey-800">
         <TextAreaInputComponent
-          value={fields.description || "Click to add a description"}
+          value={fields.description || ""}
           name={"description"}
           placeholder={"Click to add a description"}
           onChange={(e) => handleChange(e, "description")}
