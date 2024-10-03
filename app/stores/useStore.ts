@@ -24,6 +24,7 @@ interface CardStore {
   setCardTags: (cardTags: TagInterface[]) => void;
 
   updateCardName: (cardId: string, newName: string) => void;
+  updateCardImage: (cardId: string, newImage: string) => void;
   updateCardScoupe: (cardId: string, newScoupe: ScoupeInterface) => void;
   updateGroupName: (
     cardId: string,
@@ -107,6 +108,17 @@ const useStore = create<CardStore>()(
           set((state) => {
             const updatedCards = state.cards.map((card) =>
               card._id.toString() === cardId ? { ...card, name: newName } : card
+            );
+            return { cards: updatedCards };
+          });
+        },
+        updateCardImage: (cardId, newImage) => {
+          console.log(newImage);
+          set((state) => {
+            const updatedCards = state.cards.map((card) =>
+              card._id.toString() === cardId
+                ? { ...card, image: newImage }
+                : card
             );
             return { cards: updatedCards };
           });
