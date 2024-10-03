@@ -1,8 +1,18 @@
-# Welcome to Remix!
+# Willbery
+
+Willbery is a productivity app designed to boost your performance by 10x. Built with Remix, React, and Go, and powered by MongoDB, Willbery helps you optimize your workflow and achieve your goals.
+
+<img src="./public/WillberyLogo.png">
+
+## Willbery preview
+
+<img src="./public/WillberyPreview.png">
+
+## Welcome to Remix!
 
 - [Remix Docs](https://remix.run/docs)
 
-## Development
+### Development
 
 From your terminal:
 
@@ -12,7 +22,7 @@ npm run dev
 
 This starts your app in development mode, rebuilding assets on file changes.
 
-## Deployment
+### Deployment
 
 First, build your app for production:
 
@@ -28,7 +38,7 @@ npm start
 
 Now you'll need to pick a host to deploy it to.
 
-### DIY
+#### DIY
 
 If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
 

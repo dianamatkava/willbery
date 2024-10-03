@@ -5,7 +5,7 @@ export default function CardInfoImage({ imgPath }: { imgPath: string }) {
         <img
           className="object-cover w-full h-full max-w-[250px] lg:max-w-full rounded-t-[5px]"
           alt="Rectangle"
-          src={imgPath}
+          src={imgPath.startsWith("https://") ? imgPath : `/${imgPath} `}
           width={200}
         />
       ) : (
