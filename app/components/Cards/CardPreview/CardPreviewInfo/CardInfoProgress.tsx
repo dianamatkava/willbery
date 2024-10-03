@@ -1,4 +1,4 @@
-import ProgressBar from "../../ui-elements/ProgressBar";
+import ProgressBar from "~/components/ui-elements/ProgressBar";
 
 export default function CardInfoProgress({
   name,

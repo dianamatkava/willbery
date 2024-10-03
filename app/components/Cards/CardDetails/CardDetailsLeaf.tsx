@@ -34,8 +34,8 @@ export function CardDetailsLeaf({
   const tags = useStore((state) => state.tags);
 
   const onAddTracking = (values: any) => {
-    createLeafTracking(cardId, groupId, nodeId, leaf.id, {
-      id: uuidv4(),
+    createLeafTracking(cardId, groupId, nodeId, leaf._id.toString(), {
+      _id: uuidv4(),
       ...values,
     });
   };
@@ -69,14 +69,20 @@ export function CardDetailsLeaf({
     if (e.target.innerText && e.target.innerText !== leaf[field]) {
       switch (field) {
         case "name":
-          updateLeafName(cardId, groupId, nodeId, leaf.id, e.target.innerText);
+          updateLeafName(
+            cardId,
+            groupId,
+            nodeId,
+            leaf._id.toString(),
+            e.target.innerText
+          );
           break;
       }
     }
   };
 
   const onSelectTag = (option: string) => {
-    updateLeafTag(cardId, groupId, nodeId, leaf.id, option);
+    updateLeafTag(cardId, groupId, nodeId, leaf._id.toString(), option);
     updateTags(option);
   };
 

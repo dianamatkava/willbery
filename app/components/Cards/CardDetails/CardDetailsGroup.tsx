@@ -1,11 +1,11 @@
 import { IoMdMore } from "react-icons/io";
-import ProgressBar from "../../ui-elements/ProgressBar";
-import Accordion from "../../ui-elements/Accordion";
+import ProgressBar from "~/components/ui-elements/ProgressBar";
+import Accordion from "~/components/ui-elements/Accordion";
 import { useEffect, useRef, useState } from "react";
 import ContentEditable from "react-contenteditable";
-import AddItemComponent from "../../ui-elements/AddItemComponent";
+import AddItemComponent from "~/components/ui-elements/AddItemComponent";
 import { v4 as uuidv4 } from "uuid";
-import useStore from "../../../stores/useStore";
+import useStore from "~/stores/useStore";
 import { CardGroupInterface } from "~/interfaces/CardInterfaces";
 
 export function CardDetailsGroup({
@@ -43,13 +43,13 @@ export function CardDetailsGroup({
 
   const handleBlur = () => {
     if (currentFieldValue.current && currentFieldValue.current !== groupName) {
-      updateGroupName(cardId, group.id, currentFieldValue.current);
+      updateGroupName(cardId, group._id.toString(), currentFieldValue.current);
     }
   };
 
   const onAddItem = () => {
-    createNode(cardId, group.id, {
-      id: uuidv4(),
+    createNode(cardId, group._id.toString(), {
+      _id: uuidv4(),
       name: "Untitled Item",
     });
   };

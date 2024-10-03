@@ -52,17 +52,17 @@ export function CardDetailsInfo({
     if (e.target.innerText && e.target.innerText !== cardDetails[field]) {
       switch (field) {
         case "name":
-          updateCardName(cardDetails.id, e.target.innerText);
+          updateCardName(cardDetails._id.toString(), e.target.innerText);
           break;
         case "description":
-          updateCardDescription(cardDetails.id, e.target.innerText);
+          updateCardDescription(cardDetails._id.toString(), e.target.innerText);
           break;
       }
     }
   };
 
   const onSelectTag = (option: string) => {
-    updateCardTag(cardDetails.id, option);
+    updateCardTag(cardDetails._id.toString(), option);
     updateDomains(option);
   };
 

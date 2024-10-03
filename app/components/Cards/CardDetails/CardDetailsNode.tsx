@@ -34,15 +34,15 @@ export function CardDetailsNode({
   });
 
   const onAddItem = () => {
-    createLeaf(cardId, groupId, node.id, {
-      id: uuidv4(),
+    createLeaf(cardId, groupId, node._id.toString(), {
+      _id: uuidv4(),
       name: "Untitled item",
       tag: node.tag,
     });
   };
 
   const onAddTracking = (values: any) => {
-    createNodeTracking(cardId, groupId, node.id, {
+    createNodeTracking(cardId, groupId, node._id.toString(), {
       id: uuidv4(),
       ...values,
     });
@@ -68,14 +68,19 @@ export function CardDetailsNode({
     if (e.target.innerText && e.target.innerText !== node[field]) {
       switch (field) {
         case "name":
-          updateNodeName(cardId, groupId, node.id, e.target.innerText);
+          updateNodeName(
+            cardId,
+            groupId,
+            node._id.toString(),
+            e.target.innerText
+          );
           break;
       }
     }
   };
 
   const onSelectTag = (option: string) => {
-    updateNodeTag(cardId, groupId, node.id, option);
+    updateNodeTag(cardId, groupId, node._id.toString(), option);
     updateTags(option);
   };
 

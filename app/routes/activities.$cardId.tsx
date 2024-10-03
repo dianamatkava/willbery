@@ -10,6 +10,21 @@ import AddItemComponent from "../components/ui-elements/AddItemComponent";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { json } from "@remix-run/node";
+import { getUser, getCard, updateCard } from "../cruds/cardCrud";
+
+export async function action({ request, params }) {
+  if (request.method == "PUT") {
+    const cardId = params.cardId;
+    const user = await getUser();
+
+    const card = await getCard({ user, cardId });
+    const { body } = await request.json();
+    await updateCard({ card, body });
+    return json({ success: true });
+  }
+  return json({ success: false }, { status: 405 });
+}
 
 const CardDetails: FunctionComponent = () => {
   const createGroup = useStore((state) => state.createGroup);
@@ -45,8 +60,8 @@ const CardDetails: FunctionComponent = () => {
   };
 
   const onAddSection = () => {
-    createGroup(cardDetails.id, {
-      id: uuidv4(),
+    createGroup(cardDetails._id.toString(), {
+      _id: uuidv4(),
       name: "Untitled Section",
       nodes: [],
     });
@@ -69,26 +84,26 @@ const CardDetails: FunctionComponent = () => {
         {cardDetails.groups &&
           cardDetails.groups.map((group) => (
             <CardDetailsGroup
-              key={group.id}
+              key={group._id.toString()}
               group={group}
-              cardId={cardDetails.id}
+              cardId={cardDetails._id.toString()}
             >
               {group.nodes &&
                 group.nodes.map((node) => (
                   <CardDetailsNode
-                    key={node.id}
+                    key={node._id.toString()}
                     node={node}
-                    cardId={cardDetails.id}
-                    groupId={group.id}
+                    cardId={cardDetails._id.toString()}
+                    groupId={group._id.toString()}
                   >
                     {node.leafs &&
                       node.leafs.map((leaf) => (
                         <CardDetailsLeaf
-                          key={leaf.id}
+                          key={leaf._id.toString()}
                           leaf={leaf}
-                          nodeId={node.id}
-                          groupId={group.id}
-                          cardId={cardDetails.id}
+                          nodeId={node._id.toString()}
+                          groupId={group._id.toString()}
+                          cardId={cardDetails._id.toString()}
                         />
                       ))}
                   </CardDetailsNode>
