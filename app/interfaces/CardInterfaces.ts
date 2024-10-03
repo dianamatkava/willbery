@@ -4,15 +4,13 @@ export interface UserInterface {
   _id: mongoose.Types.ObjectId;
   name: string;
   email: string;
-  tags: TagInterface[];
-  domains: DomainInterface[];
 }
 
 export interface TagInterface {
   name: string;
 }
 
-export interface DomainInterface {
+export interface ScouptInterface {
   name: string;
 }
 
@@ -69,7 +67,7 @@ export interface CardInterface {
   _id: mongoose.Types.ObjectId;
   name: string;
   description?: string;
-  tag?: string;
+  scoupe?: ScouptInterface;
   progress?: ProgressInterface;
   image?: string;
   groups?: CardGroupInterface[];

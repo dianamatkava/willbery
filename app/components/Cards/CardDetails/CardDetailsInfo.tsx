@@ -5,12 +5,14 @@ import ContentEditable from "react-contenteditable";
 import CreatableSelectInput from "../../ui-elements/CreatableSelectInput";
 import TagComponent from "../../ui-elements/TagComponent";
 import { CardInterface } from "~/interfaces/CardInterfaces";
+import { useFetcher } from "@remix-run/react";
 
 export function CardDetailsInfo({
   cardDetails,
 }: {
   cardDetails: CardInterface;
 }) {
+  const fetcher = useFetcher();
   const tags = useStore((state) => state.domains);
   const updateCardName = useStore((state) => state.updateCardName);
   const updateCardDescription = useStore(
@@ -39,16 +41,14 @@ export function CardDetailsInfo({
     }));
   };
 
-  // Handle Enter key to unfocus
-  const handleKeyDown = (e) => {
+  const handleKeyDown = async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      e.target.blur();
+      await e.target.blur();
     }
   };
 
-  // Handle blur event to save changes
-  const handleBlur = (e, field) => {
+  const handleBlur = async (e, field) => {
     if (e.target.innerText && e.target.innerText !== cardDetails[field]) {
       switch (field) {
         case "name":
@@ -58,12 +58,30 @@ export function CardDetailsInfo({
           updateCardDescription(cardDetails._id.toString(), e.target.innerText);
           break;
       }
+
+      // TODO: move this to function
+      const formData = new FormData();
+      formData.append(field, e.target.innerText);
+
+      await fetcher.submit(formData, {
+        method: "put",
+        action: `/activities/${cardDetails._id.toString()}`,
+      });
     }
   };
 
-  const onSelectTag = (option: string) => {
+  const onSelectTag = async (option: string) => {
     updateCardTag(cardDetails._id.toString(), option);
     updateDomains(option);
+
+    // TODO: move this to function
+    const formData = new FormData();
+    formData.append("tag", option);
+
+    await fetcher.submit(formData, {
+      method: "put",
+      action: `/activities/${cardDetails._id.toString()}?update=scoupe`,
+    });
   };
 
   return (

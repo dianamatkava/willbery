@@ -53,7 +53,11 @@ const CardSchema = new Schema({
   user: { type: mongoose.Schema.Types.ObjectId, required: true },
   name: { type: String, required: true },
   description: { type: String, required: false },
-  tag: { type: mongoose.Schema.Types.ObjectId, required: false },
+  scoupe: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "ScopeModel",
+    required: false,
+  },
   progress: { type: ProgressSchema, required: false },
   image: { type: String, required: false },
   groups: [CardGroupSchema],

@@ -1,6 +1,7 @@
 import { UserInterface, CardInterface } from "~/interfaces/CardInterfaces";
 import CardModel from "~/models/CardModel";
 import UserModel from "~/models/UserModel";
+import { Types } from "mongoose";
 
 export const createDummyCardCrud = async ({
   user,
@@ -39,12 +40,42 @@ export const getCard = async ({
   return card;
 };
 
+function formDataToObject(formData) {
+  const obj = {};
+  formData.forEach((value, key) => {
+    if (obj[key]) {
+      if (!Array.isArray(obj[key])) {
+        obj[key] = [obj[key]];
+      }
+      obj[key].push(value);
+    } else {
+      obj[key] = value;
+    }
+  });
+  return obj;
+}
+
 export const updateCard = async ({
-  card,
+  cardId,
   data,
 }: {
-  card: CardInterface;
-  data: object;
+  cardId: string;
+  data: { [key: string]: string | number };
 }) => {
-  return;
+  const user = await getUser();
+  const cardIdObject = new Types.ObjectId(cardId);
+
+  try {
+    const res = await CardModel.updateOne(
+      { _id: cardIdObject, user: user._id },
+      { $set: formDataToObject(data) }
+    );
+    if (res.acknowledged) {
+      console.log("Card updated successfully:", res);
+    } else {
+      console.warn("Update operation not acknowledged:", res);
+    }
+  } catch (err) {
+    console.error("Error updating card:", err);
+  }
 };
