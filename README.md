@@ -1,8 +1,6 @@
-# Willbery
+<img src="./public/WillberyLogoWide.png">
 
 Willbery is a productivity app designed to boost your performance by 10x. Built with Remix, React, and Go, and powered by MongoDB, Willbery helps you optimize your workflow and achieve your goals.
-
-<img src="./public/WillberyLogoWide.png">
 
 ## Willbery preview
 
