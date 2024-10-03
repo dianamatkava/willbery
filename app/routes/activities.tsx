@@ -1,25 +1,77 @@
-import Card from "../components/Cards/Card";
 import { json } from "@remix-run/node";
-import { getActivities } from "~/data";
 import { useEffect } from "react";
-import { useLoaderData, useParams, Outlet } from "react-router-dom";
+import { useLoaderData, useParams, Outlet, redirect } from "react-router-dom";
+import {
+  CardInterface,
+  UserInterface,
+  ScoupeInterface,
+  TagInterface,
+} from "~/interfaces/CardInterfaces";
+
+import Card from "../components/Cards/CardPreview/Card";
+import CardListInfo from "~/components/Cards/ScopeHeader/CardListInfo";
+import CardListFilter from "~/components/Cards/ScopeHeader/CardListFilter";
+
 import useStore from "~/stores/useStore";
-import { CardInterface } from "~/interfaces/CardInterfaces";
-import CardListInfo from "~/components/Cards/CardListHeader/CardListInfo";
-import CardListFilter from "~/components/Cards/CardListHeader/CardListFilter";
-import { getTags, getDomains } from "~/data";
+import { connectToDatabase } from "~/utils/mongoose.server";
+import UserModel from "../models/UserModel";
+import CardModel from "../models/CardModel";
+import ScoupeModel from "../models/ScoupeModel";
+import TagModel from "../models/TagModel";
+
+import { getUser, createDummyCardCrud } from "~/cruds/cardCrud";
 
 interface LoaderData {
   cards: CardInterface[];
-  tags: string[];
-  domains: string[];
+  user: UserInterface;
+  scoupes: ScoupeInterface[];
+  cardTags: TagInterface[];
+}
+
+export async function action({ request }) {
+  if (request.method == "POST") {
+    // get user from access token
+    const user = await getUser();
+    const card = await createDummyCardCrud({ user });
+    return redirect(`/activities/${card._id.toString()}`);
+  }
+  return json({});
 }
 
 export const loader = async () => {
-  const cards = await getActivities();
-  const tags = await getTags();
-  const domains = await getDomains();
-  return json<LoaderData>({ cards, tags, domains });
+  await connectToDatabase();
+  const user: UserInterface | null = await UserModel.findOne({
+    email: "diana.matkava.pr@willbery.com",
+  });
+  const cards: CardInterface[] | null = await CardModel.find({
+    user: user,
+  })
+    .populate("scoupe")
+    .populate({
+      path: "groups",
+      populate: {
+        path: "nodes.tag",
+      },
+    })
+    .populate({
+      path: "groups",
+      populate: {
+        path: "nodes",
+        populate: {
+          path: "leafs.tag",
+        },
+      },
+    });
+
+  const scoupes: ScoupeInterface[] | null = await ScoupeModel.find({
+    user: user,
+  });
+
+  const cardTags: TagInterface[] | null = await TagModel.find({
+    user: user,
+  });
+
+  return json<LoaderData>({ cards, user, scoupes, cardTags });
 };
 
 export default function Activities() {
@@ -27,27 +79,43 @@ export default function Activities() {
   const selectedCardId = cardId ? cardId : null;
 
   const setCards = useStore((state) => state.setCards);
-  const setTags = useStore((state) => state.setTags);
-  const setDomains = useStore((state) => state.setDomains);
-  const { cards, tags, domains } = useLoaderData() as {
+  const setUser = useStore((state) => state.setUser);
+  const setScoupes = useStore((state) => state.setScoupes);
+  const setCardTags = useStore((state) => state.setCardTags);
+
+  const { cards, user, scoupes, cardTags } = useLoaderData() as {
     cards: CardInterface[];
-    tags: string[];
-    domains: string[];
+    user: UserInterface;
+    scoupes: ScoupeInterface[];
+    cardTags: TagInterface[];
   };
 
   const cardsState = useStore((state) => state.cards);
 
   useEffect(() => {
+    console.log(cards);
     if (cards.length > 0) {
       setCards(cards);
     }
-    if (tags.length > 0) {
-      setTags(tags);
+    if (user) {
+      setUser(user);
     }
-    if (domains.length > 0) {
-      setDomains(domains);
+    if (scoupes.length > 0) {
+      setScoupes(scoupes);
     }
-  }, [cards, tags, domains, setCards, setTags, setDomains]);
+    if (cardTags.length > 0) {
+      setCardTags(cardTags);
+    }
+  }, [
+    cards,
+    user,
+    scoupes,
+    cardTags,
+    setCards,
+    setUser,
+    setScoupes,
+    setCardTags,
+  ]);
 
   return (
     <div
@@ -69,7 +137,7 @@ export default function Activities() {
         >
           {cardsState.map((card) => (
             <Card
-              key={card.id}
+              key={card._id.toString()}
               cardData={card}
               imgPath={
                 "https://static.vecteezy.com/system/resources/previews/007/905/993/original/coding-programming-illustration-icon-orange-and-dark-blue-screen-developer-environment-for-computer-science-poster-or-graphic-element-vector.jpg"

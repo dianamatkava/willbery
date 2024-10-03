@@ -9,7 +9,7 @@ export default function CardInfo({ cardData }: { cardData: CardInterface }) {
     <div className="w-full flex flex-col items-center max-h-[150px] mb-2">
       {/* <CardInfoHeader /> */}
       <div className="w-full h-[100px]">
-        <Link to={`/activities/${cardData.id}`}>
+        <Link to={`/activities/${cardData._id.toString()}`}>
           <CardInfoImage imgPath={cardData.image} />
         </Link>
       </div>

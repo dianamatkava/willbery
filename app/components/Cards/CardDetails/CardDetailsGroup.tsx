@@ -1,11 +1,11 @@
 import { IoMdMore } from "react-icons/io";
-import ProgressBar from "../../ui-elements/ProgressBar";
-import Accordion from "../../ui-elements/Accordion";
+import ProgressBar from "~/components/ui-elements/ProgressBar";
+import Accordion from "~/components/ui-elements/Accordion";
 import { useEffect, useRef, useState } from "react";
+import AddItemComponent from "~/components/ui-elements/AddItemComponent";
+import useStore from "~/stores/useStore";
 import ContentEditable from "react-contenteditable";
-import AddItemComponent from "../../ui-elements/AddItemComponent";
-import { v4 as uuidv4 } from "uuid";
-import useStore from "../../../stores/useStore";
+import { useFetcher } from "@remix-run/react";
 import { CardGroupInterface } from "~/interfaces/CardInterfaces";
 
 export function CardDetailsGroup({
@@ -15,12 +15,12 @@ export function CardDetailsGroup({
 }: {
   children: React.ReactNode;
   group: CardGroupInterface;
-  cardId: number;
+  cardId: string;
 }) {
   const [expanded, setExpanded] = useState(true);
   const [groupName, setGroupName] = useState(group.name);
   const updateGroupName = useStore((state) => state.updateGroupName);
-  const createNode = useStore((state) => state.createNode);
+  const fetcher = useFetcher();
 
   const currentFieldValue = useRef("");
 
@@ -34,23 +34,30 @@ export function CardDetailsGroup({
     setGroupName(value);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      e.target.blur();
+      await e.target.blur();
     }
   };
 
-  const handleBlur = () => {
+  const handleBlur = async () => {
     if (currentFieldValue.current && currentFieldValue.current !== groupName) {
-      updateGroupName(cardId, group.id, currentFieldValue.current);
+      updateGroupName(cardId, group._id.toString(), currentFieldValue.current);
+
+      const formData = new FormData();
+      formData.append("name", currentFieldValue.current);
+      await fetcher.submit(formData, {
+        method: "put",
+        action: `/activities/${cardId}?update=group&groupId=${group._id.toString()}`,
+      });
     }
   };
 
-  const onAddItem = () => {
-    createNode(cardId, group.id, {
-      id: uuidv4(),
-      name: "Untitled Item",
+  const onAddItem = async () => {
+    await fetcher.submit(new FormData(), {
+      method: "post",
+      action: `/activities/${cardId}?create=node&groupId=${group._id.toString()}`,
     });
   };
 

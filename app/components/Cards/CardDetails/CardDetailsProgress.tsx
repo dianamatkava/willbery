@@ -1,8 +1,8 @@
 import { IoMdMore } from "react-icons/io";
-import ProgressBar from "../../ui-elements/ProgressBar";
-import Counter from "../../ui-elements/Counter";
-import CreatableSelectInput from "../../ui-elements/SelectInput";
-import TagComponent from "../../ui-elements/TagComponent";
+import ProgressBar from "~/components/ui-elements/ProgressBar";
+import Counter from "~/components/ui-elements/Counter";
+import CreatableSelectInput from "~/components/ui-elements/CreatableSelectInput";
+import TagComponent from "~/components/ui-elements/TagComponent";
 
 export default function CardDetailsProgress({
   onSelect,
