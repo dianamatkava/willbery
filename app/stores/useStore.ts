@@ -55,7 +55,7 @@ interface CardStore {
     groupId: string,
     nodeId: string,
     leafId: string,
-    newLeafTag: string
+    newLeafTag: TagInterface
   ) => void;
   createCard: (newCard: CardInterface) => void;
   createGroup: (cardId: string, newGroup: CardGroupInterface) => void;
@@ -89,11 +89,11 @@ const useStore = create<CardStore>()(
           set({ cards });
         },
         cardTags: [],
-        setCardTags: (cardTags: TagInterface) => {
+        setCardTags: (cardTags: TagInterface[]) => {
           set({ cardTags });
         },
         scoupes: [],
-        setScoupes: (scoupes: ScoupeInterface) => {
+        setScoupes: (scoupes: ScoupeInterface[]) => {
           set({ scoupes });
         },
 
@@ -112,7 +112,6 @@ const useStore = create<CardStore>()(
           });
         },
         updateCardScoupe: (cardId, newScoupe) => {
-          console.log(newScoupe);
           set((state) => {
             const updatedCards = state.cards.map((card) =>
               card._id.toString() === cardId
@@ -217,7 +216,6 @@ const useStore = create<CardStore>()(
               const group = card.groups.find(
                 (g) => g._id.toString() === groupId
               );
-              console.log(group);
               if (group.nodes) {
                 group.nodes.push(newNode);
               } else {
