@@ -6,7 +6,7 @@ import { CardDetailsNode } from "../components/Cards/CardDetails/CardDetailsNode
 import { CardDetailsLeaf } from "../components/Cards/CardDetails/CardDetailsLeaf";
 import { IoClose } from "react-icons/io5";
 import useStore from "../stores/useStore";
-import AddItemComponent from "../components/ui-elements/AddItemComponent";
+import AddItem from "../components/ui-elements/AddItem";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { json } from "@remix-run/node";
@@ -238,7 +238,7 @@ const CardDetails: FunctionComponent = () => {
                 ))}
             </CardDetailsGroup>
           ))}
-        <AddItemComponent
+        <AddItem
           onClick={onAddSection}
           displayText={`Add Section`}
           className="pl-0 mt-4"

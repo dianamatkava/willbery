@@ -32,10 +32,6 @@ export default function Activities() {
   const setTags = useStore((state) => state.setTags);
   const setDomains = useStore((state) => state.setDomains);
 
-  const isUserDetailPage = location.pathname.startsWith("/cards/");
-
-  console.log(isUserDetailPage);
-
   useEffect(() => {
     if (Array.isArray(cards)) {
       setCards(cards);
