@@ -373,8 +373,10 @@ export const deleteGroup = async ({
         "groups._id": new Types.ObjectId(groupId),
       },
       {
-        $set: {
-          $push: { "groups.$[group]": [] },
+        $pull: {
+          groups: {
+            _id: new Types.ObjectId(groupId),
+          },
         },
       },
       {
@@ -412,8 +414,10 @@ export const deleteNode = async ({
         "groups.nodes._id": new Types.ObjectId(nodeId),
       },
       {
-        $set: {
-          $push: { "groups.$[group].nodes.$[node]": [] },
+        $pull: {
+          "groups.$[group].nodes": {
+            _id: new Types.ObjectId(nodeId),
+          },
         },
       },
       {
@@ -447,6 +451,7 @@ export const deleteLeaf = async ({
   nodeId: string;
   leafId: string;
 }) => {
+  console.log(groupId);
   try {
     const res = await CardModel.updateOne(
       {
@@ -457,8 +462,10 @@ export const deleteLeaf = async ({
         "groups.nodes.leafs._id": new Types.ObjectId(leafId),
       },
       {
-        $set: {
-          $push: { "groups.$[group].nodes.$[node].leafs.$.[leaf]": [] },
+        $pull: {
+          "groups.$[group].nodes.$[node].leafs": {
+            _id: new Types.ObjectId(leafId),
+          },
         },
       },
       {

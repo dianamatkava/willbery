@@ -11,17 +11,17 @@ export default function ContextMenu({
 }) {
   return (
     <div
-      className={`${className} 
-        self-stretch flex flex-col items-start justify-start py-1 px-0 hover:text-black hover:bg-gray-100`}
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={onClick}
+      className={`min-w-[150px] 
+        self-stretch flex flex-col items-start justify-start py-1 mx-2 rounded-md 
+        hover:text-black hover:bg-gray-100
+        ${className}`}
     >
       <div className="flex flex-col items-start justify-start py-1 px-2">
-        <div
-          role="button"
-          tabIndex={0}
-          onClick={onClick}
-          onKeyDown={onClick}
-          className="self-stretch h-2 flex flex-row items-center justify-start gap-2"
-        >
+        <div className="self-stretch h-2 flex flex-row items-center justify-start gap-2">
           {children}
           <div className="leading-1 font-medium">{name}</div>
         </div>
