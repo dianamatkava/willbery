@@ -332,3 +332,150 @@ export const pushDummyLeaf = async ({
     console.error("Error pushing group:", err);
   }
 };
+
+export const deleteCard = async ({
+  user,
+  cardId,
+}: {
+  user: UserInterface;
+  cardId: string;
+}) => {
+  try {
+    const res = await CardModel.deleteOne({
+      _id: new Types.ObjectId(cardId),
+      user: user._id,
+    });
+
+    if (res.deletedCount) {
+      console.log("Card deleted successfully:", res);
+    } else {
+      console.warn("Delete operation not acknowledged:", res);
+    }
+  } catch (err) {
+    console.error("Error deleting card:", err);
+  }
+};
+
+export const deleteGroup = async ({
+  user,
+  cardId,
+  groupId,
+}: {
+  user: UserInterface;
+  cardId: string;
+  groupId: string;
+}) => {
+  try {
+    const res = await CardModel.updateOne(
+      {
+        _id: new Types.ObjectId(cardId),
+        user: user._id,
+        "groups._id": new Types.ObjectId(groupId),
+      },
+      {
+        $set: {
+          $push: { "groups.$[group]": [] },
+        },
+      },
+      {
+        arrayFilters: [{ "group._id": new Types.ObjectId(groupId) }],
+      }
+    );
+
+    if (res.acknowledged) {
+      console.log("Leaf deleted successfully:", res);
+    } else {
+      console.warn("Delete operation not acknowledged:", res);
+    }
+  } catch (error) {
+    console.error("Error deleting leaf:", error);
+  }
+};
+
+export const deleteNode = async ({
+  user,
+  cardId,
+  groupId,
+  nodeId,
+}: {
+  user: UserInterface;
+  cardId: string;
+  groupId: string;
+  nodeId: string;
+}) => {
+  try {
+    const res = await CardModel.updateOne(
+      {
+        _id: new Types.ObjectId(cardId),
+        user: user._id,
+        "groups._id": new Types.ObjectId(groupId),
+        "groups.nodes._id": new Types.ObjectId(nodeId),
+      },
+      {
+        $set: {
+          $push: { "groups.$[group].nodes.$[node]": [] },
+        },
+      },
+      {
+        arrayFilters: [
+          { "group._id": new Types.ObjectId(groupId) },
+          { "node._id": new Types.ObjectId(nodeId) },
+        ],
+      }
+    );
+
+    if (res.acknowledged) {
+      console.log("Leaf deleted successfully:", res);
+    } else {
+      console.warn("Delete operation not acknowledged:", res);
+    }
+  } catch (error) {
+    console.error("Error deleting leaf:", error);
+  }
+};
+
+export const deleteLeaf = async ({
+  user,
+  cardId,
+  groupId,
+  nodeId,
+  leafId,
+}: {
+  user: UserInterface;
+  cardId: string;
+  groupId: string;
+  nodeId: string;
+  leafId: string;
+}) => {
+  try {
+    const res = await CardModel.updateOne(
+      {
+        _id: new Types.ObjectId(cardId),
+        user: user._id,
+        "groups._id": new Types.ObjectId(groupId),
+        "groups.nodes._id": new Types.ObjectId(nodeId),
+        "groups.nodes.leafs._id": new Types.ObjectId(leafId),
+      },
+      {
+        $set: {
+          $push: { "groups.$[group].nodes.$[node].leafs.$.[leaf]": [] },
+        },
+      },
+      {
+        arrayFilters: [
+          { "group._id": new Types.ObjectId(groupId) },
+          { "node._id": new Types.ObjectId(nodeId) },
+          { "leaf._id": new Types.ObjectId(leafId) },
+        ],
+      }
+    );
+
+    if (res.acknowledged) {
+      console.log("Leaf deleted successfully:", res);
+    } else {
+      console.warn("Delete operation not acknowledged:", res);
+    }
+  } catch (error) {
+    console.error("Error deleting leaf:", error);
+  }
+};
