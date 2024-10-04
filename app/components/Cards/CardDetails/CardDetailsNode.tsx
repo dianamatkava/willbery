@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useStore from "../../../stores/useStore";
 import ContentEditable from "react-contenteditable";
 import { CardNodeInterface } from "~/interfaces/CardInterfaces";
-import AddItemComponent from "../../ui-elements/AddItemComponent";
+import AddItem from "../../ui-elements/AddItem";
 import CardDetailsProgress from "./CardDetailsProgress";
 import { v4 as uuidv4 } from "uuid";
 import { AiOutlineLink } from "react-icons/ai";
@@ -153,7 +153,7 @@ export function CardDetailsNode({
       </div>
       {isEditingTracking && <CreateTracking onSubmit={onAddTracking} />}
       {children}
-      <AddItemComponent
+      <AddItem
         onClick={onAddItem}
         displayText={`Add Item`}
         className="pl-2"

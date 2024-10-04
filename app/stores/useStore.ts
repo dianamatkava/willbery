@@ -113,7 +113,6 @@ const useStore = create<CardStore>()(
           });
         },
         updateCardImage: (cardId, newImage) => {
-          console.log(newImage);
           set((state) => {
             const updatedCards = state.cards.map((card) =>
               card._id.toString() === cardId

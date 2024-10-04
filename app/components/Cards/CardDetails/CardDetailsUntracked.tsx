@@ -1,5 +1,5 @@
 import { IoMdMore } from "react-icons/io";
-import CreatableSelectInput from "../../ui-elements/CreatableSelectInput";
+import CreatableSelectInput from "../../ui-elements/form/CreatableSelectInput";
 import TagComponent from "../../ui-elements/TagComponent";
 import { IoIosPlay } from "react-icons/io";
 import { LuTag } from "react-icons/lu";

@@ -3,7 +3,7 @@ import { useState } from "react";
 import Accordion from "~/components/ui-elements/Accordion";
 import React from "react";
 import { AiOutlineLink } from "react-icons/ai";
-import CardSourceLink from "~/components/ui-elements/CardSourceLink";
+import SourceLink from "~/components/ui-elements/SourceLink";
 
 export default function CardNode({
   children = null,
@@ -25,7 +25,7 @@ export default function CardNode({
               setExpanded={setExpanded}
               hidden={true}
             >
-              <CardSourceLink source={node.link}>{node.name}</CardSourceLink>
+              <SourceLink source={node.link}>{node.name}</SourceLink>
             </Accordion>
           ) : (
             <div className="flex items-center gap-2">

@@ -1,6 +1,6 @@
 import { IoIosAdd } from "react-icons/io";
 
-export default function AddItemComponent({
+export default function AddItem({
   displayText = "Add Item",
   enabled = true,
   className,
