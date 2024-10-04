@@ -64,7 +64,7 @@ export default function ContextMenu({
       onMouseEnter={() => setIsSelected(true)}
       className={` ${className} h-fit
         shadow-[1px_2px_4px_rgba(0,_0,_0,_0.1)] rounded bg-white border-gainsboro border-[0.8px] border-solid box-border 
-        flex flex-col items-start justify-start py-1 px-0 gap-1.5 text-left text-xs text-dimgray
+        flex flex-col items-start justify-start py-2 px-0 gap-1 text-left text-xs text-dimgray
         `}
     >
       {children}

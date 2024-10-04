@@ -9,7 +9,7 @@ import { useFetcher } from "@remix-run/react";
 import { CardGroupInterface } from "~/interfaces/CardInterfaces";
 import ContextMenu from "~/components/ui-elements/menus/ContextMenu";
 import ContextMenuItem from "~/components/ui-elements/menus/ContextMenuItem";
-import { LuDelete, LuPlus } from "react-icons/lu";
+import { LuDelete } from "react-icons/lu";
 import { HiOutlineDocumentDuplicate } from "react-icons/hi";
 
 export function CardDetailsGroup({
@@ -66,6 +66,13 @@ export function CardDetailsGroup({
     });
   };
 
+  const onDelete = async () => {
+    await fetcher.submit(new FormData(), {
+      method: "delete",
+      action: `/activities/${cardId}?delete=group&groupId=${group._id.toString()}`,
+    });
+  };
+
   return (
     <div className="flex w-full flex-col items-start justify-start">
       <div className="w-full flex flex-col items-start justify-start gap-4">
@@ -106,27 +113,17 @@ export function CardDetailsGroup({
 
               {expandedMenu && (
                 <ContextMenu
-                  className="absolute top-[-10px] right-[-10px] z-10 min-w-[200px]"
+                  className="absolute top-[-10px] right-[-10px] z-10"
                   setIsSelected={setExpandedMenu}
                   isSelected={expandedMenu}
                 >
-                  <ContextMenuItem
-                    name="Add Tracking"
-                    className="border-whitesmoke border-b-[0.5px] border-solid"
-                    onClick={() => console.log("Add Tracking")}
-                  >
-                    <LuPlus size={12} />
-                  </ContextMenuItem>
                   <ContextMenuItem
                     name="Duplicate"
                     onClick={() => console.log("Duplicate")}
                   >
                     <HiOutlineDocumentDuplicate size={12} />
                   </ContextMenuItem>
-                  <ContextMenuItem
-                    name="Delete"
-                    onClick={() => console.log("Delete")}
-                  >
+                  <ContextMenuItem name="Delete" onClick={onDelete}>
                     <LuDelete size={12} />
                   </ContextMenuItem>
                 </ContextMenu>

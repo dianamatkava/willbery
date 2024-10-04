@@ -101,6 +101,14 @@ export function CardDetailsLeaf({
     });
   };
 
+  const onDelete = async () => {
+    await fetcher.submit(new FormData(), {
+      method: "delete",
+      action: `/activities/${cardId}?delete=leaf&groupId=${groupId}&nodeId=${nodeId}&leafId=${leaf._id.toString()}`,
+    });
+    setIsEditingTracking(false);
+  };
+
   return (
     <>
       <div className="w-full w-fit flex flex-row items-center justify-between py-0 pl-2 pr-0 box-border gap-2">
@@ -123,6 +131,7 @@ export function CardDetailsLeaf({
             onSelect={onSelectTag}
             progress={leaf.progress}
             className="pl-0 mt-[-10px]"
+            onDelete={onDelete}
           />
         ) : (
           <CardDetailsUntracked
@@ -131,6 +140,7 @@ export function CardDetailsLeaf({
             onSelectTag={onSelectTag}
             onEditTracking={() => setIsEditingTracking(!isEditingTracking)}
             tagStyle="text-xxxs text-gray-500 border-gainsboro-400 border-[0.8px] border-solid box-border py-1 px-1"
+            onDelete={onDelete}
           />
         )}
       </div>
