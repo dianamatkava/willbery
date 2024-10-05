@@ -118,17 +118,18 @@ export default function Activities() {
 
   return (
     <div
-      className={`w-full flex flex-col items-center gap-5 justify-center ${
-        selectedCardId ? "px-1" : "px-6"
-      }`}
+      className={`
+        w-full flex flex-col items-center gap-3 justify-center ${
+          selectedCardId ? "px-1" : "px-6"
+        }`}
     >
-      <div className="w-full flex flex-row items-center justify-between text-center text-sm text-darkslategray font-roboto">
+      <div className="w-full flex flex-row items-center justify-between text-center text-sm">
         <CardListInfo />
         <CardListFilter />
       </div>
       <div className="flex w-full">
         <div
-          className={`gap-2 grid 
+          className={`sticky top-0 h-screen overflow-y-auto gap-2 grid pb-48
             ${
               selectedCardId
                 ? "hidden sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
