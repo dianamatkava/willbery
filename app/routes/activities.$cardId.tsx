@@ -6,7 +6,7 @@ import { CardDetailsNode } from "../components/Cards/CardDetails/CardDetailsNode
 import { CardDetailsLeaf } from "../components/Cards/CardDetails/CardDetailsLeaf";
 import { IoClose } from "react-icons/io5";
 import useStore from "../stores/useStore";
-import AddItemComponent from "../components/ui-elements/AddItemComponent";
+import AddItem from "../components/ui-elements/AddItem";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { json } from "@remix-run/node";
@@ -20,6 +20,10 @@ import {
   pushDummyGroup,
   pushDummyNode,
   pushDummyLeaf,
+  deleteCard,
+  deleteGroup,
+  deleteNode,
+  deleteLeaf,
   getUser,
 } from "../cruds/cardCrud";
 import { CardUpdateOptions } from "../interfaces/CardInterfaces";
@@ -151,6 +155,39 @@ export async function action({ request, params }) {
     }
 
     return json({ success: true });
+  } else if (request.method === "DELETE") {
+    const user = await getUser(); /// user will be retrieved in auth middleware
+    const cardId = params.cardId;
+    const url = new URL(request.url);
+    const queryParams = Object.fromEntries(url.searchParams.entries());
+    switch (queryParams?.delete) {
+      case "card": {
+        await deleteCard({ user, cardId });
+        break;
+      }
+      case "group": {
+        const groupId = queryParams?.groupId;
+        await deleteGroup({ user, cardId, groupId });
+        break;
+      }
+      case "node": {
+        const groupId = queryParams?.groupId;
+        const nodeId = queryParams?.nodeId;
+        await deleteNode({ user, cardId, groupId, nodeId });
+        break;
+      }
+      case "leaf": {
+        const groupId = queryParams?.groupId;
+        const nodeId = queryParams?.nodeId;
+        const leafId = queryParams?.leafId;
+        await deleteLeaf({ user, cardId, groupId, nodeId, leafId });
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    return json({ success: true });
   }
   return json({ success: false }, { status: 405 });
 }
@@ -238,7 +275,7 @@ const CardDetails: FunctionComponent = () => {
                 ))}
             </CardDetailsGroup>
           ))}
-        <AddItemComponent
+        <AddItem
           onClick={onAddSection}
           displayText={`Add Section`}
           className="pl-0 mt-4"

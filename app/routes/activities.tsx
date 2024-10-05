@@ -93,7 +93,6 @@ export default function Activities() {
   const cardsState = useStore((state) => state.cards);
 
   useEffect(() => {
-    console.log(cards);
     if (cards.length > 0) {
       setCards(cards);
     }

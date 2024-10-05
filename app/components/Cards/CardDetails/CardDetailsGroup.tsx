@@ -2,11 +2,15 @@ import { IoMdMore } from "react-icons/io";
 import ProgressBar from "~/components/ui-elements/ProgressBar";
 import Accordion from "~/components/ui-elements/Accordion";
 import { useEffect, useRef, useState } from "react";
-import AddItemComponent from "~/components/ui-elements/AddItemComponent";
+import AddItem from "~/components/ui-elements/AddItem";
 import useStore from "~/stores/useStore";
 import ContentEditable from "react-contenteditable";
 import { useFetcher } from "@remix-run/react";
 import { CardGroupInterface } from "~/interfaces/CardInterfaces";
+import ContextMenu from "~/components/ui-elements/menus/ContextMenu";
+import ContextMenuItem from "~/components/ui-elements/menus/ContextMenuItem";
+import { LuDelete } from "react-icons/lu";
+import { HiOutlineDocumentDuplicate } from "react-icons/hi";
 
 export function CardDetailsGroup({
   children,
@@ -17,7 +21,8 @@ export function CardDetailsGroup({
   group: CardGroupInterface;
   cardId: string;
 }) {
-  const [expanded, setExpanded] = useState(true);
+  const [expandedContent, setExpandedContent] = useState(true);
+  const [expandedMenu, setExpandedMenu] = useState(false);
   const [groupName, setGroupName] = useState(group.name);
   const updateGroupName = useStore((state) => state.updateGroupName);
   const fetcher = useFetcher();
@@ -61,12 +66,22 @@ export function CardDetailsGroup({
     });
   };
 
+  const onDelete = async () => {
+    await fetcher.submit(new FormData(), {
+      method: "delete",
+      action: `/activities/${cardId}?delete=group&groupId=${group._id.toString()}`,
+    });
+  };
+
   return (
     <div className="flex w-full flex-col items-start justify-start">
       <div className="w-full flex flex-col items-start justify-start gap-4">
         <div className="w-full flex flex-row items-center justify-between text-darkgray-200">
           <div className="w-full flex flex-row items-center justify-start gap-1">
-            <Accordion expanded={expanded} setExpanded={setExpanded} />
+            <Accordion
+              expanded={expandedContent}
+              setExpanded={setExpandedContent}
+            />
             <div className="font-semibold text-[#777777] text-xxxs cursor-pointer">
               <h1 className="font-semibold whitespace-pre-wrap text-xsm">
                 <ContentEditable
@@ -87,15 +102,39 @@ export function CardDetailsGroup({
                 className={"w-[60px] font-semibold text-xxs"}
               />
             )}
-            <div className="flex items-center justify-center gap-0 text-gray-300 hover:text-gray-500">
+            <div
+              role="button"
+              tabIndex={0}
+              onKeyDown={() => setExpandedMenu((expandedMenu) => !expandedMenu)}
+              onClick={() => setExpandedMenu((expandedMenu) => !expandedMenu)}
+              className="relative flex items-center justify-center gap-0 text-gray-300 hover:text-gray-500"
+            >
               <IoMdMore size={18} className="cursor-pointer" />
+
+              {expandedMenu && (
+                <ContextMenu
+                  className="absolute top-[-10px] right-[-10px] z-10"
+                  setIsSelected={setExpandedMenu}
+                  isSelected={expandedMenu}
+                >
+                  <ContextMenuItem
+                    name="Duplicate"
+                    onClick={() => console.log("Duplicate")}
+                  >
+                    <HiOutlineDocumentDuplicate size={12} />
+                  </ContextMenuItem>
+                  <ContextMenuItem name="Delete" onClick={onDelete}>
+                    <LuDelete size={12} />
+                  </ContextMenuItem>
+                </ContextMenu>
+              )}
             </div>
           </div>
         </div>
-        {expanded && (
+        {expandedContent && (
           <div className="w-full flex flex-col items-start justify-start gap-4">
             {children}
-            <AddItemComponent
+            <AddItem
               onClick={onAddItem}
               displayText={`Add Item for ${groupName}`}
               className="pl-0"
