@@ -118,21 +118,23 @@ export default function Activities() {
 
   return (
     <div
-      className={`w-full flex flex-col items-center gap-5 justify-center ${
-        selectedCardId ? "px-1" : "px-6"
-      }`}
+      className={`
+        w-full flex flex-col items-center gap-3 justify-center ${
+          selectedCardId ? "px-1" : "px-6"
+        }`}
     >
-      <div className="w-full flex flex-row items-center justify-between text-center text-sm text-darkslategray font-roboto">
+      <div className="w-full flex flex-row items-center justify-between text-center text-sm">
         <CardListInfo />
         <CardListFilter />
       </div>
       <div className="flex w-full">
         <div
-          className={`gap-2 grid grid-cols-1 xlg:grid-cols-5 xxlg:grid-cols-6 ${
-            selectedCardId
-              ? "xs:grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xlg:grid-cols-4 xxlg:grid-cols-5 hidden md:grid flex-[2_3_0%]"
-              : "xs:grid-cols-2 grid-sm:grid-cols-3 grid-md:grid-cols-4 grid-lg:grid-cols-4"
-          }`}
+          className={`sticky top-0 h-screen overflow-y-auto gap-2 grid pb-48
+            ${
+              selectedCardId
+                ? "hidden sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+                : "xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
+            }`}
         >
           {cardsState.map((card) => (
             <Card

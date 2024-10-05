@@ -202,9 +202,13 @@ const CardDetails: FunctionComponent = () => {
 
   if (!cardDetails) {
     return (
-      <div className="flex items-center justify-center flex-[1.5_2_0%] mx-auto w-min-[450px]">
+      <div
+        className="
+        sticky top-1 h-screen overflow-y-auto
+      flex items-center justify-center flex-[1.5_2_0%] mx-auto w-min-[450px]"
+      >
         <div
-          className="relative h-full flex-1 w-full rounded-sm rounded-tr-none rounded-b-none 
+          className="flex-1 w-full rounded-sm rounded-tr-none rounded-b-none 
     border-[#d1d1d1] border-[0.5px] border-solid box-border flex flex-col items-start 
     justify-start p-4 mx-2 gap-5 text-left text-smi text-miscellaneous-floating-tab-text-unselected"
         >
@@ -233,9 +237,14 @@ const CardDetails: FunctionComponent = () => {
   };
 
   return (
-    <div className="flex items-center justify-center flex-[1.5_2_0%] mx-auto">
+    <div
+      className="
+    flex min-w-[480px] items-center justify-center flex-[1.5_2_0%] mx-auto"
+    >
       <div
-        className="relative h-full flex-1 w-full rounded-sm rounded-tr-none rounded-b-none 
+        className="
+        sticky top-1 h-screen overflow-y-auto pb-48
+        flex-1 w-full rounded-sm rounded-tr-none rounded-b-none 
     border-[#d1d1d1] border-[0.5px] border-solid box-border flex flex-col items-start 
     justify-start p-4 mx-2 gap-5 text-left text-smi text-miscellaneous-floating-tab-text-unselected"
       >
