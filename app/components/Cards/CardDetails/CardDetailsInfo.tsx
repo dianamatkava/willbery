@@ -1,11 +1,11 @@
 import { LuPlus, LuSmilePlus, LuTag } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import useStore from "../../../stores/useStore";
-import CreatableSelectInput from "../../ui-elements/CreatableSelectInput";
+import CreatableSelectInput from "../../ui-elements/form/CreatableSelectInput";
 import TagComponent from "../../ui-elements/TagComponent";
-import LinkInputComponent from "~/components/ui-elements/LinkInput";
-import TextInputComponent from "~/components/ui-elements/TextInput";
-import TextAreaInputComponent from "~/components/ui-elements/TextAreaInput";
+import LinkInputComponent from "~/components/ui-elements/form/LinkInput";
+import TextInputComponent from "~/components/ui-elements/form/TextInput";
+import TextAreaInputComponent from "~/components/ui-elements/form/TextAreaInput";
 import { CardInterface } from "~/interfaces/CardInterfaces";
 import { useFetcher } from "@remix-run/react";
 
@@ -63,7 +63,6 @@ export function CardDetailsInfo({
           updateCardDescription(cardDetails._id.toString(), e.target.value);
           break;
         case "image":
-          console.log(field);
           updateCardImage(cardDetails._id.toString(), e.target.value);
           setEnterImagePath(false);
           break;

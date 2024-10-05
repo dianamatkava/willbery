@@ -1,6 +1,6 @@
 import { AiOutlineLink } from "react-icons/ai";
 
-export default function CardSourceLink({
+export default function SourceLink({
   children,
   source,
 }: {

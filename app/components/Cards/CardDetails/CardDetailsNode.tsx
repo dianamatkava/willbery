@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useStore from "../../../stores/useStore";
 import ContentEditable from "react-contenteditable";
 import { CardNodeInterface } from "~/interfaces/CardInterfaces";
-import AddItemComponent from "../../ui-elements/AddItemComponent";
+import AddItem from "../../ui-elements/AddItem";
 import CardDetailsProgress from "./CardDetailsProgress";
 import { v4 as uuidv4 } from "uuid";
 import { AiOutlineLink } from "react-icons/ai";
@@ -105,6 +105,14 @@ export function CardDetailsNode({
     });
   };
 
+  const onDelete = async () => {
+    await fetcher.submit(new FormData(), {
+      method: "delete",
+      action: `/activities/${cardId}?delete=node&groupId=${groupId}&nodeId=${node._id.toString()}`,
+    });
+    setIsEditingTracking(false);
+  };
+
   return (
     <div className="self-stretch flex flex-col items-start justify-start gap-3 text-sm">
       <div className="w-full flex frex-wrap flex-row items-center justify-between box-border text-sm">
@@ -135,6 +143,7 @@ export function CardDetailsNode({
         {node.progress ? (
           <CardDetailsProgress
             tag={node.tag.name}
+            onDelete={onDelete}
             tags={tags.map((tag) => tag.name)}
             progress={node.progress}
             onSelect={onSelectTag}
@@ -144,6 +153,7 @@ export function CardDetailsNode({
         ) : (
           <CardDetailsUntracked
             data={node}
+            onDelete={onDelete}
             tags={tags.map((tag) => tag.name)}
             onSelectTag={onSelectTag}
             onEditTracking={() => setIsEditingTracking(!isEditingTracking)}
@@ -153,11 +163,7 @@ export function CardDetailsNode({
       </div>
       {isEditingTracking && <CreateTracking onSubmit={onAddTracking} />}
       {children}
-      <AddItemComponent
-        onClick={onAddItem}
-        displayText={`Add Item`}
-        className="pl-2"
-      />
+      <AddItem onClick={onAddItem} displayText={`Add Item`} className="pl-2" />
     </div>
   );
 }
