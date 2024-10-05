@@ -25,9 +25,12 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="w-full">
+      <body className="flex h-screen w-full overflow-hidden">
         <SideBar />
-        <div className="flex-1 m-4 w-full h-fit pb-28 max-w-[1600px]">
+        <div
+          className=" flex-1 h-screen
+        mx-auto m-4 w-full pb-28 max-w-[1600px]"
+        >
           <Outlet />
         </div>
 
