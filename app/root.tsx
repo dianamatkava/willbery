@@ -27,7 +27,7 @@ export default function App() {
       </head>
       <body className="w-full">
         <SideBar />
-        <div className="flex-1 m-4 w-full h-fit pb-28 max-w-[1600px]">
+        <div className="mx-auto flex-1 m-4 w-full h-fit pb-28 max-w-[1600px]">
           <Outlet />
         </div>
 

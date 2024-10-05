@@ -233,7 +233,7 @@ const CardDetails: FunctionComponent = () => {
   };
 
   return (
-    <div className="flex items-center justify-center flex-[1.5_2_0%] mx-auto">
+    <div className="flex min-w-[480px] items-center justify-center flex-[1.5_2_0%] mx-auto">
       <div
         className="relative h-full flex-1 w-full rounded-sm rounded-tr-none rounded-b-none 
     border-[#d1d1d1] border-[0.5px] border-solid box-border flex flex-col items-start 
