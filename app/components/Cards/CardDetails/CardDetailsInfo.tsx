@@ -8,6 +8,7 @@ import TextInputComponent from "~/components/ui-elements/form/TextInput";
 import TextAreaInputComponent from "~/components/ui-elements/form/TextAreaInput";
 import { CardInterface } from "~/interfaces/CardInterfaces";
 import { useFetcher } from "@remix-run/react";
+import InlineFormControl from "~/components/ui-elements/form/InlineFormControl";
 
 export function CardDetailsInfo({
   cardDetails,
@@ -62,21 +63,26 @@ export function CardDetailsInfo({
         case "description":
           updateCardDescription(cardDetails._id.toString(), e.target.value);
           break;
-        case "image":
-          updateCardImage(cardDetails._id.toString(), e.target.value);
-          setEnterImagePath(false);
-          break;
       }
-
-      // TODO: move this to function
-      const formData = new FormData();
-      formData.append(field, e.target.value);
-
-      await fetcher.submit(formData, {
-        method: "put",
-        action: `/activities/${cardDetails._id.toString()}`,
-      });
     }
+
+    if (field == "image") {
+      if (
+        (e.target.value || e.target.value == null) &&
+        e.target.value !== cardDetails[field]
+      ) {
+        updateCardImage(cardDetails._id.toString(), e.target.value);
+      }
+    }
+
+    // TODO: move this to function
+    const formData = new FormData();
+    formData.append(field, e.target.value);
+
+    await fetcher.submit(formData, {
+      method: "put",
+      action: `/activities/${cardDetails._id.toString()}`,
+    });
   };
 
   const onSelectScoupe = async (option: string) => {
@@ -101,9 +107,11 @@ export function CardDetailsInfo({
             role="button"
             tabIndex={0}
             onClick={() => {
-              setEnterImagePath(!enterImagePath);
+              setEnterImagePath((enterImagePath) => !enterImagePath);
             }}
-            onKeyDown={() => setEnterImagePath(false)}
+            onKeyDown={() =>
+              setEnterImagePath((enterImagePath) => !enterImagePath)
+            }
             className="w-[100px] h-full rounded-[100%] flex flex-row items-center justify-center shadow-[1px_1px_1px_rgba(0,_0,_0,_0.05)]"
           >
             <img
@@ -117,27 +125,39 @@ export function CardDetailsInfo({
             />
           </div>
         ) : (
-          <div className="w-[100px] h-full rounded-[100%] bg-gainsboro-100 hover:bg-grey-700 flex flex-row items-center justify-center">
+          <div
+            className="
+          w-[100px] h-full rounded-[100%] bg-gainsboro-100 hover:bg-gray-100 hover:text-gray-100 
+          flex flex-row items-center justify-center"
+          >
             <LuPlus
               size={34}
-              className="cursor-pointer text-grey-100 group-hover:text-grey-300"
+              className="cursor-pointer text-grey-100 icon"
               color="#808080"
               onClick={() => {
-                setEnterImagePath(!enterImagePath);
+                setEnterImagePath((enterImagePath) => !enterImagePath);
               }}
-              onBlur={() => setTimeout(() => setEnterImagePath(false), 200)}
+              onKeyDown={() =>
+                setEnterImagePath((enterImagePath) => !enterImagePath)
+              }
             />
           </div>
         )}
         {enterImagePath && (
-          <LinkInputComponent
-            value={fields.image || ""}
-            name="image"
-            onChange={(e) => handleChange(e, "image")}
-            onBlur={(e) => handleBlur(e, "image")}
-            onKeyDown={handleKeyDown}
-            className="absolute top-20 left-0"
-          />
+          <InlineFormControl
+            hideOnMouseLeave={false}
+            isSelected={enterImagePath}
+            setIsSelected={setEnterImagePath}
+          >
+            <LinkInputComponent
+              onChange={(e) => handleChange(e, "image")}
+              onBlur={(e) => handleBlur(e, "image")}
+              onKeyDown={handleKeyDown}
+              value={fields.image || ""}
+              name="image"
+              className="absolute top-12 left-2 z-10 h-10"
+            />
+          </InlineFormControl>
         )}
 
         <div className="flex flex-col items-start justify-center gap-1 w-full">

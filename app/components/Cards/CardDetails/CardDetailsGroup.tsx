@@ -7,8 +7,8 @@ import useStore from "~/stores/useStore";
 import ContentEditable from "react-contenteditable";
 import { useFetcher } from "@remix-run/react";
 import { CardGroupInterface } from "~/interfaces/CardInterfaces";
-import ContextMenu from "~/components/ui-elements/menus/ContextMenu";
-import ContextMenuItem from "~/components/ui-elements/menus/ContextMenuItem";
+import InlineFormControl from "~/components/ui-elements/form/InlineFormControl";
+import ContextMenuItem from "~/components/ui-elements/form/ContextMenuItem";
 import { LuDelete } from "react-icons/lu";
 import { HiOutlineDocumentDuplicate } from "react-icons/hi";
 
@@ -112,7 +112,7 @@ export function CardDetailsGroup({
               <IoMdMore size={18} className="cursor-pointer" />
 
               {expandedMenu && (
-                <ContextMenu
+                <InlineFormControl
                   className="absolute top-[-10px] right-[-10px] z-10"
                   setIsSelected={setExpandedMenu}
                   isSelected={expandedMenu}
@@ -126,7 +126,7 @@ export function CardDetailsGroup({
                   <ContextMenuItem name="Delete" onClick={onDelete}>
                     <LuDelete size={12} />
                   </ContextMenuItem>
-                </ContextMenu>
+                </InlineFormControl>
               )}
             </div>
           </div>

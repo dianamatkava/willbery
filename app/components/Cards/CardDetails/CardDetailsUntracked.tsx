@@ -3,8 +3,8 @@ import { IoMdMore } from "react-icons/io";
 import CreatableSelectInput from "../../ui-elements/form/CreatableSelectInput";
 import TagComponent from "../../ui-elements/TagComponent";
 import { IoIosPlay } from "react-icons/io";
-import ContextMenu from "~/components/ui-elements/menus/ContextMenu";
-import ContextMenuItem from "~/components/ui-elements/menus/ContextMenuItem";
+import InlineFormControl from "~/components/ui-elements/form/InlineFormControl";
+import ContextMenuItem from "~/components/ui-elements/form/ContextMenuItem";
 import { LuTag, LuDelete, LuPlus } from "react-icons/lu";
 import { HiOutlineDocumentDuplicate } from "react-icons/hi";
 
@@ -64,7 +64,7 @@ export default function CardDetailsUntracked({
       >
         <IoMdMore size={18} className="cursor-pointer" />
         {expandedMenu && (
-          <ContextMenu
+          <InlineFormControl
             className="absolute top-[-10px] right-[-10px] z-10 min-w-[180px]"
             setIsSelected={setExpandedMenu}
             isSelected={expandedMenu}
@@ -85,7 +85,7 @@ export default function CardDetailsUntracked({
             <ContextMenuItem name="Delete" onClick={onDelete}>
               <LuDelete size={12} />
             </ContextMenuItem>
-          </ContextMenu>
+          </InlineFormControl>
         )}
       </div>
     </div>
