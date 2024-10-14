@@ -4,8 +4,8 @@ import ProgressBar from "~/components/ui-elements/ProgressBar";
 import Counter from "~/components/ui-elements/Counter";
 import CreatableSelectInput from "~/components/ui-elements/form/CreatableSelectInput";
 import TagComponent from "~/components/ui-elements/TagComponent";
-import ContextMenu from "~/components/ui-elements/menus/ContextMenu";
-import ContextMenuItem from "~/components/ui-elements/menus/ContextMenuItem";
+import InlineFormControl from "~/components/ui-elements/form/InlineFormControl";
+import ContextMenuItem from "~/components/ui-elements/form/ContextMenuItem";
 import { LuDelete, LuPlus } from "react-icons/lu";
 import { HiOutlineDocumentDuplicate } from "react-icons/hi";
 
@@ -62,7 +62,7 @@ export default function CardDetailsProgress({
       >
         <IoMdMore size={18} className="cursor-pointer" />
         {expandedMenu && (
-          <ContextMenu
+          <InlineFormControl
             className="absolute top-[-10px] right-[-10px] z-10 min-w-[180px]"
             setIsSelected={setExpandedMenu}
             isSelected={expandedMenu}
@@ -83,7 +83,7 @@ export default function CardDetailsProgress({
             <ContextMenuItem name="Delete" onClick={onDelete}>
               <LuDelete size={12} />
             </ContextMenuItem>
-          </ContextMenu>
+          </InlineFormControl>
         )}
       </div>
     </div>

@@ -1,15 +1,17 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
-export default function ContextMenu({
+export default function InlineFormControl({
   className,
   children,
   isSelected,
   setIsSelected,
+  hideOnMouseLeave = true,
 }: {
   className?: string;
   children: React.ReactNode;
   isSelected: boolean;
   setIsSelected: (isSelected: boolean) => void;
+  hideOnMouseLeave?: boolean;
 }) {
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -27,7 +29,6 @@ export default function ContextMenu({
   }, [menuRef]);
 
   const handleBlur = (event: React.FocusEvent) => {
-    console.log("Blur");
     const currentTarget = event.currentTarget;
     setTimeout(() => {
       if (
@@ -36,7 +37,7 @@ export default function ContextMenu({
       ) {
         setIsSelected(false);
       }
-    }, 0);
+    }, 200);
   };
 
   const handleMouseLeave = () => {
@@ -60,12 +61,8 @@ export default function ContextMenu({
         }
       }}
       onBlur={(e) => handleBlur(e)}
-      onMouseLeave={handleMouseLeave}
-      onMouseEnter={() => setIsSelected(true)}
-      className={` ${className} h-fit
-        shadow-[1px_2px_4px_rgba(0,_0,_0,_0.1)] rounded bg-white border-gainsboro border-[0.8px] border-solid box-border 
-        flex flex-col items-start justify-start py-2 px-0 gap-1 text-left text-xs text-dimgray
-        `}
+      onMouseLeave={hideOnMouseLeave ? handleMouseLeave : undefined}
+      className={`${className} bg-white`}
     >
       {children}
     </div>

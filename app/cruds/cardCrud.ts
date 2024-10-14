@@ -168,7 +168,6 @@ export const updateLeaf = async ({
   const groupIdObject = new Types.ObjectId(groupId);
   const nodeIdObject = new Types.ObjectId(nodeId);
   const leafIdObject = new Types.ObjectId(leafId);
-
   try {
     const updateFields = Object.keys(data).reduce((acc, key) => {
       acc[`groups.$[group].nodes.$[node].leafs.$[leaf].${key}`] = data[key];

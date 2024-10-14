@@ -94,6 +94,21 @@ export async function action({ request, params }) {
         }
         break;
       }
+      case "link": {
+        const url = data.url;
+        const image = data.image;
+        data["link"] = {
+          url: url,
+          image: image,
+        };
+        delete data.url;
+        delete data.image;
+        const user = await getUser();
+        const groupId = queryParams.groupId;
+        const nodeId = queryParams?.nodeId;
+        await updateNode({ user, cardId, groupId, nodeId, data });
+        break;
+      }
       case "group": {
         const groupId = queryParams.groupId;
         const data = formDataToObject(formData);

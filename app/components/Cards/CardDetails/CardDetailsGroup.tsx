@@ -7,8 +7,8 @@ import useStore from "~/stores/useStore";
 import ContentEditable from "react-contenteditable";
 import { useFetcher } from "@remix-run/react";
 import { CardGroupInterface } from "~/interfaces/CardInterfaces";
-import ContextMenu from "~/components/ui-elements/menus/ContextMenu";
-import ContextMenuItem from "~/components/ui-elements/menus/ContextMenuItem";
+import InlineFormControl from "~/components/ui-elements/form/InlineFormControl";
+import ContextMenuItem from "~/components/ui-elements/form/ContextMenuItem";
 import { LuDelete } from "react-icons/lu";
 import { HiOutlineDocumentDuplicate } from "react-icons/hi";
 
@@ -112,21 +112,26 @@ export function CardDetailsGroup({
               <IoMdMore size={18} className="cursor-pointer" />
 
               {expandedMenu && (
-                <ContextMenu
+                <InlineFormControl
                   className="absolute top-[-10px] right-[-10px] z-10"
                   setIsSelected={setExpandedMenu}
                   isSelected={expandedMenu}
                 >
-                  <ContextMenuItem
-                    name="Duplicate"
-                    onClick={() => console.log("Duplicate")}
+                  <div
+                    className="shadow-[1px_2px_4px_rgba(0,_0,_0,_0.1)] rounded bg-white border-gainsboro border-[0.8px] border-solid box-border
+        flex flex-col items-start justify-start py-2 px-0 gap-1 text-left text-xs text-dimgray"
                   >
-                    <HiOutlineDocumentDuplicate size={12} />
-                  </ContextMenuItem>
-                  <ContextMenuItem name="Delete" onClick={onDelete}>
-                    <LuDelete size={12} />
-                  </ContextMenuItem>
-                </ContextMenu>
+                    <ContextMenuItem
+                      name="Duplicate"
+                      onClick={() => console.log("Duplicate")}
+                    >
+                      <HiOutlineDocumentDuplicate size={12} />
+                    </ContextMenuItem>
+                    <ContextMenuItem name="Delete" onClick={onDelete}>
+                      <LuDelete size={12} />
+                    </ContextMenuItem>
+                  </div>
+                </InlineFormControl>
               )}
             </div>
           </div>
