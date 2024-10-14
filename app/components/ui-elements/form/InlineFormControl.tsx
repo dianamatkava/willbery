@@ -62,10 +62,7 @@ export default function InlineFormControl({
       }}
       onBlur={(e) => handleBlur(e)}
       onMouseLeave={hideOnMouseLeave ? handleMouseLeave : undefined}
-      className={` ${className} h-fit
-        shadow-[1px_2px_4px_rgba(0,_0,_0,_0.1)] rounded bg-white border-gainsboro border-[0.8px] border-solid box-border 
-        flex flex-col items-start justify-start py-2 px-0 gap-1 text-left text-xs text-dimgray
-        `}
+      className={`${className} bg-white`}
     >
       {children}
     </div>

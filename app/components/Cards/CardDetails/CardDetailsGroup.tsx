@@ -117,15 +117,20 @@ export function CardDetailsGroup({
                   setIsSelected={setExpandedMenu}
                   isSelected={expandedMenu}
                 >
-                  <ContextMenuItem
-                    name="Duplicate"
-                    onClick={() => console.log("Duplicate")}
+                  <div
+                    className="shadow-[1px_2px_4px_rgba(0,_0,_0,_0.1)] rounded bg-white border-gainsboro border-[0.8px] border-solid box-border
+        flex flex-col items-start justify-start py-2 px-0 gap-1 text-left text-xs text-dimgray"
                   >
-                    <HiOutlineDocumentDuplicate size={12} />
-                  </ContextMenuItem>
-                  <ContextMenuItem name="Delete" onClick={onDelete}>
-                    <LuDelete size={12} />
-                  </ContextMenuItem>
+                    <ContextMenuItem
+                      name="Duplicate"
+                      onClick={() => console.log("Duplicate")}
+                    >
+                      <HiOutlineDocumentDuplicate size={12} />
+                    </ContextMenuItem>
+                    <ContextMenuItem name="Delete" onClick={onDelete}>
+                      <LuDelete size={12} />
+                    </ContextMenuItem>
+                  </div>
                 </InlineFormControl>
               )}
             </div>

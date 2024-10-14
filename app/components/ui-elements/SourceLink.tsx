@@ -10,12 +10,12 @@ export default function SourceLink({
   return (
     <div className="flex items-center gap-2">
       {source ? (
-        <div className="w-fit flex flex-row items-center justify-start gap-2 mt-1">
+        <div className="w-fit flex flex-row items-center justify-start gap-2">
           <a href={source.url}>
             <img
-              className="w-4 h-4 rounded-sm max-w-full max-h-full cursor-pointer"
-              alt=""
-              src={`/${source.icon}`}
+              className="w-4 h-4 rounded-sm max-w-full max-h-full cursor-pointer items-center"
+              alt="Item link"
+              src={`${source.image}`}
             />
           </a>
         </div>

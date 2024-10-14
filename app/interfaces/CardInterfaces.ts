@@ -3,6 +3,8 @@ export interface CardUpdateOptions {
   name?: string;
   scoupe?: string | mongoose.Types.ObjectId;
   tag?: string | mongoose.Types.ObjectId;
+  url?: string;
+  image?: string;
 }
 
 export interface UserInterface {
