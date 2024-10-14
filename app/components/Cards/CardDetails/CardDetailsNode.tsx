@@ -9,6 +9,8 @@ import { AiOutlineLink } from "react-icons/ai";
 import CardDetailsUntracked from "./CardDetailsUntracked";
 import CreateTracking from "../../Tracking/CreateTracking";
 import { useFetcher } from "@remix-run/react";
+import InlineFormControl from "~/components/ui-elements/form/InlineFormControl";
+import LinkInputComponent from "~/components/ui-elements/form/LinkInput";
 
 export function CardDetailsNode({
   children,
@@ -23,6 +25,7 @@ export function CardDetailsNode({
 }) {
   const fetcher = useFetcher();
   const [isEditingTracking, setIsEditingTracking] = useState(false);
+  const [selectLink, setSelectLink] = useState(false);
   const updateNodeName = useStore((state) => state.updateNodeName);
   const createNodeTracking = useStore((state) => state.createNodeTracking);
   const updateNodeTag = useStore((state) => state.updateNodeTag);
@@ -30,7 +33,8 @@ export function CardDetailsNode({
 
   const [fields, setFields] = useState({
     name: node.name,
-    tag: node?.tag?.name,
+    tag: node.tag?.name,
+    link: node.link?.url,
   });
 
   const onAddItem = async () => {
@@ -55,7 +59,7 @@ export function CardDetailsNode({
   };
 
   useEffect(() => {
-    setFields({ name: node.name, tag: node.tag?.name });
+    setFields({ name: node.name, tag: node.tag?.name, link: node.link?.url });
   }, [node]);
 
   const handleChange = async (e, field: string) => {
@@ -68,6 +72,44 @@ export function CardDetailsNode({
       e.preventDefault();
       await e.target.blur();
     }
+  };
+
+  const fetchFavicon = async (url: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/favicon-proxy?url=${encodeURIComponent(url)}`
+      );
+      if (response.ok) {
+        return URL.createObjectURL(await response.blob());
+      } else {
+        console.error("Error fetching the favicon:", response.statusText);
+        return null;
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      return null;
+    }
+  };
+
+  const handleSaveLink = async (e) => {
+    const value = e.target.value;
+    setFields({ ...fields, link: value });
+    const url = value.includes("://")
+      ? value.split("/")[2]
+      : value.split("/")[0];
+    const image = "https://" + url + "/favicon.ico";
+    const link = {
+      url: "https://" + url,
+      image: image,
+    };
+    const formData = new FormData();
+    formData.append("url", link.url);
+    formData.append("image", link.image);
+
+    await fetcher.submit(formData, {
+      method: "put",
+      action: `/activities/${cardId}?update=link&groupId=${groupId}&nodeId=${node._id.toString()}`,
+    });
   };
 
   const handleBlur = async (e, field) => {
@@ -116,20 +158,48 @@ export function CardDetailsNode({
   return (
     <div className="self-stretch flex flex-col items-start justify-start gap-3 text-sm">
       <div className="w-full flex frex-wrap flex-row items-center justify-between box-border text-sm">
-        <div className="w-full max-w-[180px] flex flex-row items-center justify-start gap-2">
+        <div className="relative w-full max-w-[180px] flex flex-row items-center gap-1">
           {node.link ? (
             <a href={node.link.url}>
               <img
                 className="w-5 h-5 rounded-md max-w-full max-h-full cursor-pointer"
                 alt={node.name}
-                src={`/${node.link.icon}`}
+                src={node.link.image}
               />
             </a>
           ) : (
             <div className="bg-gainsboro-100 w-4 h-4 flex items-center justify-center rounded-md shadow-[1px_1px_1px_rgba(0,_0,_0,_0.15)]">
-              <AiOutlineLink size={12} />
+              <AiOutlineLink
+                size={12}
+                onClick={() => {
+                  setSelectLink((selectLink) => !selectLink);
+                }}
+                onKeyDown={() => setSelectLink((selectLink) => !selectLink)}
+              />
             </div>
           )}
+          <div>
+            {selectLink && (
+              <InlineFormControl
+                hideOnMouseLeave={false}
+                isSelected={selectLink}
+                setIsSelected={setSelectLink}
+              >
+                <LinkInputComponent
+                  onChange={(e) => handleChange(e, "link")}
+                  onBlur={() => setSelectLink((selectLink) => !selectLink)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSaveLink(e);
+                    }
+                  }}
+                  value={fields.link || ""}
+                  name="image"
+                  className="absolute top-3 left-0 z-10 h-10"
+                />
+              </InlineFormControl>
+            )}
+          </div>
           <div className="w-fit font-medium flex items-center text-xsm leading-tight">
             <ContentEditable
               html={fields.name || ""}

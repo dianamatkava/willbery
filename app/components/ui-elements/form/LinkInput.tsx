@@ -28,7 +28,7 @@ export default function LinkInputComponent({
 
   return (
     <div
-      className={` ${className} w-full 
+      className={` ${className}
         shadow-[1px_6px_4px_rgba(0,_0,_0,_0.1)] 
         rounded bg-white border-gainsboro border-[0.8px] border-solid box-border 
         flex flex-row items-center justify-center p-2 

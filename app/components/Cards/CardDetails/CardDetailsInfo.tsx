@@ -65,7 +65,6 @@ export function CardDetailsInfo({
           break;
       }
     }
-
     if (field == "image") {
       if (
         (e.target.value || e.target.value == null) &&
@@ -101,7 +100,7 @@ export function CardDetailsInfo({
 
   return (
     <div className="relative flex flex-col items-start justify-start gap-6 w-full">
-      <div className="relative h-full flex flex-row items-center justify-start box-border gap-5">
+      <div className="relative h-full flex flex-row items-center justify-start box-border gap-3">
         {cardDetails.image ? (
           <div
             role="button"
@@ -143,22 +142,24 @@ export function CardDetailsInfo({
             />
           </div>
         )}
-        {enterImagePath && (
-          <InlineFormControl
-            hideOnMouseLeave={false}
-            isSelected={enterImagePath}
-            setIsSelected={setEnterImagePath}
-          >
-            <LinkInputComponent
-              onChange={(e) => handleChange(e, "image")}
-              onBlur={(e) => handleBlur(e, "image")}
-              onKeyDown={handleKeyDown}
-              value={fields.image || ""}
-              name="image"
-              className="absolute top-12 left-2 z-10 h-10"
-            />
-          </InlineFormControl>
-        )}
+        <div>
+          {enterImagePath && (
+            <InlineFormControl
+              hideOnMouseLeave={false}
+              isSelected={enterImagePath}
+              setIsSelected={setEnterImagePath}
+            >
+              <LinkInputComponent
+                onChange={(e) => handleChange(e, "image")}
+                onBlur={(e) => handleBlur(e, "image")}
+                onKeyDown={handleKeyDown}
+                value={fields.image || ""}
+                name="image"
+                className="absolute top-12 left-2 z-10 h-10"
+              />
+            </InlineFormControl>
+          )}
+        </div>
 
         <div className="flex flex-col items-start justify-center gap-1 w-full">
           <div className="flex items-center gap-1 h-[42px]">
